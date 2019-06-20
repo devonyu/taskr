@@ -1,5 +1,5 @@
 # TaskR
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/20f20b87-6101-412c-817c-c678cdfba23c/deploy-status)](https://app.netlify.com/sites/wizardly-lichterman-28d465/deploys)
 > Tasking application for developers
 
 A task manager that helps a developer focus on coding instead of deciding what to work on.  Utilizes a Markdown editor to help create a 
@@ -35,6 +35,7 @@ Null
 - Flow
 
 ### Currently Implemented:
+- Deploy Client to Netlify and connect domain name (6/20)
 - Homepage
 - SignupModal
 - MVP Schema
