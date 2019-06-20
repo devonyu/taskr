@@ -8,7 +8,7 @@ better UX for the user
 ## Usage example
 
 Developer is in need to organize specific tasks to help with workload management and prioritizing specific features and business logic.
-A user can create tasks and assign specific atrributes to said task in order to help them with their workflow
+A user can create tasks and assign specific attributes to said task in order to help them with their workflow
 
 > Example Cases:
 > - Given a specific business need, a feature or bug fix may be required by next week,  a user can create tasks and assign a target date with a specific priority.
@@ -24,7 +24,7 @@ Null
 
 ## Tech Stack: 
 - JavaScript ES6
-- React (Implementing latests API's (Hooks, etc))
+- React
 - NodeJS + Express
 - GraphQL
 - Apollo
@@ -48,15 +48,15 @@ Null
 - Task Component
 - View Task by Starred, folders, all tasks
 - Mock data to DB to test
-- Bcyrpt Passwords
+- Bcrypt Passwords
 - NodeJS + Express setup
-- GraphQL + Appollo setup
+- GraphQL + Apollo Client setup
 - MongoDB + Mongoose setup
 - App Workflow
 - Unit Testing With Jest
 - CI with Travis CI
 - Dockerize with Docker
-- Persistant logins with sessions or tokens
+- Persistent logins with sessions or tokens
 - HTTPS setup
 - Deploy to public
 
