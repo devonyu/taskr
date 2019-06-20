@@ -41,7 +41,15 @@
   text-align: right;
 }
 
-.startButton {
+.submitButton {
+  background-color: #3ddb93;
+  color: white;
+  border-radius: 10px;
+  height: 25px;
+  width: 125px;
+}
+
+#startButton {
   background-color: #3ddb93;
   border-radius: 10px;
   color: white;
