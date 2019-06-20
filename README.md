@@ -1,5 +1,6 @@
 # TaskR
 [![Netlify Status](https://api.netlify.com/api/v1/badges/20f20b87-6101-412c-817c-c678cdfba23c/deploy-status)](https://app.netlify.com/sites/wizardly-lichterman-28d465/deploys)
+[![Coverage Status](https://coveralls.io/repos/github/devonyu/taskr/badge.svg?branch=master)](https://coveralls.io/github/devonyu/taskr?branch=master)
 > Tasking application for developers
 
 A task manager that helps a developer focus on coding instead of deciding what to work on.  Utilizes a Markdown editor to help create a 
