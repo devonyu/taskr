@@ -6,6 +6,10 @@ const app = express();
 app.use(morgan('dev'));
 const PORT = process.env.PORT || 5000;
 
+app.get('/', (req, res) => {
+  res.send('ci with travis');
+});
+
 app.get('/ping', (req, res) => {
   console.log('/ping route hit, returning pong');
   res.status(200).send('pong');
@@ -16,6 +20,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server connected, listening on port: ${PORT}`);
 })
+
+module.exports = server;

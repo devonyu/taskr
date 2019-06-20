@@ -6,7 +6,11 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "cd server && npm start",
-    "start": "concurrently \"npm:server\" \"npm:client\""
+    "installclient": "cd client && npm install",
+    "installserver": "cd server && npm install",
+    "start": "concurrently --kill-others \"npm:server\" \"npm:client\"",
+    "testclient": "cd client && npm test",
+    "testserver": "cd server && npm test"
   },
   "keywords": [],
   "author": {
