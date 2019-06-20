@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- "12.4"
+
+install: npm install
+
+# after_success:
+#   - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
+
+script: echo "Running tests against $(node -v)... Running Jest test and coverage below and sending it to coveralls!"
+
+jobs:
+  include:
+    - stage: Produce Coverage
+      node_js: "10.11"
+      script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
