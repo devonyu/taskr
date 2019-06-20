@@ -1,3 +1,52 @@
 .App {
   text-align: center;
 }
+
+.splashImageContainer {
+  display: flex;
+  position: relative;
+  max-height: 300px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.splashImagePhoto {
+  height: auto;
+  max-height: 400px;
+  width: 100%;
+}
+
+.splashImageTitle {
+  color: #3ddb93;
+  font-size: larger;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.callToActionContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 25px 100px;
+}
+
+.callToActionLeft {
+  text-align: center;
+}
+
+.callToActionRight {
+  text-align: right;
+}
+
+.startButton {
+  background-color: #3ddb93;
+  border-radius: 10px;
+  color: white;
+  font-size: x-large;
+  font-weight: 700;
+  height: 50px;
+  width: 250px;
+}
