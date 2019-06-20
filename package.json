@@ -6,19 +6,7 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "cd server && npm start",
-    "start": "concurrently \"npm:server\" \"npm:client\"",
-    "test": "node_modules/.bin/jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "testing": "jest --watch"
-  },
-  "jest": {
-    "verbose": true,
-    "testURL": "http://localhost/",
-    "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text-summary"
-    ]
+    "start": "concurrently --kill-others \"npm:server\" \"npm:client\""
   },
   "keywords": [],
   "author": {
@@ -33,9 +21,5 @@
   },
   "dependencies": {
     "concurrently": "^4.1.0"
-  },
-  "devDependencies": {
-    "jest": "^23.6.0",
-    "jest-enzyme": "^6.0.2"
   }
 }

@@ -13,8 +13,6 @@
   },
   "scripts": {
     "start": "nodemon app.js",
-    "test": "node_modules/.bin/jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "testing": "jest --watch",
     "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "jest": {
@@ -65,14 +63,11 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-jest": "^24.8.0",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.3",
-    "jest": "^24.8.0",
-    "jest-enzyme": "^7.0.2",
     "jshint": "^2.10.2",
     "regenerator-runtime": "^0.13.2"
   }
