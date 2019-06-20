@@ -1,6 +1,7 @@
 // @flow
 
 import React from "react";
+import SignUpModal from "./SignUpModal";
 
 function Homepage() {
   return (
@@ -19,7 +20,7 @@ function Homepage() {
             Uses a Markdown editor for rich formatting</p>
         </div>
         <div className="callToActionRight">
-          <button className="startButton" onClick={() => console.log('Get Started Clicked')}>Get Started</button>
+          <SignUpModal />
         </div>
       </div>
     </div>
