@@ -1,11 +1,12 @@
 {
-  "name": "frontend",
+  "name": "taskrclient",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.1.1",
     "@material-ui/icons": "^4.2.0",
     "babel-cli": "^6.26.0",
+    "babel-jest": "^24.8.0",
     "babel-preset-flow": "^6.23.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -15,7 +16,6 @@
     "flow-bin": "^0.101.0"
   },
   "scripts": {
-    "lint": "eslint *.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
