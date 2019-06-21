@@ -37,7 +37,9 @@ Null
 - Flow
 
 ### Currently Implemented:
-- Deploy Client to Netlify and connect domain name (6/20)
+- Basic Jest Test (6/20)
+- Travis CI and Coveralls integration for CI/CD and Test Coverage analysis (6/20)
+- Deploy Client to Netlify and connect domain name, HTTPS/DNS/Nameservers changed (6/20)
 - Homepage
 - SignupModal
 - MVP Schema
@@ -62,16 +64,6 @@ Null
 - Persistent logins with sessions or tokens
 - HTTPS setup
 - Deploy to public
-
-### Future features and goals:
-- Null
-
-### Bugs:
-- Null
-
-## Release History
-* 0.0.1
-    * Init project and brainstorm features for application
 
 ## Social Media
 - [TaskR](http://www.taskr.online)
