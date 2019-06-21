@@ -11,7 +11,7 @@
     "start": "concurrently --kill-others \"npm:server\" \"npm:client\"",
     "testclient": "cd client && npm test",
     "testserver": "cd server && npm test",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info"
   },
   "keywords": [],
   "author": {
