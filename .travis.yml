@@ -8,17 +8,19 @@ sudo: false
 cache:
   directories:
     - node_modules
-install: npm install
-install: npm run installserver
+install: 
+  - npm install
+  - npm run installserver
+  # - npm run testserver
+  - npm run coveralls
 
-script: npm run testserver
 # after_success:
 #   - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
 
 script: echo "Running tests against $(node -v)... Running Jest test and coverage below and sending it to coveralls!"
 
-# jobs:
-#   include:
-#     - stage: Produce Coverage
-#       node_js: "12.4"
-#       script: test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+jobs:
+  include:
+    - stage: Produce Coverage
+      node_js: "12.4"
+      script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
