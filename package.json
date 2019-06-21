@@ -24,7 +24,8 @@
     "type": "git",
     "url": "https://github.com/devonyu/taskr"
   },
-  "dependencies": {
-    "concurrently": "^4.1.0"
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "jest": "^24.8.0"
   }
 }
