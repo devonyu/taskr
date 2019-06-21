@@ -62,3 +62,6 @@ typings/
 
 # dstore
 .DS_Store
+
+# coveralls
+.coveralls.yml
