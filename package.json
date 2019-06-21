@@ -10,7 +10,8 @@
     "installserver": "cd server && npm install",
     "start": "concurrently --kill-others \"npm:server\" \"npm:client\"",
     "testclient": "cd client && npm test",
-    "testserver": "cd server && npm test"
+    "testserver": "cd server && npm test",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "keywords": [],
   "author": {

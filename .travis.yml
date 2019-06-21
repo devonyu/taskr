@@ -8,10 +8,12 @@ sudo: false
 cache:
   directories:
     - node_modules
-install: npm install
-install: npm run installserver
+install: 
+  - npm install
+  - npm run installserver
+  - npm run testserver
+  - npm run coveralls
 
-script: npm run testserver
 # after_success:
 #   - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
 
