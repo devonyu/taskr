@@ -9,8 +9,11 @@ import Radio from '@material-ui/core/Radio';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Editor } from '@tinymce/tinymce-react';
+
 
 const useStyles = makeStyles(theme => ({
   submitButton: {
@@ -41,6 +44,8 @@ function SingleTask() {
   const handleChange = name => event => {
     if (name === 'starred') {
       setValues({ ...values, [name]: !values[name] });
+    } else if (name === 'content') {
+      setValues({ ...values, content: event.target.getContent() });
     } else {
       setValues({ ...values, [name]: event.target.value });
     }
@@ -54,7 +59,6 @@ function SingleTask() {
   const handleClose = () => {
     console.log('Closed clicked');
   };
-
 
   return (
     <Container className="Task">
@@ -77,6 +81,24 @@ function SingleTask() {
             </Button>
           </Toolbar>
         </AppBar>
+        <TextField
+          onChange={handleChange('title')}
+          error={values.title.length < 1 ? true : false}
+          id="title"
+          label="title"
+          style={{ margin: 8 }}
+          placeholder="Title..."
+          fullWidth
+        />
+        <Editor
+          apiKey='YOUR_API_KEY'
+          initialValue="<p>Testing the editor here</p>"
+          init={{
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+          }}
+          onChange={handleChange('content')}
+        />
       </div>
     </Container >
   );
