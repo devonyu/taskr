@@ -1,19 +1,18 @@
 // @flow
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Radio from '@material-ui/core/Radio';
+import React from 'react';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
-import Radio from '@material-ui/core/Radio';
-import AppBar from '@material-ui/core/AppBar';
+import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { Editor } from '@tinymce/tinymce-react';
-
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   submitButton: {
@@ -28,8 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SingleTask() {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
+  const initialState = {
     title: '',
     progress: null,
     priority: '',
@@ -39,25 +37,31 @@ function SingleTask() {
     content: '',
     github_branch: '',
     tags: ''
-  });
+  };
+  const classes = useStyles();
+  const [values, setValues] = React.useState(initialState);
 
   const handleChange = name => event => {
     if (name === 'starred') {
-      setValues({ ...values, [name]: !values[name] });
-    } else if (name === 'content') {
-      setValues({ ...values, content: event.target.getContent() });
+      setValues({ ...values, starred: !values.starred });
     } else {
       setValues({ ...values, [name]: event.target.value });
     }
   };
 
+  const handleEditorChange = (content) => {
+    setValues({ ...values, content: content });
+  };
+
   const handleSubmit = () => {
     // FlowFixMe
     console.log('Submit clicked');
+    setValues({ ...values });
   };
 
   const handleClose = () => {
     console.log('Closed clicked');
+    setValues({ ...initialState });
   };
 
   return (
@@ -66,7 +70,7 @@ function SingleTask() {
         <AppBar position="static" color="default">
           <Toolbar>
             <Radio
-              checked={values.starred}
+              checked={Boolean(values.starred)}
               onClick={handleChange('starred')}
               icon={<StarBorder />}
               checkedIcon={<Star />}
@@ -83,21 +87,24 @@ function SingleTask() {
         </AppBar>
         <TextField
           onChange={handleChange('title')}
-          error={values.title.length < 1 ? true : false}
+          error={values.title && values.title.length < 1 ? true : false}
           id="title"
-          label="title"
+          label="Title"
           style={{ margin: 8 }}
           placeholder="Title..."
+          value={values.title}
           fullWidth
         />
         <Editor
-          apiKey='YOUR_API_KEY'
+          apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
           initialValue="<p>Testing the editor here</p>"
           init={{
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            plugins: 'link image code preview lists insertdatetime table',
+            toolbar: 'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
+            height: 400
           }}
-          onChange={handleChange('content')}
+          onEditorChange={handleEditorChange}
+          value={values.content}
         />
       </div>
     </Container >
