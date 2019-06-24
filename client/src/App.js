@@ -1,17 +1,20 @@
 // @flow
 
-import React from "react";
 import "./App.css";
+import Button from '@material-ui/core/Button';
 import Homepage from "./components/Homepage";
 import Navbar from "./components/Navbar";
+import React from "react";
 import SingleTask from "./components/SingleTask";
 
 function App() {
+  const [displayTask, toggleTask] = React.useState(false);
   return (
     <div className="App">
       <Navbar />
       <Homepage />
-      <SingleTask />
+      <Button variant="contained" color="primary" onClick={() => toggleTask(!displayTask)}>Toggle Example Task</Button>
+      {displayTask && <SingleTask />}
     </div>
   );
 }
