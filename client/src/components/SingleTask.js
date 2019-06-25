@@ -43,18 +43,27 @@ const useStyles = makeStyles(theme => ({
   },
   datePicker: {
     margin: theme.spacing(1),
-    maxWidth: 100
+    maxWidth: 115,
   },
   dropDown: {
     margin: theme.spacing(1),
     minWidth: 150,
   },
+  github: {
+    margin: theme.spacing(1),
+    minWidth: 200,
+  },
+  midSection: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start'
+  }
 }));
 
 function SingleTask() {
   const initialState = {
     content: '',
-    github_branch: '',
+    github: '',
     priority: '',
     progress: '',
     starred: false,
@@ -77,6 +86,8 @@ function SingleTask() {
       setValues({ ...values, progress: event.target.value });
     } else if (name === 'priority') {
       setValues({ ...values, priority: event.target.value });
+    } else if (name === 'github') {
+      setValues({ ...values, github: event.currentTarget.value });
     }
   };
 
@@ -141,53 +152,63 @@ function SingleTask() {
             style={{ margin: 8 }}
             value={values.title}
           />
-          <TextField
-            className={classes.dropDown}
-            id="progress"
-            label='Progress'
-            onChange={handleChange('progress')}
-            select
-            value={values.progress}
-            variant="outlined"
-          >
-            {progressOptions.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            className={classes.dropDown}
-            id="priority"
-            label='Priority'
-            onChange={handleChange('priority')}
-            select
-            value={values.priority}
-            variant="outlined"
-          >
-            {priorityOptions.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <DatePicker
-            animateYearScrolling
-            className={classes.datePicker}
-            label="Start Date"
-            minDate={Date.now()}
-            maxDate={values.targetDate ? values.targetDate : moment("9999-01-01")}
-            onChange={handleDateChange('startDate')}
-            value={values.startDate}
-          />
-          <DatePicker
-            animateYearScrolling
-            className={classes.datePicker}
-            label="Target Date"
-            minDate={values.startDate ? values.startDate : Date.now()}
-            onChange={handleDateChange('targetDate')}
-            value={values.targetDate}
-          />
+          <div className={classes.midSection}>
+            <TextField
+              className={classes.dropDown}
+              id="progress"
+              label='Progress'
+              onChange={handleChange('progress')}
+              select
+              value={values.progress}
+              variant="outlined"
+            >
+              {progressOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              className={classes.dropDown}
+              id="priority"
+              label='Priority'
+              onChange={handleChange('priority')}
+              select
+              value={values.priority}
+              variant="outlined"
+            >
+              {priorityOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <DatePicker
+              animateYearScrolling
+              className={classes.datePicker}
+              label="Start Date"
+              minDate={Date.now()}
+              maxDate={values.targetDate ? values.targetDate : moment("9999-01-01")}
+              onChange={handleDateChange('startDate')}
+              value={values.startDate}
+            />
+            <DatePicker
+              animateYearScrolling
+              className={classes.datePicker}
+              label="Target Date"
+              minDate={values.startDate ? values.startDate : Date.now()}
+              onChange={handleDateChange('targetDate')}
+              value={values.targetDate}
+            />
+            <TextField
+              className={classes.github}
+              id="github"
+              label="Github"
+              onChange={handleChange('github')}
+              placeholder="Github link..."
+              value={values.github}
+            />
+          </div>
           <Editor
             apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
             initialValue="<p>Testing the editor here</p>"
