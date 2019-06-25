@@ -3,6 +3,7 @@
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import CreatableSelect from 'react-select/creatable';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Radio from '@material-ui/core/Radio';
 import React from 'react';
@@ -13,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Editor } from '@tinymce/tinymce-react';
 import { makeStyles } from '@material-ui/core/styles';
+import { tagOptions } from '../data';
 
 const useStyles = makeStyles(theme => ({
   submitButton: {
@@ -36,33 +38,41 @@ function SingleTask() {
     endDate: null,
     content: '',
     github_branch: '',
-    tags: ''
+    tags: []
   };
   const classes = useStyles();
   const [values, setValues] = React.useState(initialState);
 
-  const handleChange = name => event => {
+  const handleChange = (name: string) => (event: SyntheticEvent<HTMLButtonElement>) => {
     if (name === 'starred') {
       setValues({ ...values, starred: !values.starred });
-    } else {
-      setValues({ ...values, [name]: event.target.value });
+    } else if (name === 'title') {
+      setValues({ ...values, title: event.currentTarget.value });
     }
   };
 
-  const handleEditorChange = (content) => {
+  const handleEditorChange = (content: string) => {
     setValues({ ...values, content: content });
   };
 
   const handleSubmit = () => {
-    // FlowFixMe
-    console.log('Submit clicked');
     setValues({ ...values });
+    console.log(`Submit clicked, Sending to backend...`);
+    console.log(values);
   };
 
   const handleClose = () => {
-    console.log('Closed clicked');
+    console.log('Closed clicked, setting initialState');
     setValues({ ...initialState });
   };
+
+  const handleTag = (tag) => {
+    if (tag === null) {
+      setValues({ ...values, tags: [] });
+    } else {
+      setValues({ ...values, tags: tag });
+    }
+  }
 
   return (
     <Container className="Task">
@@ -76,7 +86,7 @@ function SingleTask() {
               checkedIcon={<Star />}
               name="starred"
             />
-            <Typography variant="h6" color="inherit" className={classes.title}>Create Task</Typography>
+            <Typography variant="h6" color="inherit" className={classes.title}>{values.title.length ? values.title : 'Create Task'}</Typography>
             <Button variant="contained" color="primary" className={classes.submitButton} onClick={handleSubmit} >
               Submit
             </Button>
@@ -105,6 +115,14 @@ function SingleTask() {
           }}
           onEditorChange={handleEditorChange}
           value={values.content}
+        />
+        <CreatableSelect
+          isClearable
+          isMulti
+          menuPlacement="auto"
+          onChange={handleTag}
+          options={tagOptions}
+          placeholder="Enter tags..."
         />
       </div>
     </Container >
