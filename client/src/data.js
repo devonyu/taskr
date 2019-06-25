@@ -74,7 +74,7 @@ export const tagOptions = [
   { value: 'wish', label: 'wish' },
 ];
 
-export const progress = [
+export const progressOptions = [
   {
     value: 'none',
     label: 'None',
@@ -97,7 +97,7 @@ export const progress = [
   },
 ];
 
-export const priority = [
+export const priorityOptions = [
   {
     value: 'none',
     label: 'None',
