@@ -7,6 +7,8 @@ import CreatableSelect from 'react-select/creatable';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Radio from '@material-ui/core/Radio';
 import React from 'react';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 import TextField from '@material-ui/core/TextField';
@@ -14,9 +16,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Editor } from '@tinymce/tinymce-react';
 import { makeStyles } from '@material-ui/core/styles';
-import { tagOptions } from '../data';
+import { tagOptions, priority, progress } from '../data';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3, 2),
+    backgroundColor: '#f5f5f5'
+  },
   submitButton: {
     marginRight: theme.spacing(1),
   },
@@ -26,12 +32,20 @@ const useStyles = makeStyles(theme => ({
   iconSmall: {
     fontSize: 20,
   },
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  dropDown: {
+    margin: theme.spacing(1),
+    minWidth: 150,
+  },
 }));
 
 function SingleTask() {
   const initialState = {
     title: '',
-    progress: null,
+    progress: '',
     priority: '',
     starred: false,
     startDate: null,
@@ -43,11 +57,15 @@ function SingleTask() {
   const classes = useStyles();
   const [values, setValues] = React.useState(initialState);
 
-  const handleChange = (name: string) => (event: SyntheticEvent<HTMLButtonElement>) => {
+  const handleChange = (name: string) => (event: SyntheticEvent<HTMLInputElement>) => {
     if (name === 'starred') {
       setValues({ ...values, starred: !values.starred });
     } else if (name === 'title') {
       setValues({ ...values, title: event.currentTarget.value });
+    } else if (name === 'progress') {
+      setValues({ ...values, progress: event.target.value });
+    } else if (name === 'priority') {
+      setValues({ ...values, priority: event.target.value });
     }
   };
 
@@ -76,7 +94,7 @@ function SingleTask() {
 
   return (
     <Container className="Task">
-      <div className="TaskHeader">
+      <Paper className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
             <Radio
@@ -90,21 +108,51 @@ function SingleTask() {
             <Button variant="contained" color="primary" className={classes.submitButton} onClick={handleSubmit} >
               Submit
             </Button>
-            <Button variant="contained" color="secondary" className={classes.button} onClick={handleClose}>
+            <Button variant="contained" color="secondary" onClick={handleClose}>
               <DeleteIcon className={classes.iconSmall} />
             </Button>
           </Toolbar>
         </AppBar>
         <TextField
-          onChange={handleChange('title')}
           error={values.title && values.title.length < 1 ? true : false}
+          fullWidth
           id="title"
           label="Title"
-          style={{ margin: 8 }}
+          onChange={handleChange('title')}
           placeholder="Title..."
+          style={{ margin: 8 }}
           value={values.title}
-          fullWidth
         />
+        <TextField
+          className={classes.dropDown}
+          id="progress"
+          label='Progress'
+          onChange={handleChange('progress')}
+          select
+          value={values.progress}
+          variant="outlined"
+        >
+          {progress.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          className={classes.dropDown}
+          id="priority"
+          label='Priority'
+          onChange={handleChange('priority')}
+          select
+          value={values.priority}
+          variant="outlined"
+        >
+          {priority.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <Editor
           apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
           initialValue="<p>Testing the editor here</p>"
@@ -124,8 +172,8 @@ function SingleTask() {
           options={tagOptions}
           placeholder="Enter tags..."
         />
-      </div>
-    </Container >
+      </Paper>
+    </Container>
   );
 }
 

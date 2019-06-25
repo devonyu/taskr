@@ -73,3 +73,49 @@ export const tagOptions = [
   { value: 'wireframe', label: 'wireframe' },
   { value: 'wish', label: 'wish' },
 ];
+
+export const progress = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'planned',
+    label: 'Planned',
+  },
+  {
+    value: 'inprogress',
+    label: 'In Progress',
+  },
+  {
+    value: 'blocked',
+    label: 'Blocked',
+  },
+  {
+    value: 'completed',
+    label: 'Completed',
+  },
+];
+
+export const priority = [
+  {
+    value: 'none',
+    label: 'None',
+  },
+  {
+    value: 'wish',
+    label: 'Wish',
+  },
+  {
+    value: 'low',
+    label: 'Low',
+  },
+  {
+    value: 'medium',
+    label: 'Medium',
+  },
+  {
+    value: 'high',
+    label: 'High',
+  },
+];
