@@ -17,7 +17,7 @@ type InputProps = {
   toggleView: (view: string) => void,
   toggleModal: () => void,
   open: boolean,
-}
+};
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 10,
     color: 'white',
     top: 10,
-    width: "100%",
+    width: '100%',
   },
   signupButton: {
     backgroundColor: '#3ddb93',
@@ -48,11 +48,11 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     marginBottom: 30,
     top: 10,
-    width: "100%",
+    width: '100%',
   },
   textField: {
     margin: 8,
-  }
+  },
 }));
 
 const SignUpModal = (InputProps: InputProps) => {
@@ -101,7 +101,11 @@ const SignUpModal = (InputProps: InputProps) => {
             className={classes.textField}
             error={values.email.length < 6 ? true : false}
             fullWidth
-            helperText={values.email.length < 6 ? "Email must be longer than 6 characters" : null}
+            helperText={
+              values.email.length < 6
+                ? 'Email must be longer than 6 characters'
+                : null
+            }
             id="Email"
             label="Email"
             onChange={handleChange('email')}
@@ -111,7 +115,7 @@ const SignUpModal = (InputProps: InputProps) => {
             className={classes.textField}
             error={values.password.length < 7}
             fullWidth
-            helperText={values.password.length < 6 ? "Length >= 7" : null}
+            helperText={values.password.length < 6 ? 'Length >= 7' : null}
             id="Password"
             label="Password"
             onChange={handleChange('password')}
@@ -135,7 +139,11 @@ const SignUpModal = (InputProps: InputProps) => {
             className={classes.textField}
             error={values.password !== values.passwordValidation}
             fullWidth
-            helperText={values.password !== values.passwordValidation ? "Passwords must match" : null}
+            helperText={
+              values.password !== values.passwordValidation
+                ? 'Passwords must match'
+                : null
+            }
             id="passwordValidation"
             label="Re-Enter your password"
             onChange={handleChange('passwordValidation')}
@@ -145,22 +153,29 @@ const SignUpModal = (InputProps: InputProps) => {
           <Button
             // TODO Create validation functions to confirm
             className={classes.signupButton}
-            disabled={values.password.length < 7 && values.password !== values.passwordValidation}
+            disabled={
+              values.password.length < 7 &&
+              values.password !== values.passwordValidation
+            }
             onClick={handleSubmit}
             size="medium"
-            variant="contained">
+            variant="contained"
+          >
             Sign up
           </Button>
           <Divider />
           <Button
-            onClick={() => { handleToggleView('login'); }}
-            className={classes.loginButton}>
+            onClick={() => {
+              handleToggleView('login');
+            }}
+            className={classes.loginButton}
+          >
             Already have an account? Login
           </Button>
         </Container>
       </Modal>
     </div>
   );
-}
+};
 
 export default SignUpModal;
