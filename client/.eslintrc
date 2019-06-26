@@ -1,6 +1,12 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["react", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react",
+    "plugin:flowtype/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["react", "prettier", "flowtype"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -19,6 +25,9 @@
       "webpack": {
         "config": "./config/webpack-common-config.js"
       }
+    },
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
     }
   }
 }

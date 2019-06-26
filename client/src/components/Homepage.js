@@ -2,16 +2,13 @@
 
 import React from 'react';
 import SignupLoginModal from './SignupLoginModal';
+import taskrbg from '../images/taskrbg.jpeg';
 
 function Homepage() {
   return (
-    <div className="Homepage">
+    <div className="Honpm install -g flow-typedmepage">
       <div className="splashImageContainer">
-        <img
-          className="splashImagePhoto"
-          src="https://images.unsplash.com/photo-1497409988347-cbfaac2f0b12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=50"
-          alt="coverphoto"
-        />
+        <img className="splashImagePhoto" src={taskrbg} alt="coverphoto" />
         <div className="splashImageTitle">
           <h1>Keeping track of your tasks should be simple. Now they are..</h1>
         </div>
