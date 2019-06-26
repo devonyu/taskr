@@ -1,39 +1,61 @@
 // @flow
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Modal from '@material-ui/core/Modal';
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { makeStyles } from '@material-ui/core/styles';
+
+type InputProps = {
+  toggleView: (view: string) => void,
+  toggleModal: () => void,
+  open: boolean,
+}
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
-    width: 400,
-    height: 400,
-    top: '50%',
-    left: '50%',
-    transform: `translate(-50%, -50%)`,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    left: '50%',
+    margin: 8,
+    maxWidth: 500,
+    minWidth: 350,
     outline: 'none',
+    padding: theme.spacing(4),
+    position: 'absolute',
+    top: '50%',
+    transform: `translate(-50%, -50%)`,
   },
-  submitBro: {
+  loginButton: {
     backgroundColor: '#3ddb93',
     borderRadius: 10,
     color: 'white',
+    marginBottom: 30,
     top: 10,
+    width: "100%",
+  },
+  signupButton: {
+    backgroundColor: 'red',
+    borderRadius: 10,
+    color: 'white',
+    top: 10,
+    width: "100%",
+  },
+  textField: {
+    margin: 8,
   }
 }));
 
-function LoginModal(InputProps) {
+const LoginModal = (InputProps: InputProps) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -53,7 +75,7 @@ function LoginModal(InputProps) {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleToggleView = (view) => {
+  const handleToggleView = (view: string) => {
     InputProps.toggleView(view);
   };
 
@@ -65,35 +87,31 @@ function LoginModal(InputProps) {
   return (
     <div>
       <Modal
-        aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        open={InputProps.open}
+        aria-labelledby="simple-modal-title"
         onClose={toggleModal}
+        open={InputProps.open}
       >
         <Container className={classes.paper}>
           <Typography variant="h6" id="modal-title">
             Login
           </Typography>
           <TextField
-            onChange={handleChange('email')}
-            error={values.email.length < 6 ? true : false}
-            helperText={values.email.length < 6 ? "Email must be longer than 6 characters" : null}
+            className={classes.textField}
+            fullWidth
             id="Email"
             label="Email"
-            style={{ margin: 8 }}
+            onChange={handleChange('email')}
             placeholder="Email..."
-            fullWidth
           />
           <TextField
-            onChange={handleChange('password')}
+            className={classes.textField}
+            fullWidth
             id="Password"
-            error={values.password.length < 7}
             label="Password"
-            style={{ margin: 8 }}
+            onChange={handleChange('password')}
             placeholder="Password..."
             type={values.showPassword ? 'text' : 'password'}
-            helperText="Length >= 7"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -110,18 +128,22 @@ function LoginModal(InputProps) {
           />
           <Button
             // TODO Create validation functions to confirm
+            className={classes.loginButton}
             onClick={handleSubmit}
-            variant="contained"
             size="medium"
-            className={classes.submitBro}>
+            variant="contained">
             Login
           </Button>
-
-          <Button onClick={() => { handleToggleView('signup'); }}>Signup</Button>
+          <Divider />
+          <Button
+            onClick={() => { handleToggleView('signup'); }}
+            className={classes.signupButton}>
+            Don’t have an account? Signup
+          </Button>
         </Container>
       </Modal>
     </div>
   );
-}
+};
 
 export default LoginModal;

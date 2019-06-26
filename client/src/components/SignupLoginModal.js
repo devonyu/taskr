@@ -1,8 +1,8 @@
 // @flow
 
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import LoginModal from './LoginModal';
+import React from 'react';
 import SignUpModal from './SignUpModal';
 
 function SignupLoginModal() {

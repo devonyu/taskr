@@ -1,17 +1,17 @@
 // @flow
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Divider from '@material-ui/core/Divider';
+import Modal from '@material-ui/core/Modal';
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { makeStyles } from '@material-ui/core/styles';
 
 type InputProps = {
   toggleView: (view: string) => void,
@@ -54,8 +54,6 @@ const useStyles = makeStyles(theme => ({
     margin: 8,
   }
 }));
-
-// TODO: Add Login section to modal
 
 const SignUpModal = (InputProps: InputProps) => {
   const [values, setValues] = React.useState({
@@ -146,9 +144,11 @@ const SignUpModal = (InputProps: InputProps) => {
           />
           <Button
             // TODO Create validation functions to confirm
+            className={classes.signupButton}
             disabled={values.password.length < 7 && values.password !== values.passwordValidation}
             onClick={handleSubmit}
-            className={classes.signupButton}>
+            size="medium"
+            variant="contained">
             Sign up
           </Button>
           <Divider />
