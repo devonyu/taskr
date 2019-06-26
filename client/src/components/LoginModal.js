@@ -36,17 +36,17 @@ const useStyles = makeStyles(theme => ({
     transform: `translate(-50%, -50%)`,
   },
   loginButton: {
-    backgroundColor: 'red',
-    borderRadius: 10,
-    color: 'white',
-    top: 10,
-    width: "100%",
-  },
-  signupButton: {
     backgroundColor: '#3ddb93',
     borderRadius: 10,
     color: 'white',
     marginBottom: 30,
+    top: 10,
+    width: "100%",
+  },
+  signupButton: {
+    backgroundColor: 'red',
+    borderRadius: 10,
+    color: 'white',
     top: 10,
     width: "100%",
   },
@@ -55,16 +55,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignUpModal = (InputProps: InputProps) => {
+const LoginModal = (InputProps: InputProps) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
-    passwordValidation: '',
     showPassword: false,
   });
 
   const handleSubmit = () => {
-    console.log('Submitting for signup...');
+    console.log('Submitting for login...');
     console.log(values);
   };
 
@@ -88,20 +87,18 @@ const SignUpModal = (InputProps: InputProps) => {
   return (
     <div>
       <Modal
-        aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        aria-labelledby="simple-modal-title"
         onClose={toggleModal}
         open={InputProps.open}
       >
         <Container className={classes.paper}>
           <Typography variant="h6" id="modal-title">
-            Sign Up with Email
+            Login
           </Typography>
           <TextField
             className={classes.textField}
-            error={values.email.length < 6 ? true : false}
             fullWidth
-            helperText={values.email.length < 6 ? "Email must be longer than 6 characters" : null}
             id="Email"
             label="Email"
             onChange={handleChange('email')}
@@ -109,9 +106,7 @@ const SignUpModal = (InputProps: InputProps) => {
           />
           <TextField
             className={classes.textField}
-            error={values.password.length < 7}
             fullWidth
-            helperText={values.password.length < 6 ? "Length >= 7" : null}
             id="Password"
             label="Password"
             onChange={handleChange('password')}
@@ -131,36 +126,24 @@ const SignUpModal = (InputProps: InputProps) => {
               ),
             }}
           />
-          <TextField
-            className={classes.textField}
-            error={values.password !== values.passwordValidation}
-            fullWidth
-            helperText={values.password !== values.passwordValidation ? "Passwords must match" : null}
-            id="passwordValidation"
-            label="Re-Enter your password"
-            onChange={handleChange('passwordValidation')}
-            placeholder="Password..."
-            type={values.showPassword ? 'text' : 'password'}
-          />
           <Button
             // TODO Create validation functions to confirm
-            className={classes.signupButton}
-            disabled={values.password.length < 7 && values.password !== values.passwordValidation}
+            className={classes.loginButton}
             onClick={handleSubmit}
             size="medium"
             variant="contained">
-            Sign up
+            Login
           </Button>
           <Divider />
           <Button
-            onClick={() => { handleToggleView('login'); }}
-            className={classes.loginButton}>
-            Already have an account? Login
+            onClick={() => { handleToggleView('signup'); }}
+            className={classes.signupButton}>
+            Don’t have an account? Signup
           </Button>
         </Container>
       </Modal>
     </div>
   );
-}
+};
 
-export default SignUpModal;
+export default LoginModal;
