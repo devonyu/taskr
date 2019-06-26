@@ -1,36 +1,36 @@
 // @flow
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
+import AppBar from '@material-ui/core/AppBar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import React from 'react';
+import Switch from '@material-ui/core/Switch';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   appbar: {
-    background: 'white'
+    background: 'white',
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   toolbar: {
-    color: '#3ddb93'
+    color: '#3ddb93',
   },
   title: {
     flexGrow: 1,
-    color: '#3ddb93'
-  }
+    color: '#3ddb93',
+  },
 }));
 
 export default function Navbar() {
@@ -58,9 +58,10 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" className={classes.appbar} >
+      <AppBar position="sticky" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
-          <IconButton aria-label="Menu"
+          <IconButton
+            aria-label="Menu"
             className={classes.menuButton}
             color="inherit"
             edge="start"
@@ -69,16 +70,17 @@ export default function Navbar() {
           </IconButton>
           <FormGroup>
             <FormControlLabel
-              control={<Switch aria-label="LoginSwitch"
-                checked={auth}
-                onChange={handleChange}
-              />}
+              control={
+                <Switch
+                  aria-label="LoginSwitch"
+                  checked={auth}
+                  onChange={handleChange}
+                />
+              }
               label={auth ? 'Logout' : 'Login'}
             />
           </FormGroup>
-          <Typography className={classes.title}
-            variant="h6"
-          >
+          <Typography className={classes.title} variant="h6">
             TaskR
           </Typography>
           {auth && (
@@ -96,7 +98,7 @@ export default function Navbar() {
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
                 id="menu-appbar"
                 keepMounted
@@ -104,7 +106,7 @@ export default function Navbar() {
                 open={open}
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
               >
                 <MenuItem onClick={handleClose}>My account</MenuItem>

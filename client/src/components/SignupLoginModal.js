@@ -5,7 +5,7 @@ import LoginModal from './LoginModal';
 import React from 'react';
 import SignUpModal from './SignUpModal';
 
-function SignupLoginModal() {
+const SignupLoginModal = () => {
   const [open, setOpen] = React.useState(false);
   const [view, setView] = React.useState('signup');
 
@@ -19,11 +19,25 @@ function SignupLoginModal() {
 
   return (
     <div>
-      <Button id="startButton" onClick={toggleModal}>Get Started</Button>
-      {open && view === 'signup' ? <SignUpModal toggleView={toggleView} open={open} toggleModal={toggleModal} /> : null}
-      {open && view === 'login' ? <LoginModal toggleView={toggleView} open={open} toggleModal={toggleModal} /> : null}
+      <Button id="startButton" onClick={toggleModal}>
+        Get Started
+      </Button>
+      {open && view === 'signup' ? (
+        <SignUpModal
+          toggleView={toggleView}
+          open={open}
+          toggleModal={toggleModal}
+        />
+      ) : null}
+      {open && view === 'login' ? (
+        <LoginModal
+          toggleView={toggleView}
+          open={open}
+          toggleModal={toggleModal}
+        />
+      ) : null}
     </div>
   );
-}
+};
 
 export default SignupLoginModal;

@@ -24,7 +24,7 @@ import { tagOptions, priorityOptions, progressOptions } from '../data';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
   },
   submitButton: {
     marginRight: theme.spacing(1),
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     fontSize: 25,
-    fontWeight: 900
+    fontWeight: 900,
   },
   iconSmall: {
     fontSize: 20,
@@ -56,8 +56,8 @@ const useStyles = makeStyles(theme => ({
   midSection: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start'
-  }
+    justifyContent: 'flex-start',
+  },
 }));
 
 function SingleTask() {
@@ -77,7 +77,9 @@ function SingleTask() {
   const classes = useStyles();
   const [values, setValues] = React.useState(initialState);
 
-  const handleChange = (name: string) => (event: SyntheticEvent<HTMLInputElement>) => {
+  const handleChange = (name: string) => (
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     if (name === 'starred') {
       setValues({ ...values, starred: !values.starred });
     } else if (name === 'title') {
@@ -99,7 +101,7 @@ function SingleTask() {
     const dateUnix = moment(selectedDate).unix();
     const dateUnixKey = date + 'Unix';
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
-  }
+  };
 
   const handleSubmit = () => {
     setValues({ ...values });
@@ -112,13 +114,13 @@ function SingleTask() {
     setValues({ ...initialState });
   };
 
-  const handleTag = (tag) => {
+  const handleTag = tag => {
     if (tag === null) {
       setValues({ ...values, tags: [] });
     } else {
       setValues({ ...values, tags: tag });
     }
-  }
+  };
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -133,11 +135,26 @@ function SingleTask() {
                 checkedIcon={<Star />}
                 name="starred"
               />
-              <Typography variant="h6" color="inherit" className={classes.title}>{values.title.length ? values.title : 'Create Task'}</Typography>
-              <Button variant="contained" color="primary" className={classes.submitButton} onClick={handleSubmit} >
+              <Typography
+                variant="h6"
+                color="inherit"
+                className={classes.title}
+              >
+                {values.title.length ? values.title : 'Create Task'}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.submitButton}
+                onClick={handleSubmit}
+              >
                 Submit
-            </Button>
-              <Button variant="contained" color="secondary" onClick={handleClose}>
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleClose}
+              >
                 <DeleteIcon className={classes.iconSmall} />
               </Button>
             </Toolbar>
@@ -156,7 +173,7 @@ function SingleTask() {
             <TextField
               className={classes.dropDown}
               id="progress"
-              label='Progress'
+              label="Progress"
               onChange={handleChange('progress')}
               select
               value={values.progress}
@@ -171,7 +188,7 @@ function SingleTask() {
             <TextField
               className={classes.dropDown}
               id="priority"
-              label='Priority'
+              label="Priority"
               onChange={handleChange('priority')}
               select
               value={values.priority}
@@ -188,7 +205,9 @@ function SingleTask() {
               className={classes.datePicker}
               label="Start Date"
               minDate={Date.now()}
-              maxDate={values.targetDate ? values.targetDate : moment("9999-01-01")}
+              maxDate={
+                values.targetDate ? values.targetDate : moment('9999-01-01')
+              }
               onChange={handleDateChange('startDate')}
               value={values.startDate}
             />
@@ -214,19 +233,20 @@ function SingleTask() {
             initialValue="<p>Testing the editor here</p>"
             init={{
               plugins: 'link image code preview lists insertdatetime table',
-              toolbar: 'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
-              height: 400
+              toolbar:
+                'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
+              height: 400,
             }}
             onEditorChange={handleEditorChange}
             value={values.content}
           />
           <CreatableSelect
             allowCreateWhileLoading={false}
-            createOptionPosition={"last"}
-            formatCreateLabel={(newTag) => `Add ${newTag}..`}
+            createOptionPosition={'last'}
+            formatCreateLabel={newTag => `Add ${newTag}..`}
             isClearable
             isMulti
-            isValidNewOption={(value) => value.length < 15}
+            isValidNewOption={value => value.length < 15}
             menuPlacement="auto"
             onChange={handleTag}
             options={tagOptions}
@@ -234,7 +254,7 @@ function SingleTask() {
           />
         </Paper>
       </Container>
-    </MuiPickersUtilsProvider >
+    </MuiPickersUtilsProvider>
   );
 }
 

@@ -17,7 +17,7 @@ type InputProps = {
   toggleView: (view: string) => void,
   toggleModal: () => void,
   open: boolean,
-}
+};
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,18 +41,18 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     marginBottom: 30,
     top: 10,
-    width: "100%",
+    width: '100%',
   },
   signupButton: {
     backgroundColor: 'red',
     borderRadius: 10,
     color: 'white',
     top: 10,
-    width: "100%",
+    width: '100%',
   },
   textField: {
     margin: 8,
-  }
+  },
 }));
 
 const LoginModal = (InputProps: InputProps) => {
@@ -131,13 +131,17 @@ const LoginModal = (InputProps: InputProps) => {
             className={classes.loginButton}
             onClick={handleSubmit}
             size="medium"
-            variant="contained">
+            variant="contained"
+          >
             Login
           </Button>
           <Divider />
           <Button
-            onClick={() => { handleToggleView('signup'); }}
-            className={classes.signupButton}>
+            onClick={() => {
+              handleToggleView('signup');
+            }}
+            className={classes.signupButton}
+          >
             Don’t have an account? Signup
           </Button>
         </Container>
