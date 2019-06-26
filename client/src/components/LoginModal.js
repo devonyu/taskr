@@ -9,64 +9,39 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Divider from '@material-ui/core/Divider';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-type InputProps = {
-  toggleView: (view: string) => void,
-  toggleModal: () => void,
-  open: boolean,
-}
-
 const useStyles = makeStyles(theme => ({
   paper: {
+    position: 'absolute',
+    width: 400,
+    height: 400,
+    top: '50%',
+    left: '50%',
+    transform: `translate(-50%, -50%)`,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    display: 'flex',
-    flexDirection: 'column',
-    left: '50%',
-    margin: 8,
-    maxWidth: 500,
-    minWidth: 350,
-    outline: 'none',
     padding: theme.spacing(4),
-    position: 'absolute',
-    top: '50%',
-    transform: `translate(-50%, -50%)`,
+    outline: 'none',
   },
-  loginButton: {
-    backgroundColor: 'red',
-    borderRadius: 10,
-    color: 'white',
-    top: 10,
-    width: "100%",
-  },
-  signupButton: {
+  submitBro: {
     backgroundColor: '#3ddb93',
     borderRadius: 10,
     color: 'white',
-    marginBottom: 30,
     top: 10,
-    width: "100%",
-  },
-  textField: {
-    margin: 8,
   }
 }));
 
-// TODO: Add Login section to modal
-
-const SignUpModal = (InputProps: InputProps) => {
+function LoginModal(InputProps) {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
-    passwordValidation: '',
     showPassword: false,
   });
 
   const handleSubmit = () => {
-    console.log('Submitting for signup...');
+    console.log('Submitting for login...');
     console.log(values);
   };
 
@@ -78,7 +53,7 @@ const SignUpModal = (InputProps: InputProps) => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleToggleView = (view: string) => {
+  const handleToggleView = (view) => {
     InputProps.toggleView(view);
   };
 
@@ -92,33 +67,33 @@ const SignUpModal = (InputProps: InputProps) => {
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        onClose={toggleModal}
         open={InputProps.open}
+        onClose={toggleModal}
       >
         <Container className={classes.paper}>
           <Typography variant="h6" id="modal-title">
-            Sign Up with Email
+            Login
           </Typography>
           <TextField
-            className={classes.textField}
+            onChange={handleChange('email')}
             error={values.email.length < 6 ? true : false}
-            fullWidth
             helperText={values.email.length < 6 ? "Email must be longer than 6 characters" : null}
             id="Email"
             label="Email"
-            onChange={handleChange('email')}
+            style={{ margin: 8 }}
             placeholder="Email..."
+            fullWidth
           />
           <TextField
-            className={classes.textField}
-            error={values.password.length < 7}
-            fullWidth
-            helperText={values.password.length < 6 ? "Length >= 7" : null}
-            id="Password"
-            label="Password"
             onChange={handleChange('password')}
+            id="Password"
+            error={values.password.length < 7}
+            label="Password"
+            style={{ margin: 8 }}
             placeholder="Password..."
             type={values.showPassword ? 'text' : 'password'}
+            helperText="Length >= 7"
+            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -133,34 +108,20 @@ const SignUpModal = (InputProps: InputProps) => {
               ),
             }}
           />
-          <TextField
-            className={classes.textField}
-            error={values.password !== values.passwordValidation}
-            fullWidth
-            helperText={values.password !== values.passwordValidation ? "Passwords must match" : null}
-            id="passwordValidation"
-            label="Re-Enter your password"
-            onChange={handleChange('passwordValidation')}
-            placeholder="Password..."
-            type={values.showPassword ? 'text' : 'password'}
-          />
           <Button
             // TODO Create validation functions to confirm
-            disabled={values.password.length < 7 && values.password !== values.passwordValidation}
             onClick={handleSubmit}
-            className={classes.signupButton}>
-            Sign up
+            variant="contained"
+            size="medium"
+            className={classes.submitBro}>
+            Login
           </Button>
-          <Divider />
-          <Button
-            onClick={() => { handleToggleView('login'); }}
-            className={classes.loginButton}>
-            Already have an account? Login
-          </Button>
+
+          <Button onClick={() => { handleToggleView('signup'); }}>Signup</Button>
         </Container>
       </Modal>
     </div>
   );
 }
 
-export default SignUpModal;
+export default LoginModal;
