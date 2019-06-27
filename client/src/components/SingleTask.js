@@ -111,14 +111,12 @@ function SingleTask() {
     setValues({ ...initialState });
   };
 
-  const handleTag = (tag, option) => {
-    // if (tag === null) {
-    //   setValues({ ...values, tags: tag });
-    // } else {
-    //   setValues({ ...values, tags: tag });
-    // }
-    console.log(tag);
-    console.log(option);
+  const handleTag = tag => {
+    if (tag === null) {
+      setValues({ ...values, tags: [] });
+    } else {
+      setValues({ ...values, tags: tag });
+    }
   };
 
   return (
@@ -244,20 +242,19 @@ function SingleTask() {
             allowCreateWhileLoading={false}
             createOptionPosition="last"
             formatCreateLabel={newTag => `Add ${newTag}..`}
-            isClearable
-            isMulti
-            isValidNewOption={value => !value.includes(' ')}
-            getOptionLabel={option => option.label}
-            getOptionValue={option => option.value}
             getNewOptionData={(inputValue, optionLabel) => ({
               label: optionLabel,
               value: inputValue,
               __isNew__: true,
             })}
+            isClearable
+            isMulti
+            isValidNewOption={value => !value.includes(' ')}
             menuPlacement="auto"
             onChange={handleTag}
             options={tagOptions}
             placeholder="Enter tags..."
+            value={values.tags}
           />
         </Paper>
       </Container>

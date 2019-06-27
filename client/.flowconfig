@@ -5,4 +5,3 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(2[0-0]\\|1[
 .*/node_modules/fbjs/.*
 .*/node_modules/config-chain/test/broken.json
 .*/node_modules/npmconf/test/.*
-; .*/node_modules/react-select/src/
