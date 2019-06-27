@@ -1,8 +1,8 @@
 // @flow
 
 import Button from '@material-ui/core/Button';
-import LoginModal from './LoginModal';
 import React from 'react';
+import LoginModal from './LoginModal';
 import SignUpModal from './SignUpModal';
 
 const SignupLoginModal = () => {
@@ -13,7 +13,7 @@ const SignupLoginModal = () => {
     setOpen(!open);
   };
 
-  const toggleView = (views: string) => {
+  const toggleView = views => {
     setView(views);
   };
 

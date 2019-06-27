@@ -13,7 +13,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
 
-type InputProps = {
+type InputPropsFlow = {
   toggleView: (view: string) => void,
   toggleModal: () => void,
   open: boolean,
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignUpModal = (InputProps: InputProps) => {
+const SignUpModal = (InputProps: InputPropsFlow) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -64,11 +64,11 @@ const SignUpModal = (InputProps: InputProps) => {
   });
 
   const handleSubmit = () => {
-    console.log('Submitting for signup...');
-    console.log(values);
+    // Validate email and passwords, Send user signup information
+    // Confirm if signup sucsessfull
   };
 
-  const handleChange = name => event => {
+  const handleChange = name => (event: SyntheticInputEvent<EventTarget>) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
@@ -99,7 +99,7 @@ const SignUpModal = (InputProps: InputProps) => {
           </Typography>
           <TextField
             className={classes.textField}
-            error={values.email.length < 6 ? true : false}
+            error={values.email.length < 6}
             fullWidth
             helperText={
               values.email.length < 6

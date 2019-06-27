@@ -9,7 +9,7 @@ function Homepage() {
       <div className="splashImageContainer">
         <img
           className="splashImagePhoto"
-          src="https://images.unsplash.com/photo-1497409988347-cbfaac2f0b12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=50"
+          src="/images/taskrbg.jpeg"
           alt="coverphoto"
         />
         <div className="splashImageTitle">
