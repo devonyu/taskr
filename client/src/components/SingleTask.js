@@ -78,48 +78,47 @@ function SingleTask() {
   const [values, setValues] = React.useState(initialState);
 
   const handleChange = (name: string) => (
-    event: SyntheticEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<EventTarget>,
   ) => {
     if (name === 'starred') {
       setValues({ ...values, starred: !values.starred });
     } else if (name === 'title') {
-      setValues({ ...values, title: event.currentTarget.value });
+      setValues({ ...values, title: event.target.value });
     } else if (name === 'progress') {
       setValues({ ...values, progress: event.target.value });
     } else if (name === 'priority') {
       setValues({ ...values, priority: event.target.value });
     } else if (name === 'github') {
-      setValues({ ...values, github: event.currentTarget.value });
+      setValues({ ...values, github: event.target.value });
     }
   };
 
   const handleEditorChange = (content: string) => {
-    setValues({ ...values, content: content });
+    setValues({ ...values, content });
   };
 
   const handleDateChange = (date: string) => (selectedDate: string) => {
     const dateUnix = moment(selectedDate).unix();
-    const dateUnixKey = date + 'Unix';
+    const dateUnixKey = `${date}Unix`;
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
 
   const handleSubmit = () => {
     setValues({ ...values });
-    console.log(`Submit clicked, Sending to backend...`);
-    console.log(values);
   };
 
   const handleClose = () => {
-    console.log('Closed clicked, setting initialState');
     setValues({ ...initialState });
   };
 
-  const handleTag = tag => {
-    if (tag === null) {
-      setValues({ ...values, tags: [] });
-    } else {
-      setValues({ ...values, tags: tag });
-    }
+  const handleTag = (tag, option) => {
+    // if (tag === null) {
+    //   setValues({ ...values, tags: tag });
+    // } else {
+    //   setValues({ ...values, tags: tag });
+    // }
+    console.log(tag);
+    console.log(option);
   };
 
   return (
@@ -160,7 +159,7 @@ function SingleTask() {
             </Toolbar>
           </AppBar>
           <TextField
-            error={values.title && values.title.length < 1 ? true : false}
+            error={!!(values.title && values.title.length < 1)}
             fullWidth
             id="title"
             label="Title"
@@ -234,6 +233,7 @@ function SingleTask() {
             init={{
               plugins: 'link image code preview lists insertdatetime table',
               toolbar:
+                // eslint-disable-next-line max-len
                 'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
               height: 400,
             }}
@@ -242,11 +242,18 @@ function SingleTask() {
           />
           <CreatableSelect
             allowCreateWhileLoading={false}
-            createOptionPosition={'last'}
+            createOptionPosition="last"
             formatCreateLabel={newTag => `Add ${newTag}..`}
             isClearable
             isMulti
-            isValidNewOption={value => value.length < 15}
+            isValidNewOption={value => !value.includes(' ')}
+            getOptionLabel={option => option.label}
+            getOptionValue={option => option.value}
+            getNewOptionData={(inputValue, optionLabel) => ({
+              label: optionLabel,
+              value: inputValue,
+              __isNew__: true,
+            })}
             menuPlacement="auto"
             onChange={handleTag}
             options={tagOptions}

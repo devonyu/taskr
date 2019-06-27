@@ -13,7 +13,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
 
-type InputProps = {
+type InputPropsFlow = {
   toggleView: (view: string) => void,
   toggleModal: () => void,
   open: boolean,
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginModal = (InputProps: InputProps) => {
+const LoginModal = (InputProps: InputPropsFlow) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -63,11 +63,11 @@ const LoginModal = (InputProps: InputProps) => {
   });
 
   const handleSubmit = () => {
-    console.log('Submitting for login...');
-    console.log(values);
+    // Validate email and password as proper inputs
+    // Authenticate user info to proceed to dashboard
   };
 
-  const handleChange = name => event => {
+  const handleChange = name => (event: SyntheticInputEvent<EventTarget>) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
