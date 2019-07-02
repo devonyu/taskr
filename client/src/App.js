@@ -6,6 +6,7 @@ import React from 'react';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
 import SingleTask from './components/SingleTask';
+import TaskList from './components/TaskList';
 
 function App() {
   const [displayTask, toggleTask] = React.useState(false);
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Homepage />
+      <TaskList />
       <Button
         variant="contained"
         color="primary"
