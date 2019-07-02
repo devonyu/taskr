@@ -15,11 +15,17 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import WaveIcon from '@material-ui/icons/Waves';
 import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Editor } from '@tinymce/tinymce-react';
 import { makeStyles } from '@material-ui/core/styles';
-import { tagOptions, priorityOptions, progressOptions } from '../data';
+import {
+  exampleTasks,
+  tagOptions,
+  priorityOptions,
+  progressOptions,
+} from '../data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,12 +70,12 @@ function SingleTask() {
   const initialState = {
     content: '',
     github: '',
-    priority: '',
-    progress: '',
+    priority: 0,
+    progress: 0,
     starred: false,
     startDate: null,
     startDateUnix: null,
-    tags: [],
+    tags: '',
     targetDate: null,
     targetDateUnix: null,
     title: '',
@@ -94,11 +100,11 @@ function SingleTask() {
   };
 
   const handleEditorChange = (content: string) => {
-    setValues({ ...values, content });
+    // setValues({ ...values, content });
   };
 
   const handleDateChange = (date: string) => (selectedDate: string) => {
-    const dateUnix = moment(selectedDate).unix();
+    const dateUnix = moment(selectedDate).unix() * 1000;
     const dateUnixKey = `${date}Unix`;
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
@@ -107,8 +113,13 @@ function SingleTask() {
     setValues({ ...values });
   };
 
-  const handleClose = () => {
+  const handleClearTask = () => {
     setValues({ ...initialState });
+  };
+
+  const loadExampleData = () => {
+    const index = Math.floor(Math.random() * exampleTasks.length);
+    setValues({ ...values, ...exampleTasks[index] });
   };
 
   const handleTag = tag => {
@@ -149,8 +160,15 @@ function SingleTask() {
               </Button>
               <Button
                 variant="contained"
+                color="inherit"
+                onClick={loadExampleData}
+              >
+                <WaveIcon className={classes.iconSmall} />
+              </Button>
+              <Button
+                variant="contained"
                 color="secondary"
-                onClick={handleClose}
+                onClick={handleClearTask}
               >
                 <DeleteIcon className={classes.iconSmall} />
               </Button>

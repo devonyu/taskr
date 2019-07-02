@@ -76,103 +76,164 @@ export const tagOptions = [
 
 export const progressOptions = [
   {
-    value: 'none',
+    value: 0,
     label: 'None',
   },
   {
-    value: 'planned',
+    value: 1,
     label: 'Planned',
   },
   {
-    value: 'inprogress',
+    value: 2,
     label: 'In Progress',
   },
   {
-    value: 'blocked',
+    value: 3,
     label: 'Blocked',
   },
   {
-    value: 'completed',
+    value: 4,
     label: 'Completed',
   },
 ];
 
 export const priorityOptions = [
   {
-    value: 'none',
+    value: 0,
     label: 'None',
   },
   {
-    value: 'wish',
+    value: 1,
     label: 'Wish',
   },
   {
-    value: 'low',
+    value: 2,
     label: 'Low',
   },
   {
-    value: 'medium',
+    value: 3,
     label: 'Medium',
   },
   {
-    value: 'high',
+    value: 4,
     label: 'High',
   },
 ];
 
 export const exampleTasks = [
   {
-    star: true,
-    title: 'Example Task1',
+    starred: true,
+    title: 'Example Task One',
+    content: `<p>Here is an example</p>
+    <p>We should have the app separated by authenticated and non-authenticated</p>
+    <ol>
+    <li>Create Auth and Unauth components</li>
+    <li>useContext to set as a provider to determine if user is authenticated/logged in</li>
+    <li>From top level in App.js, display authenticated or not based on this data</li>
+    </ol>
+    <p><strong>Once done, we can display either one with just a simple click for MVP</strong></p>
+    <p>Let's add some tags and we will separate them by commas for MVP</p>`,
     progress: 2,
     priority: 3,
-    startDate: 0,
-    targetDate: 1569296000,
+    startDate: 1562796120000,
+    targetDate: 1564610520000,
+    startDateUnix: 1562796120000,
+    targetDateUnix: 1564610520000,
     tags: 'dev',
   },
   {
-    star: false,
+    starred: false,
     title: 'Example Task2',
+    content: `<p style="text-align: center;">here is some fake content to task 2</p>
+    <p style="text-align: center;">lets center it</p>
+    <p style="text-align: center;"><em>COOL THING</em></p>`,
     progress: 0,
     priority: 2,
-    startDate: 15,
-    targetDate: 1567296000,
+    startDate: 1562796120000,
+    targetDate: 1573686120000,
+    startDateUnix: 1562796120000,
+    targetDateUnix: 1573686120000,
     tags: 'serverless, dynamodb',
   },
   {
-    star: true,
+    starred: true,
     title: 'Seperate authenticated and unathenticated',
+    content: `<table style="border-collapse: collapse; width: 100%;" border="1">
+    <tbody>
+    <tr>
+    <td style="width: 33.3333%;">here</td>
+    <td style="width: 33.3333%;">is</td>
+    <td style="width: 33.3333%;">a</td>
+    </tr>
+    <tr>
+    <td style="width: 33.3333%;">three</td>
+    <td style="width: 33.3333%;">by</td>
+    <td style="width: 33.3333%;">four</td>
+    </tr>
+    <tr>
+    <td style="width: 33.3333%;">table</td>
+    <td style="width: 33.3333%;">inside</td>
+    <td style="width: 33.3333%;">a</td>
+    </tr>
+    <tr>
+    <td style="width: 33.3333%;">html</td>
+    <td style="width: 33.3333%;">note</td>
+    <td style="width: 33.3333%;">wow</td>
+    </tr>
+    </tbody>
+    </table>`,
     progress: 1,
     priority: 4,
-    startDate: 1567296000,
-    targetDate: 0,
+    startDate: 1562796120000,
+    targetDate: 1566338520000,
+    startDateUnix: 1562796120000,
+    targetDateUnix: 1566338520000,
     tags: 'authenticated, unathenticated',
   },
   {
-    star: false,
+    starred: false,
     title: 'Reach router for App',
+    content: `<p style="text-align: right;">reach router task should be done soon</p>
+    <p style="text-align: right;">please</p>
+    <p style="text-align: right;">ok</p>`,
     progress: 2,
-    priority: 5,
-    startDate: 0,
-    targetDate: 0,
+    priority: 4,
+    startDate: 1563487320000,
+    targetDate: 1565388120000,
+    startDateUnix: 1563487320000,
+    targetDateUnix: 1565388120000,
     tags: 'react, router, reach',
   },
   {
-    star: false,
+    starred: false,
     title: 'Get Authentication to work',
+    content: `<ol>
+    <li>we need auth to work as well</li>
+    <li>maybe just a storage item for now</li>
+    <li>we also need to stop rendering each time</li>
+    <li>the editor changes</li>
+    </ol>`,
     progress: 1,
     priority: 3,
-    startDate: 0,
-    targetDate: 1567296000,
+    startDate: 1563660120000,
+    targetDate: 1565906520000,
+    startDateUnix: 1563660120000,
+    targetDateUnix: 1565906520000,
     tags: 'auth, general',
   },
   {
-    star: true,
+    starred: true,
     title: 'Finish this app',
+    content: `<ul>
+    <li>lets finish</li>
+    <li>this app</li>
+    </ul>`,
     progress: 2,
-    priority: 5,
-    startDate: 0,
-    targetDate: 1567296000,
+    priority: 4,
+    startDate: 1563660120000,
+    targetDate: 1565388120000,
+    startDateUnix: 1563660120000,
+    targetDateUnix: 1565388120000,
     tags: 'app, general, software',
   },
 ];
