@@ -140,7 +140,7 @@ export const exampleTasks = [
     targetDate: 1564610520000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1564610520000,
-    tags: 'dev,example,mvp',
+    tags: 'dev, example, mvp',
   },
   {
     id: 'b4c1e3d5-cc33-4d36-a045-d87dfebc4602',
@@ -155,7 +155,7 @@ export const exampleTasks = [
     targetDate: 1573686120000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1573686120000,
-    tags: 'serverless,dynamodb,fake,seed',
+    tags: 'serverless, dynamodb, fake, seed',
   },
   {
     id: 'f9277ef1-1e19-4d15-bc92-232c42935ade',
@@ -191,7 +191,7 @@ export const exampleTasks = [
     targetDate: 1566338520000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1566338520000,
-    tags: 'authenticated,unathenticated,context',
+    tags: 'authenticated, unathenticated, context',
   },
   {
     id: '74e0de93-2120-4e49-9b56-dccd9e21a642',
@@ -206,7 +206,7 @@ export const exampleTasks = [
     targetDate: 1565388120000,
     startDateUnix: 1563487320000,
     targetDateUnix: 1565388120000,
-    tags: 'react,router,reach',
+    tags: 'react, router, reach',
   },
   {
     id: 'ab5fcff0-d9b1-4338-9659-266f31302cce',
@@ -224,7 +224,7 @@ export const exampleTasks = [
     targetDate: 1565906520000,
     startDateUnix: 1563660120000,
     targetDateUnix: 1565906520000,
-    tags: 'auth,general',
+    tags: 'auth, general',
   },
   {
     id: 'd27599a6-ffca-4534-ba28-967626bcce86',
@@ -240,6 +240,6 @@ export const exampleTasks = [
     targetDate: 1565388120000,
     startDateUnix: 1563660120000,
     targetDateUnix: 1565388120000,
-    tags: 'app,general,software,test,example,editor,auth',
+    tags: 'app, general, software, test, example, editor, auth',
   },
 ];

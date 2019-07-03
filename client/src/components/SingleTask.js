@@ -103,8 +103,6 @@ function SingleTask() {
       setValues({ ...values, priority: event.target.value });
     } else if (name === 'github') {
       setValues({ ...values, github: event.target.value });
-    } else if (name === 'editor') {
-      setValues({ ...values, content: event.target.value });
     }
   };
 
@@ -119,9 +117,12 @@ function SingleTask() {
   };
 
   const sanitizeValues = task => {
-    const sanitized = addID(task);
-    sanitized.tags = convertTagsArray(task.tags);
-    return sanitized;
+    let taskCopy = { ...task };
+    if (task.id === '') {
+      taskCopy = addID(taskCopy);
+    }
+    taskCopy.tags = convertTagsArray(task.tags);
+    return taskCopy;
   };
 
   const handleSubmit = () => {
@@ -133,26 +134,15 @@ function SingleTask() {
     setValues({ ...initialState });
   };
 
-  const loadExampleData = async () => {
+  const loadExampleData = () => {
     let index = Math.floor(Math.random() * exampleTasks.length);
     if (exampleTasks[index].id === values.id) {
       index -= 1;
     }
     const exampleTask = exampleTasks[index];
-    console.log(typeof exampleTask.tags);
-    console.log(`ARRAY = ${String(Array.isArray(exampleTask.tags))}`);
-    console.log(exampleTask.tags);
-    let an;
-    if (Array.isArray(exampleTask.tags)) {
-      an = await exampleTask.tags.join(',');
-    } else {
-      an = await [...exampleTask.tags.split(',')].map(tag => {
-        return { label: tag, value: tag };
-      });
-    }
-    exampleTask.tags = an;
-    console.log(an);
-    await setValues({ ...values, ...exampleTask });
+    const goodTags = convertTagsStrings(exampleTask.tags);
+    exampleTask.tags = goodTags;
+    setValues({ ...values, ...exampleTask });
   };
 
   const handleTag = tag => {

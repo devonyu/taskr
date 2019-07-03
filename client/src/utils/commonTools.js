@@ -2,14 +2,22 @@
 
 import uuidv4 from 'uuid/v4';
 
-export function convertTagsArray(tags: Array<string>): string {
-  return tags.join(' ');
+export function convertTagsArray(
+  tags: Array<{ label: String, value: string }>,
+): string {
+  if (!Array.isArray(tags)) {
+    return tags;
+  }
+  return tags.map(tag => tag.value).join(', ');
 }
 
 export function convertTagsStrings(
   tags: string,
 ): Array<{ label: string, value: string }> {
-  const tagArray = tags.split(',');
+  if (Array.isArray(tags)) {
+    return tags;
+  }
+  const tagArray = tags.split(', ');
   return tagArray.map(tag => {
     return {
       label: tag,
@@ -19,6 +27,7 @@ export function convertTagsStrings(
 }
 
 export function addID(task) {
-  task.id = uuidv4();
-  return task;
+  const taskCopy = { ...task };
+  taskCopy.id = uuidv4();
+  return taskCopy;
 }
