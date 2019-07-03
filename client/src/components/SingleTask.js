@@ -4,28 +4,25 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CreatableSelect from 'react-select/creatable';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Delete, SendSharp, Star, StarBorder } from '@material-ui/icons';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
-import React from 'react';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import WaveIcon from '@material-ui/icons/Waves';
 import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import {
-  exampleTasks,
-  tagOptions,
-  priorityOptions,
-  progressOptions,
-} from '../data';
+  addID,
+  convertTagsArray,
+  convertTagsStrings,
+} from '../utils/commonTools';
+import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
 
 const useStyles = makeStyles(theme => ({
@@ -67,8 +64,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SingleTask() {
+function SingleTask(inputProps) {
   const initialState = {
+    id: '',
     content: '',
     github: '',
     priority: 0,
@@ -82,7 +80,11 @@ function SingleTask() {
     title: '',
   };
   const classes = useStyles();
-  const [values, setValues] = React.useState(initialState);
+  const [values, setValues] = useState(inputProps.taskData);
+
+  useEffect(() => {
+    setValues(inputProps.taskData);
+  }, [inputProps.taskData]);
 
   const handleChange = (name: string) => (
     event: SyntheticInputEvent<EventTarget>,
@@ -97,8 +99,6 @@ function SingleTask() {
       setValues({ ...values, priority: event.target.value });
     } else if (name === 'github') {
       setValues({ ...values, github: event.target.value });
-    } else if (name === 'editor') {
-      setValues({ ...values, content: event.target.value });
     }
   };
 
@@ -112,18 +112,22 @@ function SingleTask() {
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
 
+  const sanitizeValues = task => {
+    let taskCopy = { ...task };
+    if (task.id === '') {
+      taskCopy = addID(taskCopy);
+    }
+    taskCopy.tags = convertTagsArray(task.tags);
+    return taskCopy;
+  };
+
   const handleSubmit = () => {
     console.log('submitted..');
-    console.log(values);
+    console.log(sanitizeValues(values));
   };
 
   const handleClearTask = () => {
     setValues({ ...initialState });
-  };
-
-  const loadExampleData = () => {
-    const index = Math.floor(Math.random() * exampleTasks.length);
-    setValues({ ...values, ...exampleTasks[index] });
   };
 
   const handleTag = tag => {
@@ -161,16 +165,7 @@ function SingleTask() {
                   className={classes.submitButton}
                   onClick={handleSubmit}
                 >
-                  Submit
-                </Button>
-              </Tooltip>
-              <Tooltip title="Example Task">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  onClick={loadExampleData}
-                >
-                  <WaveIcon className={classes.iconSmall} />
+                  <SendSharp className={classes.iconSmall} />
                 </Button>
               </Tooltip>
               <Tooltip title="Clear Task">
@@ -179,7 +174,7 @@ function SingleTask() {
                   color="secondary"
                   onClick={handleClearTask}
                 >
-                  <DeleteIcon className={classes.iconSmall} />
+                  <Delete className={classes.iconSmall} />
                 </Button>
               </Tooltip>
             </Toolbar>
@@ -273,7 +268,7 @@ function SingleTask() {
             onChange={handleTag}
             options={tagOptions}
             placeholder="Enter tags..."
-            value={values.tags}
+            value={convertTagsStrings(values.tags)}
           />
         </Paper>
       </Container>

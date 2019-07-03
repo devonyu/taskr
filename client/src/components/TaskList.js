@@ -1,14 +1,21 @@
 // @flow
 
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import moment from 'moment';
-import { exampleTasks, progressOptions, priorityOptions } from '../data';
+import { Star, StarBorder } from '@material-ui/icons';
+import { exampleTasks, priorityOptions, progressOptions } from '../data';
+import SingleTask from './SingleTask';
 
 function TaskList() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     columns: [
-      { title: 'Star', field: 'starred', type: 'boolean' },
+      {
+        title: 'Star',
+        field: 'starred',
+        type: 'boolean',
+        render: rowData => (rowData.starred ? <StarBorder /> : <Star />),
+      },
       { title: 'Title', field: 'title' },
       {
         title: 'Progress',
@@ -69,7 +76,7 @@ function TaskList() {
       onRowClick={(event, rowData, togglePanel) => togglePanel()}
       detailPanel={[
         {
-          tooltip: 'Show Title',
+          tooltip: 'Show Task Content',
           render: rowData => {
             return (
               <div
@@ -77,10 +84,10 @@ function TaskList() {
                   fontSize: 20,
                   textAlign: 'center',
                   color: 'white',
-                  backgroundColor: '#43A047',
+                  backgroundColor: '#3ddb93',
                 }}
               >
-                {rowData.title}
+                <SingleTask taskData={rowData} />
               </div>
             );
           },
@@ -104,20 +111,19 @@ function TaskList() {
           },
         },
         {
-          icon: 'favorite_border',
-          openIcon: 'favorite',
-          tooltip: 'Show Task Content',
+          icon: 'desktop_mac',
+          openIcon: 'desktop_windows',
+          tooltip: 'Show Title',
           render: rowData => {
             return (
               <div
                 style={{
-                  fontSize: 20,
                   textAlign: 'center',
                   color: 'white',
-                  backgroundColor: '#FDD835',
+                  backgroundColor: 'grey',
                 }}
               >
-                {rowData.content}
+                {rowData.title}
               </div>
             );
           },
