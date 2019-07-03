@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CreatableSelect from 'react-select/creatable';
-import { Delete, SendSharp, Star, StarBorder, Waves } from '@material-ui/icons';
+import { Delete, SendSharp, Star, StarBorder } from '@material-ui/icons';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import Paper from '@material-ui/core/Paper';
@@ -22,12 +22,7 @@ import {
   convertTagsArray,
   convertTagsStrings,
 } from '../utils/commonTools';
-import {
-  exampleTasks,
-  priorityOptions,
-  progressOptions,
-  tagOptions,
-} from '../data';
+import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
 
 const useStyles = makeStyles(theme => ({
@@ -135,17 +130,6 @@ function SingleTask(inputProps) {
     setValues({ ...initialState });
   };
 
-  const loadExampleData = () => {
-    let index = Math.floor(Math.random() * exampleTasks.length);
-    if (exampleTasks[index].id === values.id) {
-      index -= 1;
-    }
-    const exampleTask = exampleTasks[index];
-    const goodTags = convertTagsStrings(exampleTask.tags);
-    exampleTask.tags = goodTags;
-    setValues({ ...values, ...exampleTask });
-  };
-
   const handleTag = tag => {
     if (tag === null) {
       setValues({ ...values, tags: [] });
@@ -182,15 +166,6 @@ function SingleTask(inputProps) {
                   onClick={handleSubmit}
                 >
                   <SendSharp className={classes.iconSmall} />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Example Task">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  onClick={loadExampleData}
-                >
-                  <Waves className={classes.iconSmall} />
                 </Button>
               </Tooltip>
               <Tooltip title="Clear Task">
@@ -293,7 +268,7 @@ function SingleTask(inputProps) {
             onChange={handleTag}
             options={tagOptions}
             placeholder="Enter tags..."
-            value={values.tags}
+            value={convertTagsStrings(values.tags)}
           />
         </Paper>
       </Container>
