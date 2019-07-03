@@ -1,5 +1,7 @@
 // @flow
 
+import uuidv4 from 'uuid/v4';
+
 export function convertTagsArray(tags: Array<string>): string {
   return tags.join(' ');
 }
@@ -14,4 +16,9 @@ export function convertTagsStrings(
       value: tag,
     };
   });
+}
+
+export function addID(task) {
+  task.id = uuidv4();
+  return task;
 }

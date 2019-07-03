@@ -122,6 +122,7 @@ export const priorityOptions = [
 
 export const exampleTasks = [
   {
+    id: 'e29f01ce-ca0e-4ab1-8703-7ef078fe870a',
     starred: true,
     title: 'Example Task One',
     content: `<p>Here is an example</p>
@@ -142,6 +143,7 @@ export const exampleTasks = [
     tags: 'dev,example,mvp',
   },
   {
+    id: 'b4c1e3d5-cc33-4d36-a045-d87dfebc4602',
     starred: false,
     title: 'Example Task two',
     content: `<p style="text-align: center;">here is some fake content to task 2</p>
@@ -156,6 +158,7 @@ export const exampleTasks = [
     tags: 'serverless,dynamodb,fake,seed',
   },
   {
+    id: 'f9277ef1-1e19-4d15-bc92-232c42935ade',
     starred: true,
     title: 'Seperate authenticated and unathenticated three',
     content: `<table style="border-collapse: collapse; width: 100%;" border="1">
@@ -191,6 +194,7 @@ export const exampleTasks = [
     tags: 'authenticated,unathenticated,context',
   },
   {
+    id: '74e0de93-2120-4e49-9b56-dccd9e21a642',
     starred: false,
     title: 'Reach router for App four',
     content: `<p style="text-align: right;">reach router task should be done soon</p>
@@ -205,6 +209,7 @@ export const exampleTasks = [
     tags: 'react,router,reach',
   },
   {
+    id: 'ab5fcff0-d9b1-4338-9659-266f31302cce',
     starred: false,
     title: 'Get Authentication to work five',
     content: `<ol>
@@ -222,6 +227,7 @@ export const exampleTasks = [
     tags: 'auth,general',
   },
   {
+    id: 'd27599a6-ffca-4534-ba28-967626bcce86',
     starred: true,
     title: 'Finish this app six',
     content: `<ul>

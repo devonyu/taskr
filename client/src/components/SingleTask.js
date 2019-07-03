@@ -20,7 +20,11 @@ import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { convertTagsArray, convertTagsStrings } from '../utils/tags';
+import {
+  addID,
+  convertTagsArray,
+  convertTagsStrings,
+} from '../utils/commonTools';
 import {
   exampleTasks,
   tagOptions,
@@ -70,6 +74,7 @@ const useStyles = makeStyles(theme => ({
 
 function SingleTask() {
   const initialState = {
+    id: '',
     content: '',
     github: '',
     priority: 0,
@@ -113,12 +118,15 @@ function SingleTask() {
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
 
+  const sanitizeValues = task => {
+    const sanitized = addID(task);
+    sanitized.tags = convertTagsArray(task.tags);
+    return sanitized;
+  };
+
   const handleSubmit = () => {
     console.log('submitted..');
-    console.log(values.tags);
-    console.log(Array.isArray(values.tags));
-    // const tags = convertTagsArray(values.tags);
-    // console.log(tags);
+    console.log(sanitizeValues(values));
   };
 
   const handleClearTask = () => {
@@ -127,26 +135,10 @@ function SingleTask() {
 
   const loadExampleData = async () => {
     let index = Math.floor(Math.random() * exampleTasks.length);
-    if (exampleTasks[index].tags[0] === values.tags[0]) {
+    if (exampleTasks[index].id === values.id) {
       index -= 1;
     }
     const exampleTask = exampleTasks[index];
-    // exampleTasks[index].tags = convertTagsStrings([
-    //   ...exampleTasks[index].tags,
-    // ]);
-    // const som = exampleTask.tags.split(',');
-    // exampleTask.tags = ['lets', 'test', 'this', 'out'];
-    // const redo = [...exampleTask.tags].map(name => {
-    //   return { value: name, label: name };
-    // });
-    // exampleTask.tags = redo;
-    // console.log(exampleTask);
-    // ///
-    // console.log(exampleTask.tags);
-    // const an = convertTagsStrings(exampleTask.tags);
-    // exampleTask.tags = an;
-    // console.log(an);
-    // setValues({ ...values, ...exampleTask });
     console.log(typeof exampleTask.tags);
     console.log(`ARRAY = ${String(Array.isArray(exampleTask.tags))}`);
     console.log(exampleTask.tags);
