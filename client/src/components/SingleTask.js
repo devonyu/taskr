@@ -4,18 +4,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CreatableSelect from 'react-select/creatable';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Delete, SendSharp, Star, StarBorder, Waves } from '@material-ui/icons';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
-import React from 'react';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import WaveIcon from '@material-ui/icons/Waves';
 import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,9 +24,9 @@ import {
 } from '../utils/commonTools';
 import {
   exampleTasks,
-  tagOptions,
   priorityOptions,
   progressOptions,
+  tagOptions,
 } from '../data';
 import TaskEditor from './TaskEditor';
 
@@ -72,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SingleTask() {
+function SingleTask(inputProps) {
   const initialState = {
     id: '',
     content: '',
@@ -88,7 +85,11 @@ function SingleTask() {
     title: '',
   };
   const classes = useStyles();
-  const [values, setValues] = React.useState(initialState);
+  const [values, setValues] = useState(inputProps.taskData);
+
+  useEffect(() => {
+    setValues(inputProps.taskData);
+  }, [inputProps.taskData]);
 
   const handleChange = (name: string) => (
     event: SyntheticInputEvent<EventTarget>,
@@ -180,7 +181,7 @@ function SingleTask() {
                   className={classes.submitButton}
                   onClick={handleSubmit}
                 >
-                  Submit
+                  <SendSharp className={classes.iconSmall} />
                 </Button>
               </Tooltip>
               <Tooltip title="Example Task">
@@ -189,7 +190,7 @@ function SingleTask() {
                   color="inherit"
                   onClick={loadExampleData}
                 >
-                  <WaveIcon className={classes.iconSmall} />
+                  <Waves className={classes.iconSmall} />
                 </Button>
               </Tooltip>
               <Tooltip title="Clear Task">
@@ -198,7 +199,7 @@ function SingleTask() {
                   color="secondary"
                   onClick={handleClearTask}
                 >
-                  <DeleteIcon className={classes.iconSmall} />
+                  <Delete className={classes.iconSmall} />
                 </Button>
               </Tooltip>
             </Toolbar>
