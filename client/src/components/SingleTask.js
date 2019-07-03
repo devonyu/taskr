@@ -20,6 +20,7 @@ import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import { convertTagsArray, convertTagsStrings } from '../utils/tags';
 import {
   exampleTasks,
   tagOptions,
@@ -114,16 +115,52 @@ function SingleTask() {
 
   const handleSubmit = () => {
     console.log('submitted..');
-    console.log(values);
+    console.log(values.tags);
+    console.log(Array.isArray(values.tags));
+    // const tags = convertTagsArray(values.tags);
+    // console.log(tags);
   };
 
   const handleClearTask = () => {
     setValues({ ...initialState });
   };
 
-  const loadExampleData = () => {
-    const index = Math.floor(Math.random() * exampleTasks.length);
-    setValues({ ...values, ...exampleTasks[index] });
+  const loadExampleData = async () => {
+    let index = Math.floor(Math.random() * exampleTasks.length);
+    if (exampleTasks[index].tags[0] === values.tags[0]) {
+      index -= 1;
+    }
+    const exampleTask = exampleTasks[index];
+    // exampleTasks[index].tags = convertTagsStrings([
+    //   ...exampleTasks[index].tags,
+    // ]);
+    // const som = exampleTask.tags.split(',');
+    // exampleTask.tags = ['lets', 'test', 'this', 'out'];
+    // const redo = [...exampleTask.tags].map(name => {
+    //   return { value: name, label: name };
+    // });
+    // exampleTask.tags = redo;
+    // console.log(exampleTask);
+    // ///
+    // console.log(exampleTask.tags);
+    // const an = convertTagsStrings(exampleTask.tags);
+    // exampleTask.tags = an;
+    // console.log(an);
+    // setValues({ ...values, ...exampleTask });
+    console.log(typeof exampleTask.tags);
+    console.log(`ARRAY = ${String(Array.isArray(exampleTask.tags))}`);
+    console.log(exampleTask.tags);
+    let an;
+    if (Array.isArray(exampleTask.tags)) {
+      an = await exampleTask.tags.join(',');
+    } else {
+      an = await [...exampleTask.tags.split(',')].map(tag => {
+        return { label: tag, value: tag };
+      });
+    }
+    exampleTask.tags = an;
+    console.log(an);
+    await setValues({ ...values, ...exampleTask });
   };
 
   const handleTag = tag => {

@@ -139,11 +139,11 @@ export const exampleTasks = [
     targetDate: 1564610520000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1564610520000,
-    tags: 'dev',
+    tags: 'dev,example,mvp',
   },
   {
     starred: false,
-    title: 'Example Task2',
+    title: 'Example Task two',
     content: `<p style="text-align: center;">here is some fake content to task 2</p>
     <p style="text-align: center;">lets center it</p>
     <p style="text-align: center;"><em>COOL THING</em></p>`,
@@ -153,11 +153,11 @@ export const exampleTasks = [
     targetDate: 1573686120000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1573686120000,
-    tags: 'serverless, dynamodb',
+    tags: 'serverless,dynamodb,fake,seed',
   },
   {
     starred: true,
-    title: 'Seperate authenticated and unathenticated',
+    title: 'Seperate authenticated and unathenticated three',
     content: `<table style="border-collapse: collapse; width: 100%;" border="1">
     <tbody>
     <tr>
@@ -188,11 +188,11 @@ export const exampleTasks = [
     targetDate: 1566338520000,
     startDateUnix: 1562796120000,
     targetDateUnix: 1566338520000,
-    tags: 'authenticated, unathenticated',
+    tags: 'authenticated,unathenticated,context',
   },
   {
     starred: false,
-    title: 'Reach router for App',
+    title: 'Reach router for App four',
     content: `<p style="text-align: right;">reach router task should be done soon</p>
     <p style="text-align: right;">please</p>
     <p style="text-align: right;">ok</p>`,
@@ -202,11 +202,11 @@ export const exampleTasks = [
     targetDate: 1565388120000,
     startDateUnix: 1563487320000,
     targetDateUnix: 1565388120000,
-    tags: 'react, router, reach',
+    tags: 'react,router,reach',
   },
   {
     starred: false,
-    title: 'Get Authentication to work',
+    title: 'Get Authentication to work five',
     content: `<ol>
     <li>we need auth to work as well</li>
     <li>maybe just a storage item for now</li>
@@ -219,11 +219,11 @@ export const exampleTasks = [
     targetDate: 1565906520000,
     startDateUnix: 1563660120000,
     targetDateUnix: 1565906520000,
-    tags: 'auth, general',
+    tags: 'auth,general',
   },
   {
     starred: true,
-    title: 'Finish this app',
+    title: 'Finish this app six',
     content: `<ul>
     <li>lets finish</li>
     <li>this app</li>
@@ -234,6 +234,6 @@ export const exampleTasks = [
     targetDate: 1565388120000,
     startDateUnix: 1563660120000,
     targetDateUnix: 1565388120000,
-    tags: 'app, general, software',
+    tags: 'app,general,software,test,example,editor,auth',
   },
 ];
