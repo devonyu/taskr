@@ -5,7 +5,7 @@ import MaterialTable from 'material-table';
 import moment from 'moment';
 import { exampleTasks, progressOptions, priorityOptions } from '../data';
 
-export default function TaskList() {
+function TaskList() {
   const [state, setState] = React.useState({
     columns: [
       { title: 'Star', field: 'starred', type: 'boolean' },
@@ -126,3 +126,5 @@ export default function TaskList() {
     />
   );
 }
+
+export default TaskList;

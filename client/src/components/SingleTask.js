@@ -18,14 +18,15 @@ import Typography from '@material-ui/core/Typography';
 import WaveIcon from '@material-ui/icons/Waves';
 import moment from 'moment';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { Editor } from '@tinymce/tinymce-react';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   exampleTasks,
   tagOptions,
   priorityOptions,
   progressOptions,
 } from '../data';
+import TaskEditor from './TaskEditor';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,7 +76,7 @@ function SingleTask() {
     starred: false,
     startDate: null,
     startDateUnix: null,
-    tags: '',
+    tags: [],
     targetDate: null,
     targetDateUnix: null,
     title: '',
@@ -96,11 +97,13 @@ function SingleTask() {
       setValues({ ...values, priority: event.target.value });
     } else if (name === 'github') {
       setValues({ ...values, github: event.target.value });
+    } else if (name === 'editor') {
+      setValues({ ...values, content: event.target.value });
     }
   };
 
-  const handleEditorChange = (content: string) => {
-    // setValues({ ...values, content });
+  const handleGetContent = content => {
+    setValues({ ...values, content });
   };
 
   const handleDateChange = (date: string) => (selectedDate: string) => {
@@ -110,7 +113,8 @@ function SingleTask() {
   };
 
   const handleSubmit = () => {
-    setValues({ ...values });
+    console.log('submitted..');
+    console.log(values);
   };
 
   const handleClearTask = () => {
@@ -150,28 +154,34 @@ function SingleTask() {
               >
                 {values.title.length ? values.title : 'Create Task'}
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.submitButton}
-                onClick={handleSubmit}
-              >
-                Submit
-              </Button>
-              <Button
-                variant="contained"
-                color="inherit"
-                onClick={loadExampleData}
-              >
-                <WaveIcon className={classes.iconSmall} />
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleClearTask}
-              >
-                <DeleteIcon className={classes.iconSmall} />
-              </Button>
+              <Tooltip title="Save Task">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.submitButton}
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+              </Tooltip>
+              <Tooltip title="Example Task">
+                <Button
+                  variant="contained"
+                  color="inherit"
+                  onClick={loadExampleData}
+                >
+                  <WaveIcon className={classes.iconSmall} />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Clear Task">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleClearTask}
+                >
+                  <DeleteIcon className={classes.iconSmall} />
+                </Button>
+              </Tooltip>
             </Toolbar>
           </AppBar>
           <TextField
@@ -243,18 +253,9 @@ function SingleTask() {
               value={values.github}
             />
           </div>
-          <Editor
-            apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-            initialValue="<p>Testing the editor here</p>"
-            init={{
-              plugins: 'link image code preview lists insertdatetime table',
-              toolbar:
-                // eslint-disable-next-line max-len
-                'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
-              height: 400,
-            }}
-            onEditorChange={handleEditorChange}
-            value={values.content}
+          <TaskEditor
+            getContent={handleGetContent}
+            inputContent={values.content || ''}
           />
           <CreatableSelect
             allowCreateWhileLoading={false}
