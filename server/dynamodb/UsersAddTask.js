@@ -39,7 +39,7 @@ const email = "devon@taskr.online";
 const id = UUID();
 const title = "DynamoDB test";
 const starred = true;
-const progress = 3;
+const progress = 1;
 const priority = 1;
 const startDate = 1562796120000;
 const targetDate = 1564610520000;
@@ -49,7 +49,7 @@ const tags = ["dynamodb", "example", "test"];
 const content = `<p>dynamoDB EXAMPLE</p>
 <p>here is a paragraph</p>
 <ol>
-<li>Create Auth and Unauth components</li>
+<li>another one</li>
 <li>aws is great</li>
 </ol>
 <p><strong>do we need graphql for this</strong></p>
