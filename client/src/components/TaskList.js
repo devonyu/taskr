@@ -1,6 +1,7 @@
 // @flow
 
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import moment from 'moment';
 import { Star, StarBorder } from '@material-ui/icons';
@@ -67,6 +68,19 @@ function TaskList() {
     ],
     data: exampleTasks,
   });
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/dynamo').then(
+      response => {
+        const { task } = response.data.Item;
+        console.log(task);
+        setState({ ...state, data: [task] });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }, []);
 
   return (
     <MaterialTable
