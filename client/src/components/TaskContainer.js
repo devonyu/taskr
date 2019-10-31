@@ -42,10 +42,10 @@ export default function TaskContainer() {
         type: 'numeric',
         render: rowData => (
           <p>
-            {
+            {rowData &&
+              rowData.progress &&
               progressOptions.find(option => option.value === rowData.progress)
-                .label
-            }
+                .label}
           </p>
         ),
       },
@@ -55,10 +55,10 @@ export default function TaskContainer() {
         type: 'numeric',
         render: rowData => (
           <p>
-            {
+            {rowData &&
+              rowData.priority &&
               priorityOptions.find(option => option.value === rowData.priority)
-                .label
-            }
+                .label}
           </p>
         ),
       },
@@ -92,6 +92,7 @@ export default function TaskContainer() {
     axios.get('http://localhost:3000/dynamomulti').then(
       response => {
         const { Items } = response.data;
+        console.log(Items);
         const mapped = Items.map(original => original.task);
         setState({ ...state, data: mapped });
       },

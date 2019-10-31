@@ -2,6 +2,7 @@
 
 import React from 'react';
 import MaterialTable from 'material-table';
+// import Button from '@material-ui/core/Button';
 
 function TaskList(inputProps) {
   return (
@@ -19,6 +20,16 @@ function TaskList(inputProps) {
           backgroundColor: '#EEE',
         },
       }}
+      actions={[
+        {
+          // icon: 'add',
+          icon: () => 'Create',
+          title: 'what',
+          tooltip: 'Add Task',
+          isFreeAction: true,
+          onClick: () => alert('You want to create a task'),
+        },
+      ]}
     />
   );
 }

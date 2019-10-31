@@ -124,6 +124,7 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     console.log(sanitizeValues(values));
+    // console.log(JSON.stringify(sanitizeValues(values)));
   };
 
   const handleClearTask = () => {
