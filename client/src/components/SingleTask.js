@@ -1,5 +1,6 @@
 // @flow
 
+import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -123,8 +124,16 @@ function SingleTask(inputProps) {
 
   const handleSubmit = () => {
     console.log('submitted..');
-    console.log(sanitizeValues(values));
-    // console.log(JSON.stringify(sanitizeValues(values)));
+    const data = sanitizeValues(values);
+    console.log(sanitizeValues);
+    axios.post('http://localhost:3000/addtask', data).then(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      },
+    );
   };
 
   const handleClearTask = () => {
