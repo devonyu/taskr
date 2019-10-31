@@ -145,7 +145,7 @@ function SingleTask(inputProps) {
           <AppBar position="static" color="default">
             <Toolbar>
               <Radio
-                checked={Boolean(values.starred)}
+                checked={values && Boolean(values.starred)}
                 onClick={handleChange('starred')}
                 icon={<StarBorder />}
                 checkedIcon={<Star />}
@@ -156,7 +156,9 @@ function SingleTask(inputProps) {
                 color="inherit"
                 className={classes.title}
               >
-                {values.title.length ? values.title : 'Create Task'}
+                {values && values.title && values.title.length
+                  ? values.title
+                  : 'Create Task'}
               </Typography>
               <Tooltip title="Save Task">
                 <Button
@@ -180,14 +182,14 @@ function SingleTask(inputProps) {
             </Toolbar>
           </AppBar>
           <TextField
-            error={!!(values.title && values.title.length < 1)}
+            error={values && !!(values.title && values.title.length < 1)}
             fullWidth
             id="title"
             label="Title"
             onChange={handleChange('title')}
             placeholder="Title..."
             style={{ margin: 8 }}
-            value={values.title}
+            value={values && values.title}
           />
           <div className={classes.midSection}>
             <TextField
@@ -196,7 +198,7 @@ function SingleTask(inputProps) {
               label="Progress"
               onChange={handleChange('progress')}
               select
-              value={values.progress}
+              value={values && values.progress}
               variant="outlined"
             >
               {progressOptions.map(option => (
@@ -211,7 +213,7 @@ function SingleTask(inputProps) {
               label="Priority"
               onChange={handleChange('priority')}
               select
-              value={values.priority}
+              value={values && values.priority}
               variant="outlined"
             >
               {priorityOptions.map(option => (
@@ -226,18 +228,22 @@ function SingleTask(inputProps) {
               label="Start Date"
               minDate={Date.now()}
               maxDate={
-                values.targetDate ? values.targetDate : moment('9999-01-01')
+                values && values.targetDate
+                  ? values.targetDate
+                  : moment('9999-01-01')
               }
               onChange={handleDateChange('startDate')}
-              value={values.startDate}
+              value={values && values.startDate}
             />
             <DatePicker
               animateYearScrolling
               className={classes.datePicker}
               label="Target Date"
-              minDate={values.startDate ? values.startDate : Date.now()}
+              minDate={
+                values && values.startDate ? values.startDate : Date.now()
+              }
               onChange={handleDateChange('targetDate')}
-              value={values.targetDate}
+              value={values && values.targetDate}
             />
             <TextField
               className={classes.github}
@@ -245,12 +251,12 @@ function SingleTask(inputProps) {
               label="Github"
               onChange={handleChange('github')}
               placeholder="Github link..."
-              value={values.github}
+              value={values && values.github}
             />
           </div>
           <TaskEditor
             getContent={handleGetContent}
-            inputContent={values.content || ''}
+            inputContent={(values && values.content) || ''}
           />
           <CreatableSelect
             allowCreateWhileLoading={false}
@@ -268,7 +274,9 @@ function SingleTask(inputProps) {
             onChange={handleTag}
             options={tagOptions}
             placeholder="Enter tags..."
-            value={convertTagsStrings(values.tags)}
+            value={
+              (values && values.tags && convertTagsStrings(values.tags)) || []
+            }
           />
         </Paper>
       </Container>

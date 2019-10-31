@@ -2,16 +2,16 @@
 
 import './App.css';
 import React from 'react';
-import Homepage from './components/Homepage';
+// import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
-import TaskList from './components/TaskList';
+import TaskContainer from './components/TaskContainer';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Homepage />
-      <TaskList />
+      {/* <Homepage /> */}
+      <TaskContainer />
     </div>
   );
 }
