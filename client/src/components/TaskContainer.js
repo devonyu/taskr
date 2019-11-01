@@ -92,8 +92,16 @@ export default function TaskContainer() {
     axios.get('http://localhost:3000/dynamomulti').then(
       response => {
         const { Items } = response.data;
-        console.log(Items);
-        const mapped = Items.map(original => original.task);
+        const mapped = Items.map(original => {
+          const formated = {
+            ...original.task,
+          };
+          formated.email = original.email;
+          formated.taskID = original.taskID;
+          formated.newTask = false;
+          return formated;
+        });
+        console.log(mapped);
         setState({ ...state, data: mapped });
       },
       error => {

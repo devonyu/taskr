@@ -101,6 +101,7 @@ function SingleTask(inputProps) {
     } else if (name === 'github') {
       setValues({ ...values, github: event.target.value });
     }
+    console.log(inputProps.taskData);
   };
 
   const handleGetContent = content => {
@@ -125,15 +126,27 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
-    console.log(sanitizeValues);
-    axios.post('http://localhost:3000/addtask', data).then(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    console.log(data);
+    console.log(data.newTask);
+    if (data.newTask) {
+      axios.post('http://localhost:3000/addtask', data).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    } else if (!data.newTask) {
+      axios.put('http://localhost:3000/updatetask', data).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    }
   };
 
   const handleClearTask = () => {
