@@ -77,29 +77,26 @@ app.get("/dynamomulti", (req, res) => {
 
 // add new task
 app.post("/addtask", (req, res) => {
-  console.log("/addtask hit");
   const id = UUID();
   const table = "Users";
   const email = "devon@taskr.online";
-  console.log(req.body);
-  console.log("////////////////");
-  console.log(req.body.title);
   const params = {
     TableName: table,
     Item: {
       email: email,
       taskID: id,
       task: {
-        title: req.body.title,
-        starred: req.body.starred || false,
-        progress: req.body.progress || 0,
+        content: req.body.content || null,
+        github: req.body.github || null,
         priority: req.body.priority || 0,
+        progress: req.body.progress || 0,
+        starred: req.body.starred || false,
         startDate: req.body.startDate,
-        targetDate: req.body.targetDate,
         startDateUnix: req.body.startDateUnix,
-        targetDateUnix: req.body.targetDateUnix,
         tags: req.body.tags || null,
-        content: req.body.content || null
+        targetDate: req.body.targetDate,
+        targetDateUnix: req.body.targetDateUnix,
+        title: req.body.title
       }
     }
   };
