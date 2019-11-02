@@ -89,7 +89,7 @@ export default function TaskContainer() {
     selectedTask: 0,
   });
 
-  useEffect(() => {
+  const loadTasks = () => {
     axios.get('http://localhost:3000/dynamomulti').then(
       response => {
         const { Items } = response.data;
@@ -108,6 +108,10 @@ export default function TaskContainer() {
         console.log(error);
       },
     );
+  };
+
+  useEffect(() => {
+    loadTasks();
   }, []);
 
   const toggleTask = data => {
@@ -125,7 +129,10 @@ export default function TaskContainer() {
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
-            <SingleTask taskData={state.data[state.selectedTask]} />
+            <SingleTask
+              taskData={state.data[state.selectedTask]}
+              loadTasks={loadTasks}
+            />
           </Paper>
         </Grid>
       </Grid>

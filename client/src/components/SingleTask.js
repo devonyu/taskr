@@ -128,8 +128,8 @@ function SingleTask(inputProps) {
     if (data.newTask) {
       console.log('new task');
       axios.post('http://localhost:3000/addtask', data).then(
-        response => {
-          console.log(response);
+        () => {
+          inputProps.loadTasks();
         },
         error => {
           console.log(error);
@@ -138,8 +138,8 @@ function SingleTask(inputProps) {
     } else if (!data.newTask) {
       console.log('update exisiting task');
       axios.put('http://localhost:3000/updatetask', data).then(
-        response => {
-          console.log(response);
+        () => {
+          inputProps.loadTasks();
         },
         error => {
           console.log(error);
