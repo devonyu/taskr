@@ -33,7 +33,8 @@ export default function TaskContainer() {
           backgroundColor: 'grey',
           color: 'blue',
         },
-        render: rowData => (rowData.starred ? <StarBorder /> : <Star />),
+        render: rowData =>
+          rowData && rowData.starred ? <Star /> : <StarBorder />,
       },
       { title: 'Title', field: 'title' },
       {
@@ -101,7 +102,6 @@ export default function TaskContainer() {
           formated.newTask = false;
           return formated;
         });
-        console.log(mapped);
         setState({ ...state, data: mapped });
       },
       error => {

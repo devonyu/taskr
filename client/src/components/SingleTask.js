@@ -101,7 +101,6 @@ function SingleTask(inputProps) {
     } else if (name === 'github') {
       setValues({ ...values, github: event.target.value });
     }
-    console.log(inputProps.taskData);
   };
 
   const handleGetContent = content => {
@@ -126,9 +125,8 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
-    console.log(data);
-    console.log(data.newTask);
     if (data.newTask) {
+      console.log('new task');
       axios.post('http://localhost:3000/addtask', data).then(
         response => {
           console.log(response);
@@ -138,6 +136,7 @@ function SingleTask(inputProps) {
         },
       );
     } else if (!data.newTask) {
+      console.log('update exisiting task');
       axios.put('http://localhost:3000/updatetask', data).then(
         response => {
           console.log(response);
@@ -168,7 +167,7 @@ function SingleTask(inputProps) {
           <AppBar position="static" color="default">
             <Toolbar>
               <Radio
-                checked={values && Boolean(values.starred)}
+                checked={Boolean(values && values.starred)}
                 onClick={handleChange('starred')}
                 icon={<StarBorder />}
                 checkedIcon={<Star />}
