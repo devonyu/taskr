@@ -125,15 +125,27 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
-    console.log(sanitizeValues);
-    axios.post('http://localhost:3000/addtask', data).then(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    if (data.newTask) {
+      console.log('new task');
+      axios.post('http://localhost:3000/addtask', data).then(
+        () => {
+          inputProps.loadTasks();
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    } else if (!data.newTask) {
+      console.log('update exisiting task');
+      axios.put('http://localhost:3000/updatetask', data).then(
+        () => {
+          inputProps.loadTasks();
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    }
   };
 
   const handleClearTask = () => {
@@ -155,7 +167,7 @@ function SingleTask(inputProps) {
           <AppBar position="static" color="default">
             <Toolbar>
               <Radio
-                checked={values && Boolean(values.starred)}
+                checked={Boolean(values && values.starred)}
                 onClick={handleChange('starred')}
                 icon={<StarBorder />}
                 checkedIcon={<Star />}

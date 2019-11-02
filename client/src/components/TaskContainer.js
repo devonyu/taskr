@@ -33,7 +33,8 @@ export default function TaskContainer() {
           backgroundColor: 'grey',
           color: 'blue',
         },
-        render: rowData => (rowData.starred ? <StarBorder /> : <Star />),
+        render: rowData =>
+          rowData && rowData.starred ? <Star /> : <StarBorder />,
       },
       { title: 'Title', field: 'title' },
       {
@@ -88,18 +89,29 @@ export default function TaskContainer() {
     selectedTask: 0,
   });
 
-  useEffect(() => {
+  const loadTasks = () => {
     axios.get('http://localhost:3000/dynamomulti').then(
       response => {
         const { Items } = response.data;
-        console.log(Items);
-        const mapped = Items.map(original => original.task);
+        const mapped = Items.map(original => {
+          const formated = {
+            ...original.task,
+          };
+          formated.email = original.email;
+          formated.taskID = original.taskID;
+          formated.newTask = false;
+          return formated;
+        });
         setState({ ...state, data: mapped });
       },
       error => {
         console.log(error);
       },
     );
+  };
+
+  useEffect(() => {
+    loadTasks();
   }, []);
 
   const toggleTask = data => {
@@ -117,7 +129,10 @@ export default function TaskContainer() {
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
-            <SingleTask taskData={state.data[state.selectedTask]} />
+            <SingleTask
+              taskData={state.data[state.selectedTask]}
+              loadTasks={loadTasks}
+            />
           </Paper>
         </Grid>
       </Grid>

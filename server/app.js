@@ -77,29 +77,26 @@ app.get("/dynamomulti", (req, res) => {
 
 // add new task
 app.post("/addtask", (req, res) => {
-  console.log("/addtask hit");
   const id = UUID();
   const table = "Users";
   const email = "devon@taskr.online";
-  console.log(req.body);
-  console.log("////////////////");
-  console.log(req.body.title);
   const params = {
     TableName: table,
     Item: {
       email: email,
       taskID: id,
       task: {
-        title: req.body.title,
-        starred: req.body.starred || false,
-        progress: req.body.progress || 0,
+        content: req.body.content || null,
+        github: req.body.github || null,
         priority: req.body.priority || 0,
+        progress: req.body.progress || 0,
+        starred: req.body.starred || false,
         startDate: req.body.startDate,
-        targetDate: req.body.targetDate,
         startDateUnix: req.body.startDateUnix,
-        targetDateUnix: req.body.targetDateUnix,
         tags: req.body.tags || null,
-        content: req.body.content || null
+        targetDate: req.body.targetDate,
+        targetDateUnix: req.body.targetDateUnix,
+        title: req.body.title
       }
     }
   };
@@ -112,6 +109,47 @@ app.post("/addtask", (req, res) => {
       );
     } else {
       console.log("Added item:", JSON.stringify(data, null, 2));
+      res.status(200).send(JSON.stringify(data, null, 2));
+    }
+  });
+});
+
+// update task
+app.put("/updatetask", (req, res) => {
+  const table = "Users";
+  const params = {
+    TableName: table,
+    Key: {
+      email: req.body.email,
+      taskID: req.body.taskID
+    },
+    UpdateExpression:
+      "set task.content = :cont, task.github=:git, task.priority=:pri, task.progress = :pro, task.starred=:s, task.startDate=:sd, task.startDateUnix = :sdunix, task.targetDate=:td, task.targetDateUnix=:tdunix, task.tags=:tags, task.title=:title",
+    ExpressionAttributeValues: {
+      ":cont": req.body.content || null,
+      ":git": req.body.github || null,
+      ":pri": req.body.priority || 0,
+      ":pro": req.body.progress || 0,
+      ":s": req.body.starred || false,
+      ":sd": req.body.startDate || null,
+      ":sdunix": req.body.startDateUnix || null,
+      ":td": req.body.targetDate || null,
+      ":tdunix": req.body.targetDateUnix,
+      ":tags": req.body.tags || null,
+      ":title": req.body.title || null
+    },
+    ReturnValues: "UPDATED_NEW"
+  };
+  console.log("updating item...");
+  docClient.update(params, function(err, data) {
+    if (err) {
+      console.error(
+        "Unable to update item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+      res.status(404).send(JSON.stringify(data, null, 2));
+    } else {
+      console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
       res.status(200).send(JSON.stringify(data, null, 2));
     }
   });
