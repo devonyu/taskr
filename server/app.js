@@ -1,4 +1,5 @@
 const express = require("express");
+const cots = require("cors");
 const app = express();
 const morgan = require("morgan");
 const path = require("path");
@@ -6,9 +7,10 @@ const AWS = require("aws-sdk");
 const UUID = require("uuid");
 const bodyParser = require("body-parser");
 
+app.use(cors());
+
 AWS.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8001"
+  region: "us-west-1b",
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
