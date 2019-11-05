@@ -10,7 +10,18 @@ const bodyParser = require("body-parser");
 app.use(cors());
 
 AWS.config.update({
-  region: "us-west-1b",
+  region: "us-west-1",
+});
+
+console.log("Region: ", AWS.config.region);
+
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack);
+  // credentials not loaded
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId);
+    console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
+  }
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
