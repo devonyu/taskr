@@ -1,6 +1,6 @@
 {
   "name": "taskrserver",
-  "homepage": "http://www.taskr.online/",
+  "homepage": ".",
   "version": "0.0.1",
   "description": "Tasking Application",
   "author": {
@@ -45,6 +45,7 @@
     "mocha": "^6.1.4",
     "morgan": "^1.9.1",
     "node-pre-gyp": "0.12.0",
+    "path": "^0.12.7",
     "request": "^2.88.0",
     "uuid": "^3.3.2"
   },
