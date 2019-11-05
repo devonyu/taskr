@@ -90,9 +90,10 @@ export default function TaskContainer() {
   });
 
   const loadTasks = () => {
-    axios.get('http://localhost:3000/dynamomulti').then(
+    axios.get('/dynamomulti').then(
       response => {
         const { Items } = response.data;
+	console.log(Items);
         const mapped = Items.map(original => {
           const formated = {
             ...original.task,

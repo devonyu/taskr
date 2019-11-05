@@ -127,8 +127,9 @@ function SingleTask(inputProps) {
     const data = sanitizeValues(values);
     if (data.newTask) {
       console.log('new task');
-      axios.post('http://localhost:3000/addtask', data).then(
+      axios.post('/addtask', data).then(
         () => {
+	  console.log('posting new task');
           inputProps.loadTasks();
         },
         error => {
@@ -137,8 +138,9 @@ function SingleTask(inputProps) {
       );
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      axios.put('http://localhost:3000/updatetask', data).then(
+      axios.put('/updatetask', data).then(
         () => {
+	  console.log('updating task');
           inputProps.loadTasks();
         },
         error => {
