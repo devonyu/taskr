@@ -1,5 +1,5 @@
 const express = require("express");
-const cots = require("cors");
+const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 const path = require("path");
