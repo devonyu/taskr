@@ -27,7 +27,7 @@ function TaskList(inputProps) {
           title: 'what',
           tooltip: 'Add Task',
           isFreeAction: true,
-          onClick: () => alert('You want to create a task'),
+          onClick: () => inputProps.createTask(),
         },
       ]}
     />
