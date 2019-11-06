@@ -93,7 +93,7 @@ export default function TaskContainer() {
     axios.get('/dynamomulti').then(
       response => {
         const { Items } = response.data;
-	console.log(Items);
+        console.log(Items);
         const mapped = Items.map(original => {
           const formated = {
             ...original.task,
@@ -120,12 +120,22 @@ export default function TaskContainer() {
     setState({ ...state, selectedTask: selectedRow });
   };
 
+  const createTask = () => {
+    const newState = state.data;
+    newState.push({ newTask: true });
+    setState({ ...state, data: newState, selectedTask: newState.length - 1 });
+  };
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
-            <TaskList tasks={state} toggleTask={toggleTask} />
+            <TaskList
+              tasks={state}
+              toggleTask={toggleTask}
+              createTask={createTask}
+            />
           </Paper>
         </Grid>
         <Grid item xs={6}>

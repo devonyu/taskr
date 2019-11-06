@@ -129,7 +129,7 @@ function SingleTask(inputProps) {
       console.log('new task');
       axios.post('/addtask', data).then(
         () => {
-	  console.log('posting new task');
+          console.log('posting new task');
           inputProps.loadTasks();
         },
         error => {
@@ -140,7 +140,7 @@ function SingleTask(inputProps) {
       console.log('update exisiting task');
       axios.put('/updatetask', data).then(
         () => {
-	  console.log('updating task');
+          console.log('updating task');
           inputProps.loadTasks();
         },
         error => {
@@ -213,7 +213,7 @@ function SingleTask(inputProps) {
             onChange={handleChange('title')}
             placeholder="Title..."
             style={{ margin: 8 }}
-            value={values && values.title}
+            value={(values && values.title) || ''}
           />
           <div className={classes.midSection}>
             <TextField
@@ -257,7 +257,7 @@ function SingleTask(inputProps) {
                   : moment('9999-01-01')
               }
               onChange={handleDateChange('startDate')}
-              value={values && values.startDate}
+              value={(values && values.startDate) || null}
             />
             <DatePicker
               animateYearScrolling
@@ -267,7 +267,7 @@ function SingleTask(inputProps) {
                 values && values.startDate ? values.startDate : Date.now()
               }
               onChange={handleDateChange('targetDate')}
-              value={values && values.targetDate}
+              value={(values && values.targetDate) || null}
             />
             <TextField
               className={classes.github}
@@ -275,7 +275,7 @@ function SingleTask(inputProps) {
               label="Github"
               onChange={handleChange('github')}
               placeholder="Github link..."
-              value={values && values.github}
+              value={(values && values.github) || ''}
             />
           </div>
           <TaskEditor
