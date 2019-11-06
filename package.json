@@ -4,8 +4,8 @@
   "description": "Main Taskr",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm start",
-    "server": "cd server && npm start",
+    "client": "cd client && pm2 start client.config.js",
+    "server": "cd server && pm2 start server.config.js",
     "installclient": "cd client && npm install",
     "installserver": "cd server && npm install",
     "start": "concurrently --kill-others \"npm:server\" \"npm:client\"",
@@ -27,6 +27,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "coveralls": "^3.0.4",
-    "jest": "^24.8.0"
+    "jest": "24.7.1"
   }
 }

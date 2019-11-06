@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 const path = require("path");
@@ -6,9 +7,21 @@ const AWS = require("aws-sdk");
 const UUID = require("uuid");
 const bodyParser = require("body-parser");
 
+app.use(cors());
+
 AWS.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8001"
+  region: "us-west-1",
+});
+
+console.log("Region: ", AWS.config.region);
+
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack);
+  // credentials not loaded
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId);
+    console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
+  }
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -155,13 +168,20 @@ app.put("/updatetask", (req, res) => {
   });
 });
 
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World!");
-});
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+    app.use(express.static(path.join(__dirname, '/../client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
-app.get("*", (req, res) => {
-  console.log("catch all with *");
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+console.log(process.env.NODE_ENV);
+console.log('hey its the node env above');
+
+app.get("/helloworld", (req, res) => {
+  res.status(200).send("Hello World!");
 });
 
 module.exports = app;
