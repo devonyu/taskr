@@ -86,7 +86,7 @@ function SingleTask(inputProps) {
   const [values, setValues] = useState(inputProps.taskData);
 
   useEffect(() => {
-    console.log(inputProps.taskData);
+    // console.log(inputProps.taskData);
     setValues(inputProps.taskData);
   }, [inputProps.taskData]);
 
@@ -128,12 +128,15 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
-    if (data.newTask) {
+    console.log(data);
+    if (inputProps.newTask) {
       console.log('new task');
       axios.post('/addtask', data).then(
         () => {
           console.log('posting new task');
-          inputProps.loadTasks();
+          setTimeout(() => {
+            inputProps.loadTasks();
+          }, 1000); // let it wait before loading
         },
         error => {
           console.log(error);
@@ -144,7 +147,9 @@ function SingleTask(inputProps) {
       axios.put('/updatetask', data).then(
         () => {
           console.log('updating task');
-          inputProps.loadTasks();
+          setTimeout(() => {
+            inputProps.loadTasks();
+          }, 1000); // let it wait before loading
         },
         error => {
           console.log(error);
@@ -179,7 +184,10 @@ function SingleTask(inputProps) {
               name="starred"
             />
             <Typography variant="h6" color="inherit" className={classes.title}>
-              {values && values.title && values.title.length && !values.newTask
+              {values &&
+              values.title &&
+              values.title.length &&
+              !inputProps.newTask
                 ? values.title
                 : 'Creating Task...'}
             </Typography>

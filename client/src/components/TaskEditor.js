@@ -13,7 +13,7 @@ function TaskEditor(inputProps: InputPropsFlow) {
 
   useEffect(() => {
     setContent(inputProps.inputContent);
-    console.log('useeffect-> inputContent changed');
+    console.log('useeffect-> inputContent changed'); // new task bugs out here!
     document.title = `Task Content length ${inputProps.inputContent.length}`;
   }, [inputProps.inputContent]);
 
