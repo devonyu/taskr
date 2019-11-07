@@ -69,9 +69,9 @@ const useStyles = makeStyles(theme => ({
 
 function SingleTask(inputProps) {
   const initialState = {
-    id: '',
     content: '',
     github: '',
+    newTask: false,
     priority: 0,
     progress: 0,
     starred: false,
@@ -86,6 +86,7 @@ function SingleTask(inputProps) {
   const [values, setValues] = useState(inputProps.taskData);
 
   useEffect(() => {
+    console.log(inputProps.taskData);
     setValues(inputProps.taskData);
   }, [inputProps.taskData]);
 
@@ -105,7 +106,7 @@ function SingleTask(inputProps) {
     }
   };
 
-  const handleGetContent = content => {
+  const handleSaveContent = content => {
     setValues({ ...values, content });
   };
 
@@ -153,7 +154,8 @@ function SingleTask(inputProps) {
   };
 
   const handleClearTask = () => {
-    setValues({ ...initialState });
+    const { email, taskID } = inputProps.taskData;
+    setValues({ ...initialState, email, taskID });
   };
 
   const handleTag = tag => {
@@ -177,9 +179,9 @@ function SingleTask(inputProps) {
               name="starred"
             />
             <Typography variant="h6" color="inherit" className={classes.title}>
-              {values && values.title && values.title.length
+              {values && values.title && values.title.length && !values.newTask
                 ? values.title
-                : 'Create Task'}
+                : 'Creating Task...'}
             </Typography>
             <Tooltip title="Save Task">
               <Button
@@ -279,7 +281,7 @@ function SingleTask(inputProps) {
           />
         </div>
         <TaskEditor
-          getContent={handleGetContent}
+          saveContent={handleSaveContent}
           inputContent={(values && values.content) || ''}
         />
         <CreatableSelect
