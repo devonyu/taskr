@@ -4,7 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import React, { useState, useEffect } from 'react';
 
 type InputPropsFlow = {
-  getContent: (content: string) => void,
+  saveContent: (content: string) => void,
   inputContent: string,
 };
 
@@ -13,11 +13,14 @@ function TaskEditor(inputProps: InputPropsFlow) {
 
   useEffect(() => {
     setContent(inputProps.inputContent);
-    document.title = `ICLength: ${inputProps.inputContent.length}`;
+    console.log('useeffect-> inputContent changed');
+    document.title = `Task Content length ${inputProps.inputContent.length}`;
   }, [inputProps.inputContent]);
 
   const handleChange = changedContent => {
-    setContent(changedContent);
+    // TODO
+    // add a debounce to save data without needing a save content button
+    inputProps.saveContent(changedContent);
   };
 
   return (
@@ -25,7 +28,7 @@ function TaskEditor(inputProps: InputPropsFlow) {
       <button
         type="button"
         onClick={() => {
-          inputProps.getContent(editorContent);
+          inputProps.saveContent(editorContent);
         }}
       >
         Save Content
