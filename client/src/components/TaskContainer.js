@@ -88,6 +88,7 @@ export default function TaskContainer() {
     ],
     data: [],
     selectedTask: 0,
+    newTask: false,
   });
 
   const loadTasks = () => {
@@ -118,13 +119,11 @@ export default function TaskContainer() {
 
   const toggleTask = data => {
     const selectedRow = data.tableData.id;
-    setState({ ...state, selectedTask: selectedRow });
+    setState({ ...state, newTask: false, selectedTask: selectedRow });
   };
 
   const createTask = () => {
-    const newState = state.data;
-    newState.push({ newTask: true });
-    setState({ ...state, data: newState, selectedTask: newState.length - 1 });
+    setState({ ...state, newTask: true, selectedTask: 9999 });
   };
 
   return (
@@ -141,6 +140,7 @@ export default function TaskContainer() {
           <SingleTask
             taskData={state.data[state.selectedTask]}
             loadTasks={loadTasks}
+            newTask={state.newTask}
           />
         </Grid>
       </Grid>
