@@ -3,7 +3,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
 import { Star, StarBorder } from '@material-ui/icons';
@@ -11,13 +10,9 @@ import { priorityOptions, progressOptions } from '../data';
 import TaskList from './TaskList';
 import SingleTask from './SingleTask';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-  },
-  paper: {
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
 }));
 
@@ -30,8 +25,10 @@ export default function TaskContainer() {
         field: 'starred',
         type: 'boolean',
         cellStyle: {
-          backgroundColor: 'grey',
-          color: 'blue',
+          backgroundColor: 'lightgrey',
+          color: 'yellow',
+          whiteSpace: 'nowrap',
+          padding: '2px',
         },
         render: rowData =>
           rowData && rowData.starred ? <Star /> : <StarBorder />,
@@ -130,21 +127,17 @@ export default function TaskContainer() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <TaskList
-              tasks={state}
-              toggleTask={toggleTask}
-              createTask={createTask}
-            />
-          </Paper>
+          <TaskList
+            tasks={state}
+            toggleTask={toggleTask}
+            createTask={createTask}
+          />
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <SingleTask
-              taskData={state.data[state.selectedTask]}
-              loadTasks={loadTasks}
-            />
-          </Paper>
+          <SingleTask
+            taskData={state.data[state.selectedTask]}
+            loadTasks={loadTasks}
+          />
         </Grid>
       </Grid>
     </div>

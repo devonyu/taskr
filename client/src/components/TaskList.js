@@ -2,7 +2,6 @@
 
 import React from 'react';
 import MaterialTable from 'material-table';
-// import Button from '@material-ui/core/Button';
 
 function TaskList(inputProps) {
   return (
@@ -15,16 +14,23 @@ function TaskList(inputProps) {
         headerStyle: {
           backgroundColor: '#01579b',
           color: '#FFF',
+          width: '1%',
+          padding: '2px',
         },
         rowStyle: {
           backgroundColor: '#EEE',
+          width: '1%',
         },
+        maxBodyHeight: 650, // set to viewport
+        minBodyHeight: 650, // set to viewport
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 30],
+        padding: 'dense',
+        emptyRowsWhenPaging: false,
       }}
       actions={[
         {
-          // icon: 'add',
-          icon: () => 'Create',
-          title: 'what',
+          icon: 'add',
           tooltip: 'Add Task',
           isFreeAction: true,
           onClick: () => inputProps.createTask(),
