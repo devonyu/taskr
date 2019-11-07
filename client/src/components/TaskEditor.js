@@ -38,7 +38,7 @@ function TaskEditor(inputProps: InputPropsFlow) {
           toolbar:
             // eslint-disable-next-line max-len
             'preview | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | numlist bullist table insertdatetime',
-          height: 400,
+          height: 400, // can dynamically change this to window height later
         }}
         onEditorChange={handleChange}
         value={editorContent}

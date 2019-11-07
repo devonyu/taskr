@@ -12,7 +12,10 @@ import SingleTask from './SingleTask';
 
 const useStyles = makeStyles(() => ({
   root: {
-    flexGrow: 1,
+    lineHeight: 1,
+    minHeight: '100%',
+    maxWidth: '100%',
+    overflow: 'hidden',
   },
 }));
 
@@ -29,6 +32,7 @@ export default function TaskContainer() {
           color: 'yellow',
           whiteSpace: 'nowrap',
           padding: '2px',
+          width: '10px',
         },
         render: rowData =>
           rowData && rowData.starred ? <Star /> : <StarBorder />,

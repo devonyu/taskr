@@ -30,6 +30,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1, 2),
     backgroundColor: '#f5f5f5',
     maxHeight: '100%',
+    minHeight: '100%',
+    maxWidth: '100%',
   },
   submitButton: {
     marginRight: theme.spacing(1),
@@ -245,7 +247,7 @@ function SingleTask(inputProps) {
             animateYearScrolling
             className={classes.datePicker}
             label="Start Date"
-            minDate={Date.now()}
+            minDate={moment('2019-01-01')}
             maxDate={
               values && values.targetDate
                 ? values.targetDate
@@ -259,6 +261,11 @@ function SingleTask(inputProps) {
             className={classes.datePicker}
             label="Target Date"
             minDate={values && values.startDate ? values.startDate : Date.now()}
+            maxDate={
+              values && values.targetDate
+                ? values.targetDate
+                : moment('2050-01-01')
+            }
             onChange={handleDateChange('targetDate')}
             value={(values && values.targetDate) || null}
           />
