@@ -9,9 +9,9 @@
     "server": "cd server && pm2 start server.config.js",
     "installclient": "cd client && npm install",
     "installserver": "cd server && npm install",
-    "buildclient" : "cd client && rm -R build && npm start build",
-    "production" : "concurrently --kill-others \"npm:serverproduction\"",
-    "start" : "concurrently --kill-others \"npm:server\" \"npm:client\"",
+    "buildclient": "cd client && rm -R build && npm start build",
+    "production": "concurrently --kill-others \"npm:serverproduction\"",
+    "start": "concurrently --kill-others \"npm:server\" \"npm:client\"",
     "testclient": "cd client && npm test",
     "testserver": "cd server && npm test",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
@@ -31,5 +31,8 @@
     "concurrently": "^4.1.0",
     "coveralls": "^3.0.4",
     "jest": "24.7.1"
+  },
+  "dependencies": {
+    "pm2": "^4.1.2"
   }
 }
