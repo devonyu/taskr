@@ -25,7 +25,6 @@ describe("Test the ping path", () => {
   describe("Test the test dynamodb route", () => {
     test("It should response with status 200", async () => {
       const response = await request(app).get("/dynamo");
-      const taskData = await JSON.parse(response.text);
       expect(response.statusCode).toBe(200);
     });
     test("It should respond with email", async () => {

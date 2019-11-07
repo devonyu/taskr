@@ -19,7 +19,6 @@ console.log(process.env.NODE_ENV);
 
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack);
-  // credentials not loaded
   else {
     console.log("AWS credentials correctly loaded");
     // console.log("Access key:", AWS.config.credentials.accessKeyId);
@@ -183,6 +182,11 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/helloworld", (req, res) => {
   res.status(200).send("Hello World!");
+});
+
+app.get("/", function(req, res) {
+  app.use(express.static(path.join(__dirname, "/../client/build")));
+  res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
 });
 
 app.get("*", function(req, res) {
