@@ -116,6 +116,7 @@ export default function TaskContainer() {
 
   useEffect(() => {
     loadTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleTask = data => {
