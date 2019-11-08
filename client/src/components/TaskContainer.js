@@ -45,7 +45,7 @@ export default function TaskContainer() {
         render: rowData => (
           <p>
             {rowData &&
-              rowData.progress &&
+              rowData.progress !== undefined &&
               progressOptions.find(option => option.value === rowData.progress)
                 .label}
           </p>
@@ -58,7 +58,7 @@ export default function TaskContainer() {
         render: rowData => (
           <p>
             {rowData &&
-              rowData.priority &&
+              rowData.priority !== undefined &&
               priorityOptions.find(option => option.value === rowData.priority)
                 .label}
           </p>
