@@ -65,7 +65,7 @@ export default function TaskContainer() {
         ),
       },
       {
-        title: 'Start Date',
+        title: 'Start',
         field: 'startDateUnix',
         type: 'datetime',
         render: rowData => (
@@ -73,7 +73,7 @@ export default function TaskContainer() {
         ),
       },
       {
-        title: 'Target Date',
+        title: 'Target',
         field: 'targetDateUnix',
         type: 'datetime',
         render: rowData => (
