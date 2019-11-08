@@ -57,18 +57,17 @@ function Homepage() {
         <div className="caseitem">Every day life!</div>
       </div>
       <div className="lastcallcontainer">
-        <div className="left">
-          {' '}
-          <span>Ready to get started</span>
-          <span>Get in touch or Create an Account</span>
+        <div className="lastcallleft">
+          <div>Ready to get started</div>
+          <div>Get in touch or Create an Account</div>
         </div>
-        <div className="right">
-          <button type="button">signup</button>
-          <button type="button">contact</button>
+        <div className="lascallright">
+          <button type="button">Sign up</button>
+          <button type="button">Contact</button>
         </div>
       </div>
       <div className="footercontainer">
-        <div className="footeritem">Copy right </div>
+        <div className="footeritem">Taskr C</div>
         <div className="footeritem">Technologies</div>
         <div className="footeritem">Developer</div>
         <div className="footeritem">Resources</div>

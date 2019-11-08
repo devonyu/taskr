@@ -42,6 +42,19 @@
   box-shadow: lightslategray;
 }
 
+.lastcallcontainer {
+  background-color: mediumpurple;
+  height: 100px;
+}
+
+.lastcallleft {
+  width: 50%;
+  float: left;
+}
+.lastcallright {
+  width: 50%;
+  float: right;
+}
 .footercontainer {
   width: 100%;
   display: inline-flex;
