@@ -33,11 +33,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(inputProps) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  if (auth === true) {
+    inputProps.setView('tasks');
+  } else {
+    inputProps.setView('home');
+  }
 
   function handleChange(event) {
     setAuth(event.target.checked);
