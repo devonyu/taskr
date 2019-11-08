@@ -1,17 +1,18 @@
 // @flow
 
 import './App.css';
-import React from 'react';
-// import Homepage from './components/Homepage';
+import React, { useState } from 'react';
+import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
 import TaskContainer from './components/TaskContainer';
 
 function App() {
+  const [view, setView] = useState('home');
+
   return (
     <div className="App">
-      <Navbar />
-      {/* <Homepage /> */}
-      <TaskContainer />
+      <Navbar setView={setView} />
+      {view === 'home' ? <Homepage /> : <TaskContainer />}
     </div>
   );
 }
