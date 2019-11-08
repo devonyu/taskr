@@ -1,10 +1,12 @@
 # TaskR
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/20f20b87-6101-412c-817c-c678cdfba23c/deploy-status)](https://app.netlify.com/sites/wizardly-lichterman-28d465/deploys)
 [![Coverage Status](https://coveralls.io/repos/github/devonyu/taskr/badge.svg?branch=master)](https://coveralls.io/github/devonyu/taskr?branch=master)
 [![Build Status](https://travis-ci.org/devonyu/taskr.svg?branch=master)](https://travis-ci.org/devonyu/taskr)
+
 > Tasking application for developers
 
-A task manager that helps a developer focus on coding instead of deciding what to work on.  Utilizes a Markdown editor to help create a 
+A task manager that helps a developer focus on coding instead of deciding what to work on. Utilizes a Markdown editor to help create a
 better UX for the user
 
 ## Usage example
@@ -13,30 +15,40 @@ Developer is in need to organize specific tasks to help with workload management
 A user can create tasks and assign specific attributes to said task in order to help them with their workflow
 
 > Example Cases:
-> - Given a specific business need, a feature or bug fix may be required by next week,  a user can create tasks and assign a target date with a specific priority.
+>
+> - Given a specific business need, a feature or bug fix may be required by next week, a user can create tasks and assign a target date with a specific priority.
 > - While working on a feature, small bugs are found during the development phase and to document them, a user can create new tasks with low priorities to be fixed at a later time.
-> - The next day, a pull request goes through the automated testing suite and a major bug is found.  User will create a high priority task and focus on said major bug.
+> - The next day, a pull request goes through the automated testing suite and a major bug is found. User will create a high priority task and focus on said major bug.
 > - While sorting the tasks by priority and progress, a user can work and maintain focus on urgent tasks
 
 ## Flowchart
+
 Null
 
+## Current UI
+
+- As of November 7 - current TaskList and SingleTask views example
+  ![NovUI](https://github.com/devonyu/taskr/blob/master/images/nov7taskr.jpg)
+
 ## Schema Design
+
 ![Schema](https://github.com/devonyu/taskr/blob/master/images/taskrschema.jpg)
 
-## Tech Stack: 
+## Tech Stack:
+
 - JavaScript ES6
 - React
 - NodeJS + Express
 - GraphQL
 - Apollo
-- MongoDB + Mongoose
+- AWS DynamoDB
 - Material UI
 - Travis CI
 - Jest
 - Flow
 
 ### Currently Implemented:
+
 - Basic Jest Test (6/20)
 - Travis CI and Coveralls integration for CI/CD and Test Coverage analysis (6/20)
 - Deploy Client to Netlify and connect domain name, HTTPS/DNS/Nameservers changed (6/20)
@@ -45,6 +57,7 @@ Null
 - MVP Schema
 
 ### Planned:
+
 - Login page
 - About section
 - Footer
@@ -66,17 +79,21 @@ Null
 - Deploy to public
 
 ## Social Media
+
 - [TaskR](http://www.taskr.online)
 
 ## Contact Information
-> Devon Yu 
+
+> Devon Yu
+
 - [devonyu415@gmail.com](mailto:devonyu415@gmail.com?subject=Hello)
-- [Twitter](https://twitter.com/devonyu_) 
+- [Twitter](https://twitter.com/devonyu_)
 - [Github](https://github.com/devonyu/)
 - [LinkedIn](https://linkedin.com/in/devonyu)
 - [Facebook](https://facebook.com/devonyu)
 - [Instagram](https://instagram.com/devonyu)
 
 ## Contributing
+
 1. Check out the Issues tab and if there is anything that you could help out with, Feel free to send a pull requeset :)
-2. If there are any suggestions and/or bugs that you notice, please submit it as well!  Thanks!
+2. If there are any suggestions and/or bugs that you notice, please submit it as well! Thanks!
