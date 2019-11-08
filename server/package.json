@@ -9,7 +9,7 @@
     "url": "https://devonyu.com"
   },
   "engines": {
-    "node": "12.13.0"
+    "node": "12.4"
   },
   "scripts": {
     "start": "nodemon server.js",

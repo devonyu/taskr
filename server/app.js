@@ -10,17 +10,19 @@ const bodyParser = require("body-parser");
 app.use(cors());
 
 AWS.config.update({
-  region: "us-west-1",
+  region: "us-west-1"
 });
 
 console.log("Region: ", AWS.config.region);
+console.log("Current Process ENV:");
+console.log(process.env.NODE_ENV);
 
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack);
-  // credentials not loaded
   else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
-    console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
+    console.log("AWS credentials correctly loaded");
+    // console.log("Access key:", AWS.config.credentials.accessKeyId);
+    // console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
   }
 });
 
@@ -35,9 +37,8 @@ app.get("/ping", (req, res) => {
   res.status(418).send("pong");
 });
 
-// get a single task via taskID
+// test route for dynamodb
 app.get("/dynamo", (req, res) => {
-  console.log("/dynamo hit");
   const table = "Users";
   const email = "devon@taskr.online";
   const id = "c61d2e4b-4f1e-47ac-b02e-3fffd92c111f";
@@ -56,7 +57,7 @@ app.get("/dynamo", (req, res) => {
       );
       res.status(400).send(JSON.stringify(err, null, 2));
     } else {
-      console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+      // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
       res.status(200).send(JSON.stringify(data, null, 2));
     }
   });
@@ -168,22 +169,29 @@ app.put("/updatetask", (req, res) => {
   });
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   // Serve any static files
-console.log('is this production?');
-console.log(process.env.NODE_ENV);
-    app.use(express.static(path.join(__dirname, '/../client/build')));
+  console.log("is this production?");
+  console.log(process.env.NODE_ENV);
+  app.use(express.static(path.join(__dirname, "/../client/build")));
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
+  app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
   });
 }
 
-console.log(process.env.NODE_ENV);
-console.log('hey its the node env above');
-
 app.get("/helloworld", (req, res) => {
   res.status(200).send("Hello World!");
+});
+
+app.get("/", function(req, res) {
+  app.use(express.static(path.join(__dirname, "/../client/build")));
+  res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
+});
+
+app.get("*", function(req, res) {
+  app.use(express.static(path.join(__dirname, "/../client/build")));
+  res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
 });
 
 module.exports = app;

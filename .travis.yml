@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "12.4"
+  - "12.4"
 
 dist: trusty
 sudo: false
@@ -8,10 +8,10 @@ sudo: false
 cache:
   directories:
     - node_modules
-install: 
+install:
   - npm install
   - npm run installserver
-  # - npm run testserver
+  - npm run testserver
   - npm run coveralls
 
 # after_success:
