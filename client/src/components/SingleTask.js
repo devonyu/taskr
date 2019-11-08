@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
   datePicker: {
     margin: theme.spacing(1),
-    maxWidth: 115,
+    maxWidth: 80,
   },
   dropDown: {
     margin: theme.spacing(1),
@@ -229,7 +229,7 @@ function SingleTask(inputProps) {
             label="Progress"
             onChange={handleChange('progress')}
             select
-            value={values && values.progress}
+            value={(values && values.progress) || ''}
             variant="outlined"
           >
             {progressOptions.map(option => (
@@ -244,7 +244,7 @@ function SingleTask(inputProps) {
             label="Priority"
             onChange={handleChange('priority')}
             select
-            value={values && values.priority}
+            value={(values && values.priority) || ''}
             variant="outlined"
           >
             {priorityOptions.map(option => (
@@ -256,7 +256,8 @@ function SingleTask(inputProps) {
           <DatePicker
             animateYearScrolling
             className={classes.datePicker}
-            label="Start Date"
+            format="MM/DD/YYYY"
+            label="Start"
             minDate={moment('2019-01-01')}
             maxDate={
               values && values.targetDate
@@ -269,7 +270,8 @@ function SingleTask(inputProps) {
           <DatePicker
             animateYearScrolling
             className={classes.datePicker}
-            label="Target Date"
+            format="MM/DD/YYYY"
+            label="Target"
             minDate={values && values.startDate ? values.startDate : Date.now()}
             maxDate={
               values && values.targetDate

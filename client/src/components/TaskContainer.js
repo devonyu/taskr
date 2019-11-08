@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
   root: {
     lineHeight: 1,
     minHeight: '100%',
+    maxHeight: '100%',
     maxWidth: '100%',
     overflow: 'hidden',
   },
@@ -45,7 +46,7 @@ export default function TaskContainer() {
         render: rowData => (
           <p>
             {rowData &&
-              rowData.progress &&
+              rowData.progress !== undefined &&
               progressOptions.find(option => option.value === rowData.progress)
                 .label}
           </p>
@@ -58,14 +59,14 @@ export default function TaskContainer() {
         render: rowData => (
           <p>
             {rowData &&
-              rowData.priority &&
+              rowData.priority !== undefined &&
               priorityOptions.find(option => option.value === rowData.priority)
                 .label}
           </p>
         ),
       },
       {
-        title: 'Start Date',
+        title: 'Start',
         field: 'startDateUnix',
         type: 'datetime',
         render: rowData => (
@@ -73,7 +74,7 @@ export default function TaskContainer() {
         ),
       },
       {
-        title: 'Target Date',
+        title: 'Target',
         field: 'targetDateUnix',
         type: 'datetime',
         render: rowData => (
@@ -115,6 +116,7 @@ export default function TaskContainer() {
 
   useEffect(() => {
     loadTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleTask = data => {
