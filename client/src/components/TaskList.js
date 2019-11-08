@@ -21,8 +21,8 @@ function TaskList(inputProps) {
           backgroundColor: '#EEE',
           width: '1%',
         },
-        maxBodyHeight: '100%', // set to viewport
-        minBodyHeight: '100%', // set to viewport
+        maxBodyHeight: '80vh', // set to viewport
+        minBodyHeight: '80vh', // it should be set minus height of navbar?
         pageSize: 10,
         pageSizeOptions: [10, 20, 30],
         padding: 'dense',

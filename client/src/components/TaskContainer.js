@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
   root: {
     lineHeight: 1,
     minHeight: '100%',
+    maxHeight: '100%',
     maxWidth: '100%',
     overflow: 'hidden',
   },

@@ -229,7 +229,7 @@ function SingleTask(inputProps) {
             label="Progress"
             onChange={handleChange('progress')}
             select
-            value={values && values.progress}
+            value={(values && values.progress) || ''}
             variant="outlined"
           >
             {progressOptions.map(option => (
@@ -244,7 +244,7 @@ function SingleTask(inputProps) {
             label="Priority"
             onChange={handleChange('priority')}
             select
-            value={values && values.priority}
+            value={(values && values.priority) || ''}
             variant="outlined"
           >
             {priorityOptions.map(option => (
