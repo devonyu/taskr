@@ -4,7 +4,9 @@ import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
-import { Delete, SendSharp, Star, StarBorder } from '@material-ui/icons';
+import { SendSharp, Star, StarBorder } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import Paper from '@material-ui/core/Paper';
@@ -54,11 +56,11 @@ const useStyles = makeStyles(theme => ({
   },
   dropDown: {
     margin: theme.spacing(1),
-    minWidth: 150,
+    minWidth: 110,
   },
   github: {
     margin: theme.spacing(1),
-    minWidth: 200,
+    minWidth: 100,
   },
   midSection: {
     display: 'flex',
@@ -166,6 +168,23 @@ function SingleTask(inputProps) {
     setValues({ ...initialState, email, taskID });
   };
 
+  const handleDeleteTask = () => {
+    const { email, taskID } = inputProps.taskData;
+    console.log(`Deleting ${email}, ${taskID}!`);
+    const data = { email, taskID };
+    axios.delete('/deletetask', { data }).then(
+      res => {
+        console.log(`deleted ${res.data}`);
+        setTimeout(() => {
+          inputProps.loadTasks();
+        }, 1000); // let it wait before loading
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  };
+
   const handleTag = tag => {
     if (tag === null) {
       setValues({ ...values, tags: [] });
@@ -204,14 +223,14 @@ function SingleTask(inputProps) {
                 <SendSharp className={classes.iconSmall} />
               </Button>
             </Tooltip>
-            <Tooltip title="Clear Task">
-              <Button
-                variant="contained"
+            <Tooltip title="Delete Task">
+              <IconButton
+                aria-label="delete"
+                onClick={handleDeleteTask}
                 color="secondary"
-                onClick={handleClearTask}
               >
-                <Delete className={classes.iconSmall} />
-              </Button>
+                <DeleteIcon fontSize="small" />
+              </IconButton>
             </Tooltip>
           </Toolbar>
         </AppBar>
@@ -222,7 +241,7 @@ function SingleTask(inputProps) {
           label="Title"
           onChange={handleChange('title')}
           placeholder="Title..."
-          style={{ margin: 8 }}
+          style={{ margin: 4 }}
           value={(values && values.title) || ''}
         />
         <div className={classes.midSection}>

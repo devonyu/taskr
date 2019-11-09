@@ -201,7 +201,32 @@ app.put("/updatetask", (req, res) => {
       res.status(404).send(JSON.stringify(data, null, 2));
     } else {
       console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
-      res.status(200).send(JSON.stringify(data, null, 2));
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.delete("/deletetask", (req, res) => {
+  console.log("/deletetask hit");
+  const { email, taskID } = req.body;
+  const params = {
+    TableName: "Users",
+    Key: {
+      email,
+      taskID
+    },
+    ConditionExpression: "attribute_exists(taskID)"
+  };
+  docClient.delete(params, (err, data) => {
+    if (err) {
+      console.error(
+        "Unable to delete item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+      res.status(400).send(JSON.stringify(err, null, 2));
+    } else {
+      console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+      res.status(204).send(JSON.stringify("data", null, 2));
     }
   });
 });
