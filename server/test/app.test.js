@@ -97,8 +97,6 @@ describe("Test the ping path", () => {
           .post("/addtask")
           .send(task);
         const response = await JSON.parse(addTask.text);
-        // console.log(response.Item.task);
-        // console.log("LoOOK UPABOVE");
         const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
           task
         );

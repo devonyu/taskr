@@ -98,9 +98,8 @@ app.get("/dynamomulti", async (req, res) => {
 });
 
 // add new task
-app.post("/addtask", async (req, res) => {
+app.post("/addtask", (req, res) => {
   console.log("/addtask hit!");
-  console.log(req.body);
   const {
     email,
     taskID,
@@ -115,7 +114,7 @@ app.post("/addtask", async (req, res) => {
     targetDateUnix,
     tags,
     title
-  } = await req.body;
+  } = req.body;
   const table = "Users";
   const params = {
     TableName: table,
@@ -138,16 +137,15 @@ app.post("/addtask", async (req, res) => {
     }
   };
   console.log("Adding a new item...");
-  console.log(params);
-  docClient.put(params, async (err, data) => {
+  docClient.put(params, (err, data) => {
     if (err) {
       console.error(
         "Unable to add item. Error JSON:",
         JSON.stringify(err, null, 2)
       );
     } else {
-      // console.log("Added item:", JSON.stringify(params, null, 2));
-      await res.status(200).send(JSON.stringify(params, null, 2));
+      console.log("Added item succeeded:", JSON.stringify(data, null, 2));
+      res.status(200).send(JSON.stringify(params, null, 2));
     }
   });
 });
