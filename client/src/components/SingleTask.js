@@ -70,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 function SingleTask(inputProps) {
   const initialState = {
     content: '',
+    email: '',
     github: '',
     newTask: false,
     priority: 0,
@@ -118,8 +119,11 @@ function SingleTask(inputProps) {
 
   const sanitizeValues = task => {
     let taskCopy = { ...task };
-    if (task.id === '') {
+    if (!task.taskID || task.taskID === '') {
       taskCopy = addID(taskCopy);
+    }
+    if (!task.email || task.email === '') {
+      taskCopy.email = 'devon@taskr.com';
     }
     taskCopy.tags = convertTagsArray(task.tags);
     return taskCopy;
