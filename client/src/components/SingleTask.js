@@ -70,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 function SingleTask(inputProps) {
   const initialState = {
     content: '',
+    email: '',
     github: '',
     newTask: false,
     priority: 0,
@@ -118,8 +119,11 @@ function SingleTask(inputProps) {
 
   const sanitizeValues = task => {
     let taskCopy = { ...task };
-    if (task.id === '') {
+    if (!task.taskID || task.taskID === '') {
       taskCopy = addID(taskCopy);
+    }
+    if (!task.email || task.email === '') {
+      taskCopy.email = 'devon@taskr.online';
     }
     taskCopy.tags = convertTagsArray(task.tags);
     return taskCopy;
@@ -128,12 +132,11 @@ function SingleTask(inputProps) {
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
-    console.log(data);
     if (inputProps.newTask) {
-      console.log('new task');
+      console.log('adding new task!');
       axios.post('/addtask', data).then(
-        () => {
-          console.log('posting new task');
+        res => {
+          console.log(res.data);
           setTimeout(() => {
             inputProps.loadTasks();
           }, 1000); // let it wait before loading

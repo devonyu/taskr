@@ -1,6 +1,6 @@
 // @flow
 
-import uuidv4 from 'uuid/v4';
+import UUID from 'uuid/v4';
 
 export function convertTagsArray(
   tags: Array<{ label: String, value: string }>,
@@ -28,6 +28,6 @@ export function convertTagsStrings(
 
 export function addID(task) {
   const taskCopy = { ...task };
-  taskCopy.id = uuidv4();
+  taskCopy.taskID = UUID();
   return taskCopy;
 }
