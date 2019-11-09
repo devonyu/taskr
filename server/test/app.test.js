@@ -90,6 +90,18 @@ describe("Test the ping path", () => {
         const response = await JSON.parse(addTask.text);
         const status = await JSON.parse(addTask.status);
         expect(status).toBe(200);
+        done();
+      } catch (err) {
+        console.log(`Error ${err}`);
+        done();
+      }
+    });
+    test("Create a new task and returns the task when completed", async done => {
+      try {
+        const addTask = await request(app)
+          .post("/addtask")
+          .send(task);
+        const response = await JSON.parse(addTask.text);
         expect(response).toEqual(task);
         done();
       } catch (err) {

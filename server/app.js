@@ -100,10 +100,15 @@ app.get("/dynamomulti", async (req, res) => {
 // add new task
 app.post("/addtask", async (req, res) => {
   console.log("/addtask hit!");
-  const { task, taskID, email } = await req.body.Item;
-  // const { taskID } = await req.body.Item;
+  console.log(req.body);
+  // if (req.body && req.body.Item) {
+  //   const { task, taskID, email } = await req.body.Item;
+  // } else {
+  const { task, taskID, email } = await req.body;
+  // }
+  // const { task, taskID, email } = await req.body.Item;
+  console.log(task, taskID, email);
   const table = "Users";
-  // const { email } = await req.body.Item;
   const params = {
     TableName: table,
     Item: {
@@ -141,26 +146,41 @@ app.post("/addtask", async (req, res) => {
 // update task
 app.put("/updatetask", (req, res) => {
   const table = "Users";
+  const {
+    email,
+    taskID,
+    content,
+    github,
+    priority,
+    progress,
+    starred,
+    startDate,
+    startDateUnix,
+    targetDate,
+    targetDateUnix,
+    tags,
+    title
+  } = req.body;
   const params = {
     TableName: table,
     Key: {
-      email: req.body.email,
-      taskID: req.body.taskID
+      email,
+      taskID
     },
     UpdateExpression:
       "set task.content = :cont, task.github=:git, task.priority=:pri, task.progress = :pro, task.starred=:s, task.startDate=:sd, task.startDateUnix = :sdunix, task.targetDate=:td, task.targetDateUnix=:tdunix, task.tags=:tags, task.title=:title",
     ExpressionAttributeValues: {
-      ":cont": req.body.content || null,
-      ":git": req.body.github || null,
-      ":pri": req.body.priority || 0,
-      ":pro": req.body.progress || 0,
-      ":s": req.body.starred || false,
-      ":sd": req.body.startDate || null,
-      ":sdunix": req.body.startDateUnix || null,
-      ":td": req.body.targetDate || null,
-      ":tdunix": req.body.targetDateUnix || null,
-      ":tags": req.body.tags || null,
-      ":title": req.body.title || null
+      ":cont": content || null,
+      ":git": github || null,
+      ":pri": priority || 0,
+      ":pro": progress || 0,
+      ":s": starred || false,
+      ":sd": startDate || null,
+      ":sdunix": startDateUnix || null,
+      ":td": targetDate || null,
+      ":tdunix": targetDateUnix || null,
+      ":tags": tags || null,
+      ":title": title || null
     },
     ReturnValues: "UPDATED_NEW"
   };
