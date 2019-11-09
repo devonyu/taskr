@@ -12,9 +12,9 @@
     "node": "12.4"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "jest --detectOpenHandles",
-    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "jest --detectOpenHandles"
   },
   "jest": {
     "verbose": true,
