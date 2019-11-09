@@ -201,7 +201,7 @@ app.put("/updatetask", (req, res) => {
       res.status(404).send(JSON.stringify(data, null, 2));
     } else {
       console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
-      res.status(200).send(JSON.stringify(data, null, 2));
+      res.status(200).send(data);
     }
   });
 });

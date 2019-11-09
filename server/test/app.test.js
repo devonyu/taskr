@@ -153,4 +153,26 @@ describe("Test the ping path", () => {
       }
     });
   });
+
+  describe("Test the test updatetask route", () => {
+    test("It should response update the task", async done => {
+      const randomNumberString = String(Math.floor(Math.random() * 1000));
+      const randomPriority = Math.floor(Math.random() * 5);
+      const randomProgress = Math.floor(Math.random() * 5);
+      const task = {
+        taskID: "c61d2e4b-4f1e-47ac-b02e-3fffd92c111f",
+        email: "devon@taskr.online",
+        content: randomNumberString,
+        priority: randomPriority,
+        progress: randomProgress
+      };
+      const response = await request.put("/updatetask").send(task);
+      const responseParse = JSON.parse(response.text);
+      expect(response.statusCode).toBe(200);
+      expect(responseParse.Attributes.task.content).toEqual(randomNumberString);
+      expect(responseParse.Attributes.task.priority).toEqual(randomPriority);
+      expect(responseParse.Attributes.task.progress).toEqual(randomProgress);
+      done();
+    });
+  });
 });
