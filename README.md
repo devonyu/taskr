@@ -43,6 +43,7 @@ A user can create tasks and assign specific attributes to said task in order to 
 - Table name = `Users`, Primary partition key= `email`, Primary sort key = `taskID`. Note your ARN to know where your DB can be connected to. It is also advised that you set up the AWS CLI and set your credentials locally
 - update your Config within `app.js` and set the endpoint to where your local DynamoDB is running => `AWS.config.update({ region: "us-west-1" endpoint: "http://localhost:8001" });`
 - more information on local dev with DynamoDB [here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+- start the local dynamodb by going into terminal and cd to `dynamodb_local_latest` and run `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -port 8001`
 
 ### DevOps setup
 
