@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
+const UUID = require("uuid");
 
 describe("Test the ping path", () => {
   test("It should respond with statusCode 418", async () => {
@@ -57,5 +58,55 @@ describe("Test the ping path", () => {
       const taskData = await JSON.parse(response.text);
       expect(typeof taskData.Items[0].email).toBe("string");
     });
+  });
+
+  describe("Test the test addtask route", () => {
+    test("Create a new task", async done => {
+      const id = UUID();
+      const task = {
+        TableName: "Users",
+        Item: {
+          email: "devon@taskr.online",
+          taskID: id,
+          task: {
+            content: "hello" || null,
+            github: "hello" || null,
+            priority: 2 || 0,
+            progress: 3 || 0,
+            starred: true || false,
+            startDate: null,
+            startDateUnix: null,
+            tags: null,
+            targetDate: null,
+            targetDateUnix: null,
+            title: "Test post"
+          }
+        }
+      };
+      try {
+        const addTask = await request(app)
+          .post("/addtask")
+          .send(task);
+        const response = JSON.parse(addTask.status);
+        console.log(response);
+        expect(response).toBe(200);
+        done();
+      } catch (err) {
+        // write test for failure here
+        console.log(`Error ${err}`);
+        done();
+      }
+    });
+
+    // test("It should respond with an array of tasks", async () => {
+    //   const response = await request(app).get("/dynamomulti");
+    //   const taskData = await JSON.parse(response.text);
+    //   expect(taskData.Items).toBeInstanceOf(Array);
+    // });
+    // test("It should respond with user email", async () => {
+    //   const response = await request(app).get("/dynamomulti");
+    //   const taskData = await JSON.parse(response.text);
+    //   expect(typeof taskData.Items[0].email).toBe("string");
+    // });
   });
 });

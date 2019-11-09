@@ -99,6 +99,7 @@ app.get("/dynamomulti", async (req, res) => {
 
 // add new task
 app.post("/addtask", (req, res) => {
+  console.log("/addtask hit!");
   const id = UUID();
   const table = "Users";
   const email = "devon@taskr.online";
@@ -113,12 +114,12 @@ app.post("/addtask", (req, res) => {
         priority: req.body.priority || 0,
         progress: req.body.progress || 0,
         starred: req.body.starred || false,
-        startDate: req.body.startDate,
-        startDateUnix: req.body.startDateUnix,
+        startDate: req.body.startDate || null,
+        startDateUnix: req.body.startDateUnix || null,
         tags: req.body.tags || null,
-        targetDate: req.body.targetDate,
-        targetDateUnix: req.body.targetDateUnix,
-        title: req.body.title
+        targetDate: req.body.targetDate || null,
+        targetDateUnix: req.body.targetDateUnix || null,
+        title: req.body.title || null
       }
     }
   };
@@ -156,7 +157,7 @@ app.put("/updatetask", (req, res) => {
       ":sd": req.body.startDate || null,
       ":sdunix": req.body.startDateUnix || null,
       ":td": req.body.targetDate || null,
-      ":tdunix": req.body.targetDateUnix,
+      ":tdunix": req.body.targetDateUnix || null,
       ":tags": req.body.tags || null,
       ":title": req.body.title || null
     },
