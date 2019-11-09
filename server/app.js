@@ -31,7 +31,7 @@ console.log("Region: ", AWS.config.region);
 console.log("Current Process ENV:");
 console.log(process.env.NODE_ENV);
 
-AWS.config.getCredentials(function(err) {
+AWS.config.getCredentials(err => {
   if (err) console.log(err.stack);
   else {
     console.log("AWS credentials correctly loaded");
@@ -57,22 +57,22 @@ app.get("/dynamo", (req, res) => {
       taskID: id
     }
   };
-  docClient.get(params, function(err, data) {
+  docClient.get(params, async (err, data) => {
     if (err) {
       console.error(
         "Unable to read item. Error JSON:",
         JSON.stringify(err, null, 2)
       );
-      res.status(400).send(JSON.stringify(err, null, 2));
+      await res.status(400).send(JSON.stringify(err, null, 2));
     } else {
       // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-      res.status(200).send(JSON.stringify(data, null, 2));
+      await res.status(200).send(JSON.stringify(data, null, 2));
     }
   });
 });
 
 // get all task from specific email
-app.get("/dynamomulti", (req, res) => {
+app.get("/dynamomulti", async (req, res) => {
   console.log("/dynamomulti hit");
   const table = "Users";
   const email = "devon@taskr.online";
@@ -86,13 +86,13 @@ app.get("/dynamomulti", (req, res) => {
       ":e": "devon@taskr.online"
     }
   };
-  docClient.query(params, function(err, data) {
+  docClient.query(params, async (err, data) => {
     if (err) {
       console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-      res.status(400).send(JSON.stringify(err, null, 2));
+      await res.status(400).send(JSON.stringify(err, null, 2));
     } else {
       console.log("Query succeeded.");
-      res.status(200).send(data);
+      await res.status(200).send(JSON.stringify(data, null, 2));
     }
   });
 });
@@ -123,7 +123,7 @@ app.post("/addtask", (req, res) => {
     }
   };
   console.log("Adding a new item...");
-  docClient.put(params, function(err, data) {
+  docClient.put(params, (err, data) => {
     if (err) {
       console.error(
         "Unable to add item. Error JSON:",
@@ -163,7 +163,7 @@ app.put("/updatetask", (req, res) => {
     ReturnValues: "UPDATED_NEW"
   };
   console.log("updating item...");
-  docClient.update(params, function(err, data) {
+  docClient.update(params, (err, data) => {
     if (err) {
       console.error(
         "Unable to update item. Error JSON:",
@@ -183,7 +183,7 @@ if (process.env.NODE_ENV === "production") {
   console.log(process.env.NODE_ENV);
   app.use(express.static(path.join(__dirname, "/../client/build")));
   // Handle React routing, return all requests to React app
-  app.get("*", function(req, res) {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
   });
 }
@@ -192,12 +192,12 @@ app.get("/helloworld", (req, res) => {
   res.status(200).send("Hello World!");
 });
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
   app.use(express.static(path.join(__dirname, "/../client/build")));
   res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
 });
 
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
   app.use(express.static(path.join(__dirname, "/../client/build")));
   res.sendFile(path.join(__dirname, "/../client/build", "index.html"));
 });

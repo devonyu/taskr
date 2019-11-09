@@ -41,4 +41,21 @@ describe("Test the ping path", () => {
       );
     });
   });
+
+  describe("Test the test dynamomulti route", () => {
+    test("It should response with status 200", async () => {
+      const response = await request(app).get("/dynamomulti");
+      expect(response.statusCode).toBe(200);
+    });
+    test("It should respond with an array of tasks", async () => {
+      const response = await request(app).get("/dynamomulti");
+      const taskData = await JSON.parse(response.text);
+      expect(taskData.Items).toBeInstanceOf(Array);
+    });
+    test("It should respond with user email", async () => {
+      const response = await request(app).get("/dynamomulti");
+      const taskData = await JSON.parse(response.text);
+      expect(typeof taskData.Items[0].email).toBe("string");
+    });
+  });
 });
