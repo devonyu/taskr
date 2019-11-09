@@ -8,10 +8,24 @@ const UUID = require("uuid");
 const bodyParser = require("body-parser");
 
 app.use(cors());
+app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+if (process.env && process.env.NODE_ENV !== "production") {
+  const dotenv = require("dotenv");
+  dotenv.config();
+}
 
 AWS.config.update({
   region: "us-west-1"
 });
+
+if (process.env && process.env.NODE_ENV === "development") {
+  AWS.config.update({
+    endpoint: "http://localhost:8001"
+  });
+}
 
 console.log("Region: ", AWS.config.region);
 console.log("Current Process ENV:");
@@ -21,16 +35,10 @@ AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack);
   else {
     console.log("AWS credentials correctly loaded");
-    // console.log("Access key:", AWS.config.credentials.accessKeyId);
-    // console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
   }
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
-
-app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 app.get("/ping", (req, res) => {
   console.log("/ping route hit, returning pong");
