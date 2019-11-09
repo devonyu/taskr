@@ -214,7 +214,8 @@ app.delete("/deletetask", (req, res) => {
     Key: {
       email,
       taskID
-    }
+    },
+    ConditionExpression: "attribute_exists(taskID)"
   };
   docClient.delete(params, (err, data) => {
     if (err) {
@@ -222,10 +223,10 @@ app.delete("/deletetask", (req, res) => {
         "Unable to delete item. Error JSON:",
         JSON.stringify(err, null, 2)
       );
-      res.status(404).send(JSON.stringify(err, null, 2));
+      res.status(400).send(JSON.stringify(err, null, 2));
     } else {
       console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
-      res.status(200).send(JSON.stringify(data, null, 2));
+      res.status(204).send(JSON.stringify("data", null, 2));
     }
   });
 });
