@@ -162,6 +162,7 @@ describe("Test the ping path", () => {
       const task = {
         taskID: "c61d2e4b-4f1e-47ac-b02e-3fffd92c111f",
         email: "devon@taskr.online",
+        title: "DynamoDB test",
         content: randomNumberString,
         priority: randomPriority,
         progress: randomProgress
@@ -169,6 +170,7 @@ describe("Test the ping path", () => {
       const response = await request.put("/updatetask").send(task);
       const responseParse = JSON.parse(response.text);
       expect(response.statusCode).toBe(200);
+      expect(responseParse.Attributes.task.title).toEqual(task.title);
       expect(responseParse.Attributes.task.content).toEqual(randomNumberString);
       expect(responseParse.Attributes.task.priority).toEqual(randomPriority);
       expect(responseParse.Attributes.task.progress).toEqual(randomProgress);
