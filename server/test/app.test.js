@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const UUID = require("uuid");
+const UUID = require("uuid/v4");
 
 describe("Test the ping path", () => {
   test("It should respond with statusCode 418", async () => {
@@ -63,24 +63,19 @@ describe("Test the ping path", () => {
   describe("Test the test addtask route", () => {
     const randomID = UUID();
     const task = {
-      TableName: "Users",
-      Item: {
-        email: "devon@taskr.online",
-        taskID: randomID,
-        task: {
-          content: "something",
-          github: null,
-          priority: 2,
-          progress: 3,
-          starred: false,
-          startDate: null,
-          startDateUnix: null,
-          tags: null,
-          targetDate: null,
-          targetDateUnix: null,
-          title: "hello world"
-        }
-      }
+      email: "devon@taskr.online",
+      taskID: randomID,
+      content: "something",
+      github: null,
+      priority: 2,
+      progress: 3,
+      starred: false,
+      startDate: null,
+      startDateUnix: null,
+      tags: null,
+      targetDate: null,
+      targetDateUnix: null,
+      title: "hello world"
     };
     test("Create a new task and return status code 200", async done => {
       try {
@@ -102,7 +97,12 @@ describe("Test the ping path", () => {
           .post("/addtask")
           .send(task);
         const response = await JSON.parse(addTask.text);
-        expect(response).toEqual(task);
+        // console.log(response.Item.task);
+        // console.log("LoOOK UPABOVE");
+        const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
+          task
+        );
+        expect(cloneTask).toEqual(response.Item.task);
         done();
       } catch (err) {
         console.log(`Error ${err}`);

@@ -4,7 +4,7 @@ const app = express();
 const morgan = require("morgan");
 const path = require("path");
 const AWS = require("aws-sdk");
-const UUID = require("uuid");
+const UUID = require("uuid/v4");
 const bodyParser = require("body-parser");
 
 app.use(cors());
@@ -101,13 +101,21 @@ app.get("/dynamomulti", async (req, res) => {
 app.post("/addtask", async (req, res) => {
   console.log("/addtask hit!");
   console.log(req.body);
-  // if (req.body && req.body.Item) {
-  //   const { task, taskID, email } = await req.body.Item;
-  // } else {
-  const { task, taskID, email } = await req.body;
-  // }
-  // const { task, taskID, email } = await req.body.Item;
-  console.log(task, taskID, email);
+  const {
+    email,
+    taskID,
+    content,
+    github,
+    priority,
+    progress,
+    starred,
+    startDate,
+    startDateUnix,
+    targetDate,
+    targetDateUnix,
+    tags,
+    title
+  } = await req.body;
   const table = "Users";
   const params = {
     TableName: table,
@@ -115,21 +123,22 @@ app.post("/addtask", async (req, res) => {
       email,
       taskID,
       task: {
-        content: task.content || null,
-        github: task.github || null,
-        priority: task.priority || 0,
-        progress: task.progress || 0,
-        starred: task.starred || false,
-        startDate: task.startDate || null,
-        startDateUnix: task.startDateUnix || null,
-        tags: task.tags || null,
-        targetDate: task.targetDate || null,
-        targetDateUnix: task.targetDateUnix || null,
-        title: task.title || null
+        content: content || null,
+        github: github || null,
+        priority: priority || 0,
+        progress: progress || 0,
+        starred: starred || false,
+        startDate: startDate || null,
+        startDateUnix: startDateUnix || null,
+        tags: tags || null,
+        targetDate: targetDate || null,
+        targetDateUnix: targetDateUnix || null,
+        title: title || null
       }
     }
   };
-  // console.log("Adding a new item...");
+  console.log("Adding a new item...");
+  console.log(params);
   docClient.put(params, async (err, data) => {
     if (err) {
       console.error(
