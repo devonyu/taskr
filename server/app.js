@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 
 app.use(cors());
 app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env && process.env.NODE_ENV !== "production") {
@@ -98,41 +98,42 @@ app.get("/dynamomulti", async (req, res) => {
 });
 
 // add new task
-app.post("/addtask", (req, res) => {
+app.post("/addtask", async (req, res) => {
   console.log("/addtask hit!");
-  const id = UUID();
+  const { task, taskID, email } = await req.body.Item;
+  // const { taskID } = await req.body.Item;
   const table = "Users";
-  const email = "devon@taskr.online";
+  // const { email } = await req.body.Item;
   const params = {
     TableName: table,
     Item: {
-      email: email,
-      taskID: id,
+      email,
+      taskID,
       task: {
-        content: req.body.content || null,
-        github: req.body.github || null,
-        priority: req.body.priority || 0,
-        progress: req.body.progress || 0,
-        starred: req.body.starred || false,
-        startDate: req.body.startDate || null,
-        startDateUnix: req.body.startDateUnix || null,
-        tags: req.body.tags || null,
-        targetDate: req.body.targetDate || null,
-        targetDateUnix: req.body.targetDateUnix || null,
-        title: req.body.title || null
+        content: task.content || null,
+        github: task.github || null,
+        priority: task.priority || 0,
+        progress: task.progress || 0,
+        starred: task.starred || false,
+        startDate: task.startDate || null,
+        startDateUnix: task.startDateUnix || null,
+        tags: task.tags || null,
+        targetDate: task.targetDate || null,
+        targetDateUnix: task.targetDateUnix || null,
+        title: task.title || null
       }
     }
   };
-  console.log("Adding a new item...");
-  docClient.put(params, (err, data) => {
+  // console.log("Adding a new item...");
+  docClient.put(params, async (err, data) => {
     if (err) {
       console.error(
         "Unable to add item. Error JSON:",
         JSON.stringify(err, null, 2)
       );
     } else {
-      console.log("Added item:", JSON.stringify(data, null, 2));
-      res.status(200).send(JSON.stringify(data, null, 2));
+      // console.log("Added item:", JSON.stringify(params, null, 2));
+      await res.status(200).send(JSON.stringify(params, null, 2));
     }
   });
 });

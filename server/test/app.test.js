@@ -61,52 +61,41 @@ describe("Test the ping path", () => {
   });
 
   describe("Test the test addtask route", () => {
-    test("Create a new task", async done => {
-      const id = UUID();
-      const task = {
-        TableName: "Users",
-        Item: {
-          email: "devon@taskr.online",
-          taskID: id,
-          task: {
-            content: "hello" || null,
-            github: "hello" || null,
-            priority: 2 || 0,
-            progress: 3 || 0,
-            starred: true || false,
-            startDate: null,
-            startDateUnix: null,
-            tags: null,
-            targetDate: null,
-            targetDateUnix: null,
-            title: "Test post"
-          }
+    const randomID = UUID();
+    const task = {
+      TableName: "Users",
+      Item: {
+        email: "devon@taskr.online",
+        taskID: randomID,
+        task: {
+          content: "something",
+          github: null,
+          priority: 2,
+          progress: 3,
+          starred: false,
+          startDate: null,
+          startDateUnix: null,
+          tags: null,
+          targetDate: null,
+          targetDateUnix: null,
+          title: "hello world"
         }
-      };
+      }
+    };
+    test("Create a new task and return status code 200", async done => {
       try {
         const addTask = await request(app)
           .post("/addtask")
           .send(task);
-        const response = JSON.parse(addTask.status);
-        console.log(response);
-        expect(response).toBe(200);
+        const response = await JSON.parse(addTask.text);
+        const status = await JSON.parse(addTask.status);
+        expect(status).toBe(200);
+        expect(response).toEqual(task);
         done();
       } catch (err) {
-        // write test for failure here
         console.log(`Error ${err}`);
         done();
       }
     });
-
-    // test("It should respond with an array of tasks", async () => {
-    //   const response = await request(app).get("/dynamomulti");
-    //   const taskData = await JSON.parse(response.text);
-    //   expect(taskData.Items).toBeInstanceOf(Array);
-    // });
-    // test("It should respond with user email", async () => {
-    //   const response = await request(app).get("/dynamomulti");
-    //   const taskData = await JSON.parse(response.text);
-    //   expect(typeof taskData.Items[0].email).toBe("string");
-    // });
   });
 });
