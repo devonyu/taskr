@@ -206,6 +206,29 @@ app.put("/updatetask", (req, res) => {
   });
 });
 
+app.delete("/deletetask", (req, res) => {
+  console.log("/deletetask hit");
+  const { email, taskID } = req.body;
+  const params = {
+    TableName: "Users",
+    Key: {
+      email,
+      taskID
+    }
+  };
+  docClient.delete(params, function(err, data) {
+    if (err) {
+      console.error(
+        "Unable to delete item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+    } else {
+      console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+      res.status(200).send(JSON.stringify(data, null, 2));
+    }
+  });
+});
+
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
   console.log("is this production?");
