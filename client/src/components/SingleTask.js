@@ -70,21 +70,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SingleTask(inputProps) {
-  const initialState = {
-    content: '',
-    email: '',
-    github: '',
-    newTask: false,
-    priority: 0,
-    progress: 0,
-    starred: false,
-    startDate: null,
-    startDateUnix: null,
-    tags: [],
-    targetDate: null,
-    targetDateUnix: null,
-    title: '',
-  };
+  // const initialState = {
+  //   content: '',
+  //   email: '',
+  //   github: '',
+  //   newTask: false,
+  //   priority: 0,
+  //   progress: 0,
+  //   starred: false,
+  //   startDate: null,
+  //   startDateUnix: null,
+  //   tags: [],
+  //   targetDate: null,
+  //   targetDateUnix: null,
+  //   title: '',
+  // };
   const classes = useStyles();
   const [values, setValues] = useState(inputProps.taskData);
 
@@ -163,10 +163,10 @@ function SingleTask(inputProps) {
     }
   };
 
-  const handleClearTask = () => {
-    const { email, taskID } = inputProps.taskData;
-    setValues({ ...initialState, email, taskID });
-  };
+  // const handleClearTask = () => {
+  //   const { email, taskID } = inputProps.taskData;
+  //   setValues({ ...initialState, email, taskID });
+  // };
 
   const handleDeleteTask = () => {
     const { email, taskID } = inputProps.taskData;
