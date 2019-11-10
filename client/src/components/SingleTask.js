@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
 import { SendSharp, Star, StarBorder } from '@material-ui/icons';
+import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -69,22 +70,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const initialState = {
+  content: '',
+  email: '',
+  github: '',
+  newTask: false,
+  priority: 0,
+  progress: 0,
+  starred: false,
+  startDate: null,
+  startDateUnix: null,
+  tags: [],
+  targetDate: null,
+  targetDateUnix: null,
+  title: '',
+};
+
 function SingleTask(inputProps) {
-  const initialState = {
-    content: '',
-    email: '',
-    github: '',
-    newTask: false,
-    priority: 0,
-    progress: 0,
-    starred: false,
-    startDate: null,
-    startDateUnix: null,
-    tags: [],
-    targetDate: null,
-    targetDateUnix: null,
-    title: '',
-  };
   const classes = useStyles();
   const [values, setValues] = useState(inputProps.taskData);
 
@@ -223,6 +225,8 @@ function SingleTask(inputProps) {
                 <SendSharp className={classes.iconSmall} />
               </Button>
             </Tooltip>
+            {/* eslint-disable-next-line max-len */}
+            {/* TODO: Create a chevron dropdown to combine both for clear/delete */}
             <Tooltip title="Delete Task">
               <IconButton
                 aria-label="delete"
@@ -230,6 +234,15 @@ function SingleTask(inputProps) {
                 color="secondary"
               >
                 <DeleteIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Clear Task">
+              <IconButton
+                aria-label="clear"
+                onClick={handleClearTask}
+                color="default"
+              >
+                <ClearIcon fontSize="small" />
               </IconButton>
             </Tooltip>
           </Toolbar>
