@@ -28,12 +28,10 @@ export const getUserTasks = async email => {
       }
     })
     .then(results => {
-      console.log('Iteration has completed, last iterated pair:');
-      console.log(results);
+      console.log('Iteration has completed, Tasklist below:');
       return Array.isArray(results) && results.length ? results : [];
     })
     .catch(err => {
-      // This code runs if there were any errors
       console.log(err);
     });
   return result;

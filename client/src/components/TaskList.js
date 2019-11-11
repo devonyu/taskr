@@ -7,8 +7,8 @@ function TaskList(inputProps) {
   return (
     <MaterialTable
       title="Tasks"
-      columns={inputProps.tasks.columns}
-      data={inputProps.tasks.data}
+      columns={inputProps.columns}
+      data={inputProps.data}
       onRowClick={(event, rowData) => inputProps.toggleTask(rowData)}
       options={{
         headerStyle: {

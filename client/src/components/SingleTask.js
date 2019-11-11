@@ -1,6 +1,5 @@
 // @flow
 
-import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
@@ -71,21 +70,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SingleTask(inputProps) {
-  // const initialState = {
-  //   content: '',
-  //   email: '',
-  //   github: '',
-  //   newTask: false,
-  //   priority: 0,
-  //   progress: 0,
-  //   starred: false,
-  //   startDate: null,
-  //   startDateUnix: null,
-  //   tags: [],
-  //   targetDate: null,
-  //   targetDateUnix: null,
-  //   title: '',
-  // };
   const classes = useStyles();
   const [values, setValues] = useState(inputProps.taskData);
 
@@ -132,33 +116,28 @@ function SingleTask(inputProps) {
     return taskCopy;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
     if (inputProps.newTask) {
       console.log('adding new task!');
       console.log(data);
-      saveTask(data).then(res => {
+      await saveTask(data).then(res => {
         console.log(res);
         setTimeout(() => {
-          inputProps.loadTasks();
-        }, 1000); // let it wait  before loading
+          inputProps.updateState(data, 'create');
+        }, 500); // let it wait  before loading
       });
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      updateTask(data).then(res => {
+      await updateTask(data).then(res => {
         console.log(res);
         setTimeout(() => {
-          inputProps.loadTasks();
-        }, 1000); // let it wait  before loading
+          inputProps.updateState(data, 'update');
+        }, 500); // let it wait  before loading
       });
     }
   };
-
-  // const handleClearTask = () => {
-  //   const { email, taskID } = inputProps.taskData;
-  //   setValues({ ...initialState, email, taskID });
-  // };
 
   const handleDeleteTask = () => {
     const { email, taskID } = inputProps.taskData;
@@ -166,7 +145,7 @@ function SingleTask(inputProps) {
     deleteTask(taskID).then(res => {
       console.log(res);
       setTimeout(() => {
-        inputProps.loadTasks();
+        inputProps.updateState(inputProps.taskData, 'delete');
       }, 1000); // let it wait  before loading
     });
   };
