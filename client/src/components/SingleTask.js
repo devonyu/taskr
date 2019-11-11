@@ -26,6 +26,7 @@ import {
 } from '../utils/commonTools';
 import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
+import { saveUser, saveTask } from '../utils/netlifyapi';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -136,17 +137,13 @@ function SingleTask(inputProps) {
     const data = sanitizeValues(values);
     if (inputProps.newTask) {
       console.log('adding new task!');
-      axios.post('/addtask', data).then(
-        res => {
-          console.log(res.data);
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      console.log(data);
+      saveTask(data).then(res => {
+        console.log(res);
+        setTimeout(() => {
+          inputProps.loadTasks();
+        }, 1000); // let it wait  before loading
+      });
     } else if (!data.newTask) {
       console.log('update exisiting task');
       axios.put('/updatetask', data).then(

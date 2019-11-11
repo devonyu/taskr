@@ -1,13 +1,12 @@
 // @flow
 
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
 import { Star, StarBorder } from '@material-ui/icons';
-import localforage from 'localforage';
-import { priorityOptions, progressOptions } from '../data';
+import { exampleTasks, priorityOptions, progressOptions } from '../data';
+import { getUserTasks } from '../utils/netlifyapi';
 import TaskList from './TaskList';
 import SingleTask from './SingleTask';
 
@@ -20,6 +19,22 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
 }));
+
+const exampleTask = {
+  email: 'devon@taskr.online',
+  taskID: 'sasdfasdfasdf',
+  content: 'create netlify',
+  github: null,
+  priority: 2,
+  progress: 3,
+  starred: false,
+  startDate: null,
+  startDateUnix: null,
+  tags: null,
+  targetDate: null,
+  targetDateUnix: null,
+  title: 'netlify this task netlify',
+};
 
 export default function TaskContainerNetlify() {
   const classes = useStyles();
@@ -94,38 +109,14 @@ export default function TaskContainerNetlify() {
   });
 
   const loadTasks = async () => {
-    localforage
-      .setItem('testz', 'localforage is awesome')
-      .then(() => {
-        return localforage.getItem('testz');
-      })
-      .then(value => {
-        const task = {
-          email: 'devon@taskr.online',
-          taskID: 'sasdfasdfasdf',
-          content: 'create netlify',
-          github: null,
-          priority: 2,
-          progress: 3,
-          starred: false,
-          startDate: null,
-          startDateUnix: null,
-          tags: null,
-          targetDate: null,
-          targetDateUnix: null,
-          title: 'netlify this task netlify',
-        };
-        console.log(value);
-        setState({ ...state, data: [task] });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    console.log('whatsup');
+    const tasks = await getUserTasks('devon@taskr.online');
+    return tasks;
   };
 
   useEffect(() => {
-    loadTasks();
+    loadTasks().then(tasks => {
+      setState({ ...state, data: tasks });
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
