@@ -26,7 +26,7 @@ import {
 } from '../utils/commonTools';
 import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
-import { saveUser, saveTask } from '../utils/netlifyapi';
+import { deleteTask, saveTask, updateTask } from '../utils/netlifyapi';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -146,17 +146,12 @@ function SingleTask(inputProps) {
       });
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      axios.put('/updatetask', data).then(
-        () => {
-          console.log('updating task');
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      updateTask(data).then(res => {
+        console.log(res);
+        setTimeout(() => {
+          inputProps.loadTasks();
+        }, 1000); // let it wait  before loading
+      });
     }
   };
 
@@ -168,18 +163,12 @@ function SingleTask(inputProps) {
   const handleDeleteTask = () => {
     const { email, taskID } = inputProps.taskData;
     console.log(`Deleting ${email}, ${taskID}!`);
-    const data = { email, taskID };
-    axios.delete('/deletetask', { data }).then(
-      res => {
-        console.log(`deleted ${res.data}`);
-        setTimeout(() => {
-          inputProps.loadTasks();
-        }, 1000); // let it wait before loading
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    deleteTask(taskID).then(res => {
+      console.log(res);
+      setTimeout(() => {
+        inputProps.loadTasks();
+      }, 1000); // let it wait  before loading
+    });
   };
 
   const handleTag = tag => {

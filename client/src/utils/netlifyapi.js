@@ -20,17 +20,17 @@ export const getUserTasks = async email => {
   const length = await localforage.length();
   const result = await localforage
     .iterate((value, key, iterationNumber) => {
-      if (iterationNumber < length) {
-        console.log([key, value]);
+      if (iterationNumber <= length) {
         storage.push(value);
-      } else {
+      }
+      if (iterationNumber === length) {
         return storage;
       }
     })
-    .then(result => {
+    .then(results => {
       console.log('Iteration has completed, last iterated pair:');
-      console.log(result);
-      return result;
+      console.log(results);
+      return results;
     })
     .catch(err => {
       // This code runs if there were any errors
@@ -40,7 +40,7 @@ export const getUserTasks = async email => {
 };
 
 export const saveTask = async task => {
-  const { taskID, email } = task;
+  const { taskID } = task;
   await localforage
     .setItem(taskID, task)
     .then(() => {
@@ -51,15 +51,14 @@ export const saveTask = async task => {
     });
 };
 
-export const updateTask = (email, task) => {
+export const updateTask = task => {
+  const { taskID } = task;
   localforage
-    .setItem('testz', 'localforage is awesome')
+    .getItem(taskID)
     .then(() => {
-      return localforage.getItem('testz');
+      return localforage.setItem(taskID, task);
     })
     .then(value => {
-      console.log(value);
-      // setState({ ...state, data: exampleTasks });
       return value;
     })
     .catch(error => {
@@ -67,16 +66,11 @@ export const updateTask = (email, task) => {
     });
 };
 
-export const deleteTask = (email, task) => {
-  localforage
-    .setItem('testz', 'localforage is awesome')
+export const deleteTask = async taskID => {
+  await localforage
+    .removeItem(taskID)
     .then(() => {
-      return localforage.getItem('testz');
-    })
-    .then(value => {
-      console.log(value);
-      // setState({ ...state, data: exampleTasks });
-      return value;
+      return localforage.getItem(taskID);
     })
     .catch(error => {
       console.log(error);
