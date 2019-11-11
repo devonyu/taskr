@@ -1,6 +1,5 @@
 // @flow
 
-import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
@@ -27,6 +26,7 @@ import {
 } from '../utils/commonTools';
 import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
+import { deleteTask, saveTask, updateTask } from '../utils/netlifyapi';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -133,58 +133,38 @@ function SingleTask(inputProps) {
     return taskCopy;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
     if (inputProps.newTask) {
       console.log('adding new task!');
-      axios.post('/addtask', data).then(
-        res => {
-          console.log(res.data);
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      console.log(data);
+      await saveTask(data).then(res => {
+        console.log(res);
+        setTimeout(() => {
+          inputProps.updateState(data, 'create');
+        }, 500); // let it wait  before loading
+      });
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      axios.put('/updatetask', data).then(
-        () => {
-          console.log('updating task');
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      await updateTask(data).then(res => {
+        console.log(res);
+        setTimeout(() => {
+          inputProps.updateState(data, 'update');
+        }, 500); // let it wait  before loading
+      });
     }
-  };
-
-  const handleClearTask = () => {
-    const { email, taskID } = inputProps.taskData;
-    setValues({ ...initialState, email, taskID });
   };
 
   const handleDeleteTask = () => {
     const { email, taskID } = inputProps.taskData;
     console.log(`Deleting ${email}, ${taskID}!`);
-    const data = { email, taskID };
-    axios.delete('/deletetask', { data }).then(
-      res => {
-        console.log(`deleted ${res.data}`);
-        setTimeout(() => {
-          inputProps.loadTasks();
-        }, 1000); // let it wait before loading
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    deleteTask(taskID).then(res => {
+      console.log(res);
+      setTimeout(() => {
+        inputProps.updateState(inputProps.taskData, 'delete');
+      }, 1000); // let it wait  before loading
+    });
   };
 
   const handleTag = tag => {
