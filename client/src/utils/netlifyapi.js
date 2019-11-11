@@ -51,15 +51,12 @@ export const saveTask = async task => {
     });
 };
 
-export const updateTask = task => {
+export const updateTask = async task => {
   const { taskID } = task;
-  localforage
+  await localforage
     .getItem(taskID)
     .then(() => {
       return localforage.setItem(taskID, task);
-    })
-    .then(value => {
-      return value;
     })
     .catch(error => {
       console.log(error);

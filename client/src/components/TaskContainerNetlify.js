@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
 import { Star, StarBorder } from '@material-ui/icons';
-import { exampleTasks, priorityOptions, progressOptions } from '../data';
+import { priorityOptions, progressOptions } from '../data';
 import { getUserTasks } from '../utils/netlifyapi';
 import TaskList from './TaskList';
 import SingleTask from './SingleTask';
