@@ -5,28 +5,72 @@ import React from 'react';
 function Homepage() {
   return (
     <div className="Homepage">
-      <div className="Intro">
-        <div className="left">
-          <h1>Organize your Workflow</h1>
-          <span>
-            TaskR helps individuals organize their work faster and easier than
-            before
-          </span>
+      <section id="intro">
+        <div className="intro">
+          <div className="left">
+            <h1>Organizing workflows has never been easier</h1>
+            <p>
+              TaskR helps individuals organize their work faster and easier than
+              before. Team based features coming soon!
+            </p>
+            <span>
+              <button>Start Now</button>
+            </span>
+            <span>
+              <button>Sign Ins</button>
+            </span>
+            <span />
+          </div>
+          <div className="right">
+            <img
+              className="splashImagePhoto"
+              src="/images/newbg.jpg"
+              alt="coverphoto"
+            />
+          </div>
         </div>
+      </section>
+      <section id="description">
         <div className="right">
+          <div>
+            <h1>TASK MANAGEMENT MADE SIMPLE</h1>
+            <p>
+              TaskR builds the most powerful and flexible tools for task
+              management. Whether you’re a developer, manager, designer,
+              student. TaskR's interface is designed to create the best possible
+              UI for users. Hundreds to thousdands of the world’s most
+              innovative individuals are building faster and more efficiently by
+              using TaskR.
+            </p>
+          </div>
+          <div>break line</div>
+          <span>Discover what technologies TaskR currently utilizes </span>
+        </div>
+        <div className="left">
           <img
-            className="splashImagePhoto"
-            src="/images/newbg.jpg"
+            className="taskViewImage"
+            src="/images/macbook_animated.svg"
             alt="coverphoto"
           />
         </div>
-      </div>
+      </section>
+
       <div className="features">
-        <div className="left">
-          SingleTask view
+        <div className="right">
           <img
             className="taskViewImage"
-            src="/images/newbg.jpg"
+            src="/images/iphone_animated.svg"
+            alt="coverphoto"
+          />
+        </div>
+        <div className="left">
+          <h1>TaskList View</h1>
+          <span>Organize your task, sort, filter, search, view favorites!</span>
+        </div>
+        <div className="left">
+          <img
+            className="taskViewImage"
+            src="/images/imac_animated.svg"
             alt="coverphoto"
           />
         </div>
@@ -36,18 +80,6 @@ function Homepage() {
             add stuff like content, target date, links, tags, markdown, priorty,
             progress
           </span>
-        </div>
-        <div className="right">
-          Tasklist view illustration
-          <img
-            className="taskViewImage"
-            src="/images/taskrbg.jpeg"
-            alt="coverphoto"
-          />
-        </div>
-        <div className="left">
-          <h1>TaskList View</h1>
-          <span>Organize your task, sort, filter, search, view favorites!</span>
         </div>
       </div>
       <div className="casecontainer">

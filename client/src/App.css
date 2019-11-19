@@ -2,17 +2,24 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: #fff;
+}
+.intro {
+  width: 100%;
+  height: 400px;
+  padding-bottom: 50px;
+  background-color: lightpink;
 }
 
 .left {
-  background-color: #efefef;
+  /* background-color: #efefef; */
   color: #000;
   height: 400px;
   width: 50%;
   float: left;
 }
 .right {
-  background-color: #efefef;
+  /* background-color: #efefef; */
   color: #000;
   height: 400px;
   width: 50%;
