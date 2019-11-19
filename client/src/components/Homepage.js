@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import SignupLoginModal from './SignupLoginModal';
 
 function Homepage() {
   return (
@@ -62,8 +63,7 @@ function Homepage() {
           <div>Get in touch or Create an Account</div>
         </div>
         <div className="lascallright">
-          <button type="button">Sign up</button>
-          <button type="button">Contact</button>
+          <SignupLoginModal />
         </div>
       </div>
       <div className="footercontainer">

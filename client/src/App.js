@@ -2,7 +2,7 @@
 
 import './App.css';
 import React, { useState } from 'react';
-import Homepage from './components/Homepage';
+import Homepage2 from './components/Homepage2';
 import Navbar from './components/Navbar';
 import TaskContainer from './components/TaskContainer';
 
@@ -11,8 +11,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar setView={setView} />
-      {view === 'home' ? <Homepage /> : <TaskContainer />}
+      {/* <Navbar setView={setView} /> */}
+      {view === 'home' ? <Homepage2 /> : <TaskContainer />}
     </div>
   );
 }
