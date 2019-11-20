@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import SignupLoginModal from './SignupLoginModal';
 import './Homepage2.css';
 
-function Homepage2() {
+function Homepage2(inputProps) {
   const [isNavOpen, setNav] = useState('nav');
   const [isSticky, setSticky] = useState(false);
   const ref = useRef(null);
@@ -15,6 +15,11 @@ function Homepage2() {
     } else {
       setNav('nav');
     }
+  };
+
+  const handleLogin = () => {
+    console.log('change view to tasks');
+    inputProps.setView('tasks');
   };
 
   const handleScroll = () => {
@@ -85,6 +90,13 @@ function Homepage2() {
                   <li className="common-Button">
                     <SignupLoginModal option="login" />
                   </li>
+                  <button
+                    className="common-Button"
+                    type="button"
+                    onClick={() => handleLogin()}
+                  >
+                    Admin
+                  </button>
                 </ul>
               </div>
             </section>

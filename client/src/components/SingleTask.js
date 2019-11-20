@@ -341,7 +341,7 @@ function SingleTask(inputProps) {
           isClearable
           isMulti
           isValidNewOption={value => !value.includes(' ')}
-          menuPlacement="auto"
+          menuPlacement="top"
           onChange={handleTag}
           options={tagOptions}
           placeholder="Enter tags..."

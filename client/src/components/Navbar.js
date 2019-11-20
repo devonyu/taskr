@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Navbar(inputProps) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(false);
+  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   if (auth === true) {

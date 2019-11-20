@@ -92,8 +92,8 @@ export default function TaskContainer() {
     newTask: false,
   });
 
-  const loadTasks = () => {
-    axios.get('/dynamomulti').then(
+  const loadTasks = async () => {
+    const tasks = await axios.get('/dynamomulti').then(
       response => {
         const { Items } = response.data;
         console.log(Items);
@@ -106,16 +106,25 @@ export default function TaskContainer() {
           formated.newTask = false;
           return formated;
         });
+        // DOUBLE CHECK BEST PRACTICE FOR USEEFFECT AND STATE
         setState({ ...state, data: mapped });
+        return mapped;
       },
       error => {
         console.log(error);
       },
     );
+    return tasks;
   };
 
   useEffect(() => {
-    loadTasks();
+    let isTasksLoaded = true;
+    loadTasks().then(tasks => {
+      if (isTasksLoaded) {
+        setState({ ...state, data: tasks });
+      }
+    });
+    return () => (isTasksLoaded = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -130,22 +139,25 @@ export default function TaskContainer() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <TaskList
-            tasks={state}
-            toggleTask={toggleTask}
-            createTask={createTask}
-          />
+      {!state && <li>Loading.....</li>}
+      {state && (
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <TaskList
+              tasks={state}
+              toggleTask={toggleTask}
+              createTask={createTask}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <SingleTask
+              taskData={state.data[state.selectedTask]}
+              loadTasks={loadTasks}
+              newTask={state.newTask}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <SingleTask
-            taskData={state.data[state.selectedTask]}
-            loadTasks={loadTasks}
-            newTask={state.newTask}
-          />
-        </Grid>
-      </Grid>
+      )}
     </div>
   );
 }

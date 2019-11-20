@@ -11,8 +11,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Navbar setView={setView} /> */}
-      {view === 'home' ? <Homepage2 /> : <TaskContainer />}
+      {view === 'home' ? (
+        <Homepage2 setView={setView} />
+      ) : (
+        <>
+          <Navbar setView={setView} />
+          <TaskContainer />
+        </>
+      )}
     </div>
   );
 }
