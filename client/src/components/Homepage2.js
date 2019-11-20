@@ -25,7 +25,7 @@ function Homepage2() {
             <a href="./about.htm">About</a>
           </li>
           <li>
-            <SignupLoginModal />
+            <SignupLoginModal option="signup" />
           </li>
         </ul>
       </nav>
@@ -44,10 +44,10 @@ function Homepage2() {
                 </p>
                 <ul>
                   <li className="common-Button">
-                    <SignupLoginModal />
+                    <SignupLoginModal option="signup" />
                   </li>
                   <li className="common-Button">
-                    <SignupLoginModal />
+                    <SignupLoginModal option="login" />
                   </li>
                 </ul>
               </div>
@@ -74,6 +74,11 @@ function Homepage2() {
           <section id="primary">
             <section id="complete-toolkit" className="container-lg">
               <h2 className="common-UppercaseTitle">
+                <img
+                  className="heading-icon"
+                  src="./images/tasks.svg"
+                  alt="tasklist"
+                />
                 <span>Task management made simple</span>
               </h2>
               <p className="bodyText">
@@ -84,7 +89,10 @@ function Homepage2() {
                 most innovative individuals are building faster and more
                 efficiently by using TaskR.
               </p>
-              <a className="bodyText" href="null">
+              <a
+                className="bodyText common-Link common-Link--arrow"
+                href="null"
+              >
                 Discover what technologies TaskR currently utilizes
               </a>
             </section>
@@ -93,6 +101,11 @@ function Homepage2() {
           <section id="secondary">
             <div className="cols container-lg">
               <section id="always-improving">
+                <img
+                  className="heading-icon"
+                  src="./images/browser.svg"
+                  alt="browser"
+                />
                 <h2 className="common-UppercaseText">Task View Component</h2>
                 <p className="bodyText">
                   Taskr's View component includes the most important data to
@@ -101,12 +114,20 @@ function Homepage2() {
                   iterating new features upon every facet of the Taskr stack. He
                   is always open to feedback on what to build next!
                 </p>
-                <a className="bodyText" href="null">
+                <a
+                  className="bodyText common-Link common-Link--arrow"
+                  href="null"
+                >
                   Learn more about the TaskView component
                 </a>
               </section>
 
               <section id="global-scale">
+                <img
+                  className="heading-icon"
+                  src="./images/checklist.svg"
+                  alt="checklist"
+                />
                 <h2 className="common-UppercaseText">Task List Component</h2>
                 <p className="bodyText">
                   With the Task List Material UI Table, users can customize how
@@ -114,7 +135,10 @@ function Homepage2() {
                   searching tasks a user can have complete control on what tasks
                   are shown.
                 </p>
-                <a className="bodyText" href="null">
+                <a
+                  className="bodyText common-Link common-Link--arrow"
+                  href="null"
+                >
                   Learn more about the TaskList component
                 </a>
               </section>
@@ -129,7 +153,7 @@ function Homepage2() {
           <div className="footer__addr">
             <h1 className="footer__logo">TaskR</h1>
             <li className="common-Button">
-              <SignupLoginModal />
+              <SignupLoginModal option="signup" />
             </li>
           </div>
 
