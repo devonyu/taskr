@@ -1,14 +1,50 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import SignupLoginModal from './SignupLoginModal';
 import './Homepage2.css';
 
 function Homepage2() {
+  const [isNavOpen, setNav] = useState('nav');
+  const [isSticky, setSticky] = useState(false);
+  const ref = useRef(null);
+
+  const toggleNav = () => {
+    if (isNavOpen === 'nav') {
+      setNav('nav open');
+    } else {
+      setNav('nav');
+    }
+  };
+
+  const handleScroll = () => {
+    if (
+      isSticky === false &&
+      ref.current &&
+      ref.current.getBoundingClientRect().top < 0
+    ) {
+      setSticky(true);
+    } else if (window.pageYOffset === 0) {
+      setSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', () => handleScroll);
+    };
+  }, []);
+
   return (
-    <div>
-      <nav id="nav" className="nav">
-        <button className="menu" type="button">
+    <Fragment>
+      <nav
+        id="nav"
+        className={isNavOpen + String(isSticky === true ? ' sticky' : '')}
+        ref={ref}
+      >
+        <button className="menu" type="button" onClick={() => toggleNav()}>
           <em className="hamburger" />
         </button>
         <div className="brand">
@@ -25,7 +61,7 @@ function Homepage2() {
             <a href="./about.htm">About</a>
           </li>
           <li>
-            <SignupLoginModal option="signup" />
+            <a href="./signup.htm">Sign Up</a>
           </li>
         </ul>
       </nav>
@@ -271,7 +307,7 @@ function Homepage2() {
           </div>
         </section>
       </footer>
-    </div>
+    </Fragment>
   );
 }
 
