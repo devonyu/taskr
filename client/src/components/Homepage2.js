@@ -6,6 +6,7 @@ import NavbarUnauthenticated from './NavbarUnauthenticated';
 import MainHomePage from './MainHomePage';
 import Footer from './Footer';
 import Features from './Features';
+import Technologies from './Technologies';
 
 function Homepage2(inputProps) {
   const handleLogin = () => {
@@ -19,7 +20,8 @@ function Homepage2(inputProps) {
       <div className="mainContent">
         {/* <MainHomePage handleLogin={handleLogin} />
          */}
-        <Features />
+        {/* <Features /> */}
+        <Technologies />
       </div>
       <Footer />
     </Fragment>
