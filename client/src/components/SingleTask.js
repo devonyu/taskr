@@ -27,6 +27,7 @@ import {
 } from '../utils/commonTools';
 import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
+import { singleTaskInitialState } from '../utils/storeData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,22 +70,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
   },
 }));
-
-const initialState = {
-  content: '',
-  email: '',
-  github: '',
-  newTask: false,
-  priority: 0,
-  progress: 0,
-  starred: false,
-  startDate: null,
-  startDateUnix: null,
-  tags: [],
-  targetDate: null,
-  targetDateUnix: null,
-  title: '',
-};
 
 function SingleTask(inputProps) {
   const classes = useStyles();
@@ -167,7 +152,7 @@ function SingleTask(inputProps) {
 
   const handleClearTask = () => {
     const { email, taskID } = inputProps.taskData;
-    setValues({ ...initialState, email, taskID });
+    setValues({ ...singleTaskInitialState, email, taskID });
   };
 
   const handleDeleteTask = () => {

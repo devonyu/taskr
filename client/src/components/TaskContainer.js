@@ -4,11 +4,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment';
-import { Star, StarBorder } from '@material-ui/icons';
-import { priorityOptions, progressOptions } from '../data';
 import TaskList from './TaskList';
 import SingleTask from './SingleTask';
+import FullPageSpinner from './FullPageSpinner';
+import { taskContainerInitialState } from '../utils/storeData';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,75 +21,7 @@ const useStyles = makeStyles(() => ({
 
 export default function TaskContainer() {
   const classes = useStyles();
-  const [state, setState] = useState({
-    columns: [
-      {
-        title: 'Star',
-        field: 'starred',
-        type: 'boolean',
-        cellStyle: {
-          backgroundColor: 'lightgrey',
-          color: 'yellow',
-          whiteSpace: 'nowrap',
-          padding: '2px',
-          width: '10px',
-        },
-        render: rowData =>
-          rowData && rowData.starred ? <Star /> : <StarBorder />,
-      },
-      { title: 'Title', field: 'title' },
-      {
-        title: 'Progress',
-        field: 'progress',
-        type: 'numeric',
-        render: rowData => (
-          <p>
-            {rowData &&
-              rowData.progress !== undefined &&
-              progressOptions.find(option => option.value === rowData.progress)
-                .label}
-          </p>
-        ),
-      },
-      {
-        title: 'Priority',
-        field: 'priority',
-        type: 'numeric',
-        render: rowData => (
-          <p>
-            {rowData &&
-              rowData.priority !== undefined &&
-              priorityOptions.find(option => option.value === rowData.priority)
-                .label}
-          </p>
-        ),
-      },
-      {
-        title: 'Start',
-        field: 'startDateUnix',
-        type: 'datetime',
-        render: rowData => (
-          <p>{moment(rowData.startDateUnix).format('M/D/YY')}</p>
-        ),
-      },
-      {
-        title: 'Target',
-        field: 'targetDateUnix',
-        type: 'datetime',
-        render: rowData => (
-          <p>{moment(rowData.targetDateUnix).format('M/D/YY')}</p>
-        ),
-      },
-      {
-        title: 'Tags',
-        field: 'tags',
-        type: 'string',
-      },
-    ],
-    data: [],
-    selectedTask: 0,
-    newTask: false,
-  });
+  const [state, setState] = useState(taskContainerInitialState);
 
   const loadTasks = async () => {
     const tasks = await axios.get('/dynamomulti').then(
@@ -139,7 +70,7 @@ export default function TaskContainer() {
 
   return (
     <div className={classes.root}>
-      {!state && <li>Loading.....</li>}
+      {!state && <FullPageSpinner />}
       {state && (
         <Grid container spacing={3}>
           <Grid item xs={6}>
