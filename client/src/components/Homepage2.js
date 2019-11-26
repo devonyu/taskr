@@ -7,6 +7,7 @@ import MainHomePage from './MainHomePage';
 import Footer from './Footer';
 import Features from './Features';
 import Technologies from './Technologies';
+import About from './About';
 
 function Homepage2(inputProps) {
   const handleLogin = () => {
@@ -21,7 +22,8 @@ function Homepage2(inputProps) {
         {/* <MainHomePage handleLogin={handleLogin} />
          */}
         {/* <Features /> */}
-        <Technologies />
+        {/* <Technologies /> */}
+        <About />
       </div>
       <Footer />
     </Fragment>
