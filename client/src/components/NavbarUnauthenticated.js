@@ -1,6 +1,7 @@
 // @flow
 
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from '@reach/router';
 
 function NavbarUnauthenticated() {
   const [isNavOpen, setNav] = useState('nav');
@@ -44,21 +45,22 @@ function NavbarUnauthenticated() {
       <button className="menu" type="button" onClick={() => toggleNav()}>
         <em className="hamburger" />
       </button>
+
       <div className="brand">
-        <a href="./index.htm">TaskR</a>
+        <Link to="/">TaskR</Link>
       </div>
       <ul className="navbar">
         <li>
-          <a href="./features.htm">Features</a>
+          <Link to="/features">Features</Link>
         </li>
         <li>
-          <a href="./technologies.htm">Tech</a>
+          <Link to="/technologies">Tech</Link>
         </li>
         <li>
-          <a href="./about.htm">About</a>
+          <Link to="/about">About</Link>
         </li>
         <li>
-          <a href="./signup.htm">Sign Up</a>
+          <Link to="/">Sign Up</Link>
         </li>
       </ul>
     </nav>

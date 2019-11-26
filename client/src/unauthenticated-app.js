@@ -1,14 +1,35 @@
 // @flow
 
-import React from 'react';
-import Homepage2 from './components/Homepage2';
+import React, { Fragment } from 'react';
+import { Router } from '@reach/router';
+import './components/Homepage.css';
+import NavbarUnauthenticated from './components/NavbarUnauthenticated';
+import MainHomePage from './components/MainHomePage';
+import Footer from './components/Footer';
+import Features from './components/Features';
+import Technologies from './components/Technologies';
+import About from './components/About';
 
-function AuthenticatedApp(inputProps) {
+function UnauthenticatedApp(inputProps) {
   return (
-    <>
-      <Homepage2 setView={inputProps.setView} />
-    </>
+    <Fragment>
+      <NavbarUnauthenticated />
+      <div className="mainContent">
+        <Router>
+          <MainHomePage
+            path="/"
+            handleLogin={() => {
+              inputProps.setView('tasks');
+            }}
+          />
+          <Features path="/features" />
+          <Technologies path="/technologies" />
+          <About path="/about" />
+        </Router>
+      </div>
+      <Footer />
+    </Fragment>
   );
 }
 
-export default AuthenticatedApp;
+export default UnauthenticatedApp;
