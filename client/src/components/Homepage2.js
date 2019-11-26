@@ -5,6 +5,7 @@ import './Homepage2.css';
 import NavbarUnauthenticated from './NavbarUnauthenticated';
 import MainHomePage from './MainHomePage';
 import Footer from './Footer';
+import Features from './Features';
 
 function Homepage2(inputProps) {
   const handleLogin = () => {
@@ -16,7 +17,9 @@ function Homepage2(inputProps) {
     <Fragment>
       <NavbarUnauthenticated />
       <div className="mainContent">
-        <MainHomePage handleLogin={handleLogin} />
+        {/* <MainHomePage handleLogin={handleLogin} />
+         */}
+        <Features />
       </div>
       <Footer />
     </Fragment>
