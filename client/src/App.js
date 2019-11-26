@@ -4,11 +4,11 @@ import './App.css';
 import React, { useState, Suspense, lazy } from 'react';
 import { useUser } from './context/user-context';
 
+import FullPageSpinner from './components/FullPageSpinner';
+
 const loadAuthenticatedApp = () => import('./authenticated-app');
 const AuthenticatedApp = lazy(loadAuthenticatedApp);
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'));
-
-const FullPageSpinner = <div>loadingfullpsagespinna</div>;
 
 function App() {
   const [view, setView] = useState('home');
@@ -19,7 +19,7 @@ function App() {
     loadAuthenticatedApp();
   }, []);
   return (
-    <Suspense fallback={FullPageSpinner}>
+    <Suspense fallback={<FullPageSpinner />}>
       {user || view !== 'home' ? (
         <AuthenticatedApp setView={setView} />
       ) : (
