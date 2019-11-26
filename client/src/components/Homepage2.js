@@ -3,73 +3,17 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import SignupLoginModal from './SignupLoginModal';
 import './Homepage2.css';
+import NavbarUnauthenticated from './NavbarUnauthenticated';
 
 function Homepage2(inputProps) {
-  const [isNavOpen, setNav] = useState('nav');
-  const [isSticky, setSticky] = useState(false);
-  const ref = useRef(null);
-
-  const toggleNav = () => {
-    if (isNavOpen === 'nav') {
-      setNav('nav open');
-    } else {
-      setNav('nav');
-    }
-  };
-
   const handleLogin = () => {
     console.log('change view to tasks');
     inputProps.setView('tasks');
   };
 
-  const handleScroll = () => {
-    if (
-      isSticky === false &&
-      ref.current &&
-      ref.current.getBoundingClientRect().top < 0
-    ) {
-      setSticky(true);
-    } else if (window.pageYOffset === 0) {
-      setSticky(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', () => handleScroll);
-    };
-  }, []);
-
   return (
     <Fragment>
-      <nav
-        id="nav"
-        className={isNavOpen + String(isSticky === true ? ' sticky' : '')}
-        ref={ref}
-      >
-        <button className="menu" type="button" onClick={() => toggleNav()}>
-          <em className="hamburger" />
-        </button>
-        <div className="brand">
-          <a href="./index.htm">TaskR</a>
-        </div>
-        <ul className="navbar">
-          <li>
-            <a href="./features.htm">Features</a>
-          </li>
-          <li>
-            <a href="./technologies.htm">Tech</a>
-          </li>
-          <li>
-            <a href="./about.htm">About</a>
-          </li>
-          <li>
-            <a href="./signup.htm">Sign Up</a>
-          </li>
-        </ul>
-      </nav>
+      <NavbarUnauthenticated />
 
       <div className="mainContent">
         <main>
