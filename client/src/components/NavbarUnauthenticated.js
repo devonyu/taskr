@@ -47,7 +47,9 @@ const NavbarUnauthenticated = () => {
       </button>
 
       <div className="brand">
-        <Link to="/">TaskR</Link>
+        <Link to="/" onClick={() => toggleNav()}>
+          TaskR
+        </Link>
       </div>
       <ul className="navbar">
         <li>
