@@ -1,54 +1,59 @@
 const express = require("express");
-// const AWS = require("aws-sdk");
-
-// if (process.env && process.env.NODE_ENV !== "production") {
-//   const dotenv = require("dotenv");
-//   dotenv.config();
-// }
-
-// AWS.config.update({
-//   region: "us-west-1"
-// });
-
-// if (process.env && process.env.NODE_ENV === "development") {
-//   AWS.config.update({
-//     endpoint: "http://localhost:8001"
-//   });
-// }
-
-// console.log("Region: ", AWS.config.region);
-// console.log("Current Process ENV:");
-// console.log(process.env.NODE_ENV);
-
-// AWS.config.getCredentials(err => {
-//   if (err) console.log(err.stack);
-//   else {
-//     console.log("AWS credentials correctly loaded");
-//   }
-// });
-
-// const docClient = new AWS.DynamoDB.DocumentClient();
-
-// const Task = require('../models/task')
-// const auth = require('../middleware/auth')
 const docClient = require("../db/dynamodb");
 
 const router = express.Router();
 
-//? CREATE new Task
-// router.post("/tasks", auth, async (req, res) => {
-//   const task = new Task({
-//     ...req.body,
-//     owner: req.user._id
-//   });
-
-//   try {
-//     await task.save();
-//     res.status(201).send(task);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
+router.post("/tasks", async (req, res) => {
+  const {
+    email,
+    taskID,
+    content,
+    github,
+    priority,
+    progress,
+    starred,
+    startDate,
+    startDateUnix,
+    targetDate,
+    targetDateUnix,
+    tags,
+    title
+  } = req.body;
+  const table = "Users";
+  const params = {
+    TableName: table,
+    Item: {
+      email,
+      taskID,
+      task: {
+        content: content || null,
+        github: github || null,
+        priority: priority || 0,
+        progress: progress || 0,
+        starred: starred || false,
+        startDate: startDate || null,
+        startDateUnix: startDateUnix || null,
+        tags: tags || null,
+        targetDate: targetDate || null,
+        targetDateUnix: targetDateUnix || null,
+        title: title || null
+      }
+    }
+  };
+  console.log("Adding a new item...");
+  docClient.put(params, async (err, data) => {
+    try {
+      console.log("Added item succeeded:", JSON.stringify(data, null, 2));
+      res.status(200).send(JSON.stringify(params, null, 2));
+    } catch (error) {
+      console.error(
+        "Unable to add item. Error JSON:",
+        JSON.stringify(error, null, 2)
+      );
+      res.status(400).send(error);
+    }
+  });
+});
 
 //? READ Tasks -- get tasks for user
 router.get("/tasks", async (req, res) => {

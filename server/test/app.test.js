@@ -84,7 +84,7 @@ describe("Test the ping path", () => {
     };
     test("Create a new task and return status code 200", async done => {
       try {
-        const addTask = await request.post("/addtask").send(task);
+        const addTask = await request.post("/tasks").send(task);
         const response = await JSON.parse(addTask.text);
         const status = await JSON.parse(addTask.status);
         expect(status).toBe(200);
@@ -96,7 +96,7 @@ describe("Test the ping path", () => {
     });
     test("Create a new task and returns the task when completed", async done => {
       try {
-        const addTask = await request.post("/addtask").send(task);
+        const addTask = await request.post("/tasks").send(task);
         const response = await JSON.parse(addTask.text);
         const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
           task
@@ -129,7 +129,7 @@ describe("Test the ping path", () => {
       title: "delete this task pls"
     };
     beforeAll(async done => {
-      addTask = await request.post("/addtask").send(task);
+      addTask = await request.post("/tasks").send(task);
       const response = await JSON.parse(addTask.text);
       const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
         task
