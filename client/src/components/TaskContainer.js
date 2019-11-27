@@ -23,7 +23,7 @@ const TaskContainer = () => {
   const [state, setState] = useState(taskContainerInitialState);
 
   const loadTasks = async () => {
-    const tasks = await axios.get('/dynamomulti').then(
+    const tasks = await axios.get('/tasks').then(
       response => {
         const { Items } = response.data;
         console.log(Items);

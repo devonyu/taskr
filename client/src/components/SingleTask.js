@@ -123,7 +123,7 @@ const SingleTask = inputProps => {
     const data = sanitizeValues(values);
     if (inputProps.newTask) {
       console.log('adding new task!');
-      axios.post('/addtask', data).then(
+      axios.post('/tasks', data).then(
         res => {
           console.log(res.data);
           setTimeout(() => {
@@ -136,7 +136,7 @@ const SingleTask = inputProps => {
       );
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      axios.put('/updatetask', data).then(
+      axios.put('/tasks', data).then(
         () => {
           console.log('updating task');
           setTimeout(() => {
@@ -159,7 +159,7 @@ const SingleTask = inputProps => {
     const { email, taskID } = inputProps.taskData;
     console.log(`Deleting ${email}, ${taskID}!`);
     const data = { email, taskID };
-    axios.delete('/deletetask', { data }).then(
+    axios.delete('/tasks', { data }).then(
       res => {
         console.log(`deleted ${res.data}`);
         setTimeout(() => {
