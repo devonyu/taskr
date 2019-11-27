@@ -51,16 +51,24 @@ function NavbarUnauthenticated() {
       </div>
       <ul className="navbar">
         <li>
-          <Link to="/features">Features</Link>
+          <Link to="/features" onClick={toggleNav}>
+            Features
+          </Link>
         </li>
         <li>
-          <Link to="/technologies">Tech</Link>
+          <Link to="/technologies" onClick={toggleNav}>
+            Tech
+          </Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/about" onClick={toggleNav}>
+            About
+          </Link>
         </li>
         <li>
-          <Link to="/">Sign Up</Link>
+          <Link to="/" onClick={toggleNav}>
+            Sign Up
+          </Link>
         </li>
       </ul>
     </nav>

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Link } from '@reach/router';
 import SignupLoginModal from './SignupLoginModal';
 
 function Footer() {
@@ -81,27 +82,25 @@ function Footer() {
             <h2 className="nav__title">Features</h2>
             <ul className="nav__ul">
               <li>
-                <a href="null">Task View</a>
+                <Link to="/features">Task View</Link>
               </li>
               <li>
-                <a href="null">Task List</a>
+                <Link to="/features">Task List</Link>
               </li>
               <li>
-                <a href="null">Upcoming feature</a>
+                <Link to="/features">Upcoming features</Link>
               </li>
             </ul>
           </li>
 
           <li className="nav__item">
             <h2 className="nav__title">Technology</h2>
-
             <ul className="nav__ul">
               <li>
-                <a href="null">Front End Stack</a>
+                <Link to="/technologies">Front End / UI</Link>
               </li>
-
               <li>
-                <a href="null">Server Side</a>
+                <Link to="/technologies">Server/Database/Devops</Link>
               </li>
             </ul>
           </li>
@@ -110,13 +109,34 @@ function Footer() {
             <h2 className="nav__title">About</h2>
             <ul className="nav__ul">
               <li>
-                <a href="null">Devon</a>
+                <Link to="/about">General Info</Link>
               </li>
               <li>
-                <a href="null">Github</a>
+                <a
+                  href="https://devonyu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Developer Portfolio
+                </a>
               </li>
               <li>
-                <a href="null">Profile</a>
+                <a
+                  href="https://github.com/devonyu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Developer Github
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/devonyu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Developer Linkedin
+                </a>
               </li>
             </ul>
           </li>

@@ -1613,11 +1613,9 @@ html[lang='en'] .feature-no-break-english {
 
 .feature--developer figure .card {
   position: relative;
-  width: 525px;
-  height: 400px;
+  width: fit-content;
+  height: 380px;
   transform: rotate3d(0.5, 0.866, 0, 15deg) rotateZ(-1deg);
-  box-shadow: -27.1px 62.5px 125px -25px rgba(50, 50, 93, 0.5),
-    -16.2px 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
   background: transparent;
   display: flex;
   flex-direction: column;
@@ -1649,6 +1647,7 @@ html[lang='en'] .feature-no-break-english {
 
 .feature--hardware .card img {
   max-width: 100%;
+  transform: rotate3d(0.5, 0.866, 0, -15deg) rotateZ(1deg);
   width: 680px;
   height: auto;
 }
@@ -1731,6 +1730,12 @@ html[lang='en'] .feature-no-break-english {
 }
 
 /* ABOUT section */
+
+.centered {
+  text-align: center;
+  font-size: 3em;
+  padding-bottom: 1em;
+}
 
 .tabs {
   left: 50%;

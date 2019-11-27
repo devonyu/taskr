@@ -34,12 +34,6 @@ function Features() {
                 search, sort, filter, and organize thier tasks by specific data
                 metrics!
               </p>
-              <a
-                href="/docs/terminal"
-                className="common-Link common-Link--arrow common-MediumBodyText"
-              >
-                See Task List View code
-              </a>
             </article>
 
             <figure className="floating-cards">
@@ -66,12 +60,6 @@ function Features() {
                 custom markdown editor and utilizes a wide array of features to
                 make tasks easier to read and digest.
               </p>
-              <a
-                href="/docs/terminal/readers"
-                className="common-Link common-Link--arrow common-MediumBodyText"
-              >
-                See Task Editor View code
-              </a>
             </article>
 
             <figure className="floating-cards">
@@ -95,7 +83,8 @@ function Features() {
               <h2 className="common-UppercaseText">Future Coming features</h2>
               <p className="bodyText">
                 Ability to upload images to S3 bucket, offline usage and syncing
-                back
+                back. Setting reminders via the app with notifications and email
+                reminders with SendGrid API
               </p>
             </article>
           </div>
