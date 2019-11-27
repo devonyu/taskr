@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import SignupLoginModal from './SignupLoginModal';
 
-const HomePage = inputProps => {
+const Homepage = inputProps => {
   return (
     <main>
       <header>
@@ -129,4 +129,4 @@ const HomePage = inputProps => {
   );
 };
 
-export default HomePage;
+export default Homepage;

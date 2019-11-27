@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { Router } from '@reach/router';
 import './components/Homepage.css';
 import NavbarUnauthenticated from './components/NavbarUnauthenticated';
-import HomePage from './components/HomePage';
+import Homepage from './components/Homepage';
 import Footer from './components/Footer';
 import Features from './components/Features';
 import Technologies from './components/Technologies';
@@ -16,7 +16,7 @@ const UnauthenticatedApp = inputProps => {
       <NavbarUnauthenticated />
       <div className="mainContent">
         <Router>
-          <HomePage
+          <Homepage
             path="/"
             handleLogin={() => {
               inputProps.setView('tasks');
