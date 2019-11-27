@@ -82,60 +82,84 @@ router.get("/tasks", async (req, res) => {
   });
 });
 
-// //? READ Task by ID
-// router.get("/tasks/:id", auth, async (req, res) => {
-//   try {
-//     const task = await Task.findOne({
-//       _id: req.params.id,
-//       owner: req.user._id
-//     });
-//     //? only retrieve task if you're the owner
-//     if (!task) return res.status(404).send();
-//     res.send(task);
-//   } catch (error) {
-//     res.status(500).send();
-//   }
-// });
+router.put("/tasks", async (req, res) => {
+  const table = "Users";
+  const {
+    email,
+    taskID,
+    content,
+    github,
+    priority,
+    progress,
+    starred,
+    startDate,
+    startDateUnix,
+    targetDate,
+    targetDateUnix,
+    tags,
+    title
+  } = req.body;
+  const params = {
+    TableName: table,
+    Key: {
+      email,
+      taskID
+    },
+    UpdateExpression:
+      "set task.content = :cont, task.github=:git, task.priority=:pri, task.progress = :pro, task.starred=:s, task.startDate=:sd, task.startDateUnix = :sdunix, task.targetDate=:td, task.targetDateUnix=:tdunix, task.tags=:tags, task.title=:title",
+    ExpressionAttributeValues: {
+      ":cont": content || null,
+      ":git": github || null,
+      ":pri": priority || 0,
+      ":pro": progress || 0,
+      ":s": starred || false,
+      ":sd": startDate || null,
+      ":sdunix": startDateUnix || null,
+      ":td": targetDate || null,
+      ":tdunix": targetDateUnix || null,
+      ":tags": tags || null,
+      ":title": title || null
+    },
+    ReturnValues: "UPDATED_NEW"
+  };
+  console.log("updating item...");
+  docClient.update(params, async (err, data) => {
+    try {
+      console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+      res.status(200).send(data);
+    } catch (error) {
+      console.error(
+        "Unable to update item. Error JSON:",
+        JSON.stringify(error, null, 2)
+      );
+      res.status(404).send(JSON.stringify(data, null, 2));
+    }
+  });
+});
 
-// //? UPDATE Task by ID
-// router.patch("/tasks/:id", auth, async (req, res) => {
-//   const requestedUpdates = Object.keys(req.body);
-//   const allowedUpdates = ["description", "completed"];
-//   const isValidOperation = requestedUpdates.every(updateProp =>
-//     allowedUpdates.includes(updateProp)
-//   );
-//   if (!isValidOperation)
-//     return res.status(400).send({ error: "Invalid update attempt" });
-
-//   try {
-//     const task = await Task.findOne({
-//       _id: req.params.id,
-//       owner: req.user._id
-//     });
-//     //? also search by 'owner' to verify authorization
-//     if (!task) return res.status(404).send();
-
-//     requestedUpdates.forEach(update => (task[update] = req.body[update]));
-//     await task.save(); //? allows for middleware triggered by 'save()'
-
-//     res.send(task);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
-
-// //? DELETE Task by ID
-// router.delete("/tasks/:id", auth, async (req, res) => {
-//   try {
-//     const task = await Task.findOneAndDelete({
-//       _id: req.params.id,
-//       owner: req.user._id
-//     });
-//     if (!task) return res.status(404).send();
-//     res.send(task);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+router.delete("/tasks", async (req, res) => {
+  console.log("/deletetask hit");
+  const { email, taskID } = req.body;
+  const params = {
+    TableName: "Users",
+    Key: {
+      email,
+      taskID
+    },
+    ConditionExpression: "attribute_exists(taskID)"
+  };
+  docClient.delete(params, async (err, data) => {
+    try {
+      console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+      res.status(204).send(JSON.stringify("data", null, 2));
+    } catch (error) {
+      console.error(
+        "Unable to delete item. Error JSON:",
+        JSON.stringify(error, null, 2)
+      );
+      res.status(400).send(JSON.stringify(err, null, 2));
+    }
+  });
+});
 
 module.exports = router;
