@@ -1266,8 +1266,8 @@ main header {
   font-size: 0.9rem;
 }
 
-.footer a {
-  text-decoration: none;
+.footer a:hover {
+  font-weight: bold;
 }
 
 .footer__nav {
