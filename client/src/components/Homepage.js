@@ -29,7 +29,14 @@ const Homepage = inputProps => {
                 type="button"
                 onClick={() => inputProps.handleLogin()}
               >
-                Admin Login
+                Admin
+              </button>
+              <button
+                className="common-Button"
+                type="button"
+                onClick={() => inputProps.handleLogin()}
+              >
+                LS
               </button>
             </ul>
           </div>

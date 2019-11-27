@@ -34,6 +34,7 @@ const NavbarUnauthenticated = () => {
     return () => {
       window.removeEventListener('scroll', () => handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

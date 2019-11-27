@@ -50,7 +50,7 @@ function AuthProvider(props) {
     isRejected,
     isPending,
     isSettled,
-    reload,
+    // reload,
   } = useAsync({
     promiseFn: bootstrapAppData,
   });
