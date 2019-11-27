@@ -11,19 +11,27 @@ const AuthenticatedApp = lazy(loadAuthenticatedApp);
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'));
 
 function App() {
-  const [view, setView] = useState('home');
-  const user = useUser();
+  const [user, setUser] = useState(null);
+  // const user = useUser();
   // const user = false;
   console.log(user);
+  const authUser = userID => {
+    setUser(userID);
+  };
+
   React.useEffect(() => {
     loadAuthenticatedApp();
   }, []);
   return (
     <Suspense fallback={<FullPageSpinner />}>
-      {user || view !== 'home' ? (
-        <AuthenticatedApp setView={setView} />
+      {user !== null ? (
+        <AuthenticatedApp
+          experimental={user === 'LS'}
+          setUser={authUser}
+          user={user}
+        />
       ) : (
-        <UnauthenticatedApp setView={setView} />
+        <UnauthenticatedApp setUser={authUser} />
       )}
     </Suspense>
   );

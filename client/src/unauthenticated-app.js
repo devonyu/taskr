@@ -18,8 +18,8 @@ const UnauthenticatedApp = inputProps => {
         <Router>
           <Homepage
             path="/"
-            handleLogin={() => {
-              inputProps.setView('tasks');
+            handleAuth={userID => {
+              inputProps.setUser(userID);
             }}
           />
           <Features path="/features" />

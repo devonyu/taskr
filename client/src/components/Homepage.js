@@ -27,14 +27,14 @@ const Homepage = inputProps => {
               <button
                 className="common-Button"
                 type="button"
-                onClick={() => inputProps.handleLogin()}
+                onClick={() => inputProps.handleAuth('Admin')}
               >
                 Admin
               </button>
               <button
                 className="common-Button"
                 type="button"
-                onClick={() => inputProps.handleLogin()}
+                onClick={() => inputProps.handleAuth('LS')}
               >
                 LS
               </button>

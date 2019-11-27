@@ -10,20 +10,17 @@ import TaskContainerNetlify from './components/TaskContainerNetlify';
 // )
 
 // import { useAuth } from './context/auth-context';
-import { useUser } from './context/user-context';
+// import { useUser } from './context/user-context';
 
 function AuthenticatedApp(inputProps) {
-  const user = useUser();
+  // const user = useUser();
   // const { logout } = useAuth();
-  console.log(user);
+  // console.log(user);
+  const { experimental, user, setUser } = inputProps;
   return (
     <>
-      <Navbar setView={inputProps.setView} user={user} />
-      {inputProps.experimental ? (
-        <TaskContainerNetlify />
-      ) : (
-        <TaskContainer user={user} />
-      )}
+      <Navbar user={user} setUser={setUser} />
+      {experimental ? <TaskContainerNetlify /> : <TaskContainer user={user} />}
     </>
   );
 }
