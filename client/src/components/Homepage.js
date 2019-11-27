@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import SignupLoginModal from './SignupLoginModal';
 
-function MainHomePage(inputProps) {
+const HomePage = inputProps => {
   return (
     <main>
       <header>
@@ -22,7 +22,7 @@ function MainHomePage(inputProps) {
                 <SignupLoginModal option="signup" />
               </li>
               <li className="common-Button">
-                <SignupLoginModal className="common-Button" option="login" />
+                <SignupLoginModal option="login" />
               </li>
               <button
                 className="common-Button"
@@ -127,6 +127,6 @@ function MainHomePage(inputProps) {
       </section>
     </main>
   );
-}
+};
 
-export default MainHomePage;
+export default HomePage;

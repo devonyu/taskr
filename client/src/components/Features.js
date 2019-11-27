@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function Features() {
+const Features = () => {
   return (
     <main>
       <header>
@@ -40,7 +40,7 @@ function Features() {
               <div className="card">
                 <img
                   src="./images/imac_animated.svg"
-                  alt="Stripe Terminal device"
+                  alt="imac_animated"
                   className="single-device-img"
                 />
               </div>
@@ -66,7 +66,7 @@ function Features() {
               <div className="card">
                 <img
                   src="./images/iphone_animated.svg"
-                  alt="Stripe Terminal device"
+                  alt="iphone_animated"
                   className="single-device-img"
                 />
               </div>
@@ -92,5 +92,5 @@ function Features() {
       </div>
     </main>
   );
-}
+};
 export default Features;

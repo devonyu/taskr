@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from '@reach/router';
 
-function NavbarUnauthenticated() {
+const NavbarUnauthenticated = () => {
   const [isNavOpen, setNav] = useState('nav');
   const [isSticky, setSticky] = useState(false);
   const ref = useRef(null);
@@ -51,28 +51,28 @@ function NavbarUnauthenticated() {
       </div>
       <ul className="navbar">
         <li>
-          <Link to="/features" onClick={toggleNav}>
+          <Link to="/features" onClick={() => toggleNav()}>
             Features
           </Link>
         </li>
         <li>
-          <Link to="/technologies" onClick={toggleNav}>
+          <Link to="/technologies" onClick={() => toggleNav()}>
             Tech
           </Link>
         </li>
         <li>
-          <Link to="/about" onClick={toggleNav}>
+          <Link to="/about" onClick={() => toggleNav()}>
             About
           </Link>
         </li>
         <li>
-          <Link to="/" onClick={toggleNav}>
+          <Link to="/" onClick={() => toggleNav()}>
             Sign Up
           </Link>
         </li>
       </ul>
     </nav>
   );
-}
+};
 
 export default NavbarUnauthenticated;

@@ -10,7 +10,7 @@ import Features from './components/Features';
 import Technologies from './components/Technologies';
 import About from './components/About';
 
-function UnauthenticatedApp(inputProps) {
+const UnauthenticatedApp = inputProps => {
   return (
     <Fragment>
       <NavbarUnauthenticated />
@@ -30,6 +30,6 @@ function UnauthenticatedApp(inputProps) {
       <Footer />
     </Fragment>
   );
-}
+};
 
 export default UnauthenticatedApp;

@@ -3,7 +3,7 @@
 import React from 'react';
 import './FullPageSpinner.css';
 
-function FullPageSpinner() {
+const FullPageSpinner = () => {
   return (
     <div className="loading-container">
       <div className="sk-folding-cube">
@@ -14,5 +14,5 @@ function FullPageSpinner() {
       </div>
     </div>
   );
-}
+};
 export default FullPageSpinner;

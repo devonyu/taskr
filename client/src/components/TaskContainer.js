@@ -18,8 +18,7 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
 }));
-
-export default function TaskContainer() {
+const TaskContainer = () => {
   const classes = useStyles();
   const [state, setState] = useState(taskContainerInitialState);
 
@@ -91,4 +90,6 @@ export default function TaskContainer() {
       )}
     </div>
   );
-}
+};
+
+export default TaskContainer;

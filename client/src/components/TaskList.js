@@ -3,7 +3,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 
-function TaskList(inputProps) {
+const TaskList = inputProps => {
   return (
     <MaterialTable
       title="Tasks"
@@ -38,6 +38,6 @@ function TaskList(inputProps) {
       ]}
     />
   );
-}
+};
 
 export default TaskList;

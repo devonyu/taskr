@@ -19,9 +19,7 @@ const SignupLoginModal = inputProps => {
 
   return (
     <div>
-      <Button id="startButton" onClick={toggleModal}>
-        {inputProps.option}
-      </Button>
+      <Button onClick={toggleModal}>{inputProps.option}</Button>
       {open && view === 'signup' ? (
         <SignUpModal
           toggleView={toggleView}

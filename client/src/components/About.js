@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function About() {
+const About = () => {
   return (
     <main>
       <header>
@@ -126,5 +126,5 @@ function About() {
       </section>
     </main>
   );
-}
+};
 export default About;

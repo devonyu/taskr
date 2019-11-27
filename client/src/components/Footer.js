@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import SignupLoginModal from './SignupLoginModal';
 
-function Footer() {
+const Footer = () => {
   return (
     <footer>
       <div id="footerdiagonal" aria-hidden="true" />
@@ -150,6 +150,6 @@ function Footer() {
       </section>
     </footer>
   );
-}
+};
 
 export default Footer;

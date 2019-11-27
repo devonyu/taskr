@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function Technologies() {
+const Technologies = () => {
   return (
     <main>
       <header>
@@ -58,5 +58,5 @@ function Technologies() {
       </section>
     </main>
   );
-}
+};
 export default Technologies;

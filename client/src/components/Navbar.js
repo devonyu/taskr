@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Navbar(inputProps) {
+const Navbar = inputProps => {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -123,4 +123,6 @@ export default function Navbar(inputProps) {
       </AppBar>
     </div>
   );
-}
+};
+
+export default Navbar;

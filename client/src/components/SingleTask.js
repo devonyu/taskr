@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SingleTask(inputProps) {
+const SingleTask = inputProps => {
   const classes = useStyles();
   const [values, setValues] = useState(inputProps.taskData);
 
@@ -337,6 +337,6 @@ function SingleTask(inputProps) {
       </Paper>
     </MuiPickersUtilsProvider>
   );
-}
+};
 
 export default SingleTask;
