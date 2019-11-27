@@ -22,6 +22,7 @@ type InputPropsFlow = {
 const useStyles = makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
+    borderRadius: '5px',
     boxShadow: theme.shadows[5],
     display: 'flex',
     flexDirection: 'column',
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   signupButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#2b8296',
     borderRadius: 10,
     color: 'white',
     top: 10,

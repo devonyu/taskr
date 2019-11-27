@@ -117,7 +117,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Developer Portfolio
+                  Dev Portfolio
                 </a>
               </li>
               <li>
@@ -126,7 +126,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Developer Github
+                  Dev Github
                 </a>
               </li>
               <li>
@@ -135,7 +135,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Developer Linkedin
+                  Dev Linkedin
                 </a>
               </li>
             </ul>

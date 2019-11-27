@@ -1427,85 +1427,6 @@ FEATURES VIEW */
   }
 }
 
-.features .common-StripeGrid .background {
-  background-color: #f6f9fc;
-  grid-row: 3/-2;
-}
-
-.features .common-StripeGrid .stripe:first-child {
-  box-shadow: inset 0 0 0 2px #e6ebf1;
-  grid-column: 5/8;
-  grid-row: 1/2;
-  transform: translateY(2px);
-}
-
-.features .common-StripeGrid .stripe:nth-child(2) {
-  background-color: #e6ebf1;
-  grid-column: left-gutter-start/7;
-  grid-row: 2/3;
-}
-
-.features .common-StripeGrid .stripe:nth-child(3) {
-  background-color: #87bbfd;
-  grid-column: viewport-start/8;
-  grid-row: 3/4;
-}
-
-.features .common-StripeGrid .stripe:nth-child(4) {
-  background-color: #e6ebf1;
-  grid-column: 8/10;
-  grid-row: 3/4;
-}
-
-.features .common-StripeGrid .stripe:nth-child(5) {
-  background-color: #e6ebf1;
-  grid-column: right-gutter;
-  grid-row: 3/4;
-}
-
-.features .common-StripeGrid .stripe:nth-child(6) {
-  display: none;
-  background-color: #32325d;
-  grid-column: 3/8;
-  grid-row: 4/5;
-}
-
-@media (min-width: 670px) {
-  .features .common-StripeGrid .stripe:nth-child(6) {
-    display: block;
-  }
-}
-
-.features .common-StripeGrid .stripe:nth-child(7) {
-  background-color: #6772e5;
-  grid-column: 3/6;
-  grid-row: -5/-4;
-}
-
-.features .common-StripeGrid .stripe:nth-child(8) {
-  background-color: #32325d;
-  grid-column: viewport-start/8;
-  grid-row: -4/-3;
-}
-
-.features .common-StripeGrid .stripe:nth-child(9) {
-  background-color: #87bbfd;
-  grid-column: 8/10;
-  grid-row: -4/-3;
-}
-
-.features .common-StripeGrid .stripe:nth-child(10) {
-  background-color: #e6ebf1;
-  grid-column: 6/9;
-  grid-row: -3/-2;
-}
-
-.features .common-StripeGrid .stripe:nth-child(11) {
-  box-shadow: inset 0 0 0 2px #e6ebf1;
-  grid-column: 3/6;
-  grid-row: -2/-1;
-}
-
 @media (min-width: 670px) {
   .feature--reversed figure {
     order: -1;
@@ -1548,10 +1469,6 @@ FEATURES VIEW */
   top: 0;
   bottom: 0;
   pointer-events: none;
-}
-
-html[lang='en'] .feature-no-break-english {
-  white-space: nowrap;
 }
 
 .feature--developer {
