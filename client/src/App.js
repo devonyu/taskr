@@ -1,7 +1,7 @@
 // @flow
 
 import React, { useState, Suspense, lazy } from 'react';
-import { useUser } from './context/user-context';
+// import { useUser } from './context/user-context';
 
 import FullPageSpinner from './components/FullPageSpinner';
 

@@ -7,7 +7,6 @@ import SignupLoginModal from './SignupLoginModal';
 const Footer = () => {
   return (
     <footer>
-      <div id="footerdiagonal" aria-hidden="true" />
       <section className="footer">
         <div className="footer__addr">
           <h1 className="footer__logo">TaskR</h1>
