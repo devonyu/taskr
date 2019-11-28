@@ -5,9 +5,9 @@ import React from 'react';
 import LoginModal from './LoginModal';
 import SignUpModal from './SignUpModal';
 
-const SignupLoginModal = () => {
+const SignupLoginModal = inputProps => {
   const [open, setOpen] = React.useState(false);
-  const [view, setView] = React.useState('signup');
+  const [view, setView] = React.useState(inputProps.option);
 
   const toggleModal = () => {
     setOpen(!open);
@@ -19,9 +19,7 @@ const SignupLoginModal = () => {
 
   return (
     <div>
-      <Button id="startButton" onClick={toggleModal}>
-        Get Started
-      </Button>
+      <Button onClick={toggleModal}>{inputProps.option}</Button>
       {open && view === 'signup' ? (
         <SignUpModal
           toggleView={toggleView}

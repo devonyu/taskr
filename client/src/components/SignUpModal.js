@@ -22,6 +22,7 @@ type InputPropsFlow = {
 const useStyles = makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
+    borderRadius: '5px',
     boxShadow: theme.shadows[5],
     display: 'flex',
     flexDirection: 'column',
@@ -36,11 +37,14 @@ const useStyles = makeStyles(theme => ({
     transform: `translate(-50%, -50%)`,
   },
   loginButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#2b8296',
     borderRadius: 10,
     color: 'white',
     top: 10,
     width: '100%',
+    '&:hover': {
+      color: 'black',
+    },
   },
   signupButton: {
     backgroundColor: '#3ddb93',
@@ -49,6 +53,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 30,
     top: 10,
     width: '100%',
+    '&:hover': {
+      color: 'black',
+    },
   },
   textField: {
     margin: 8,

@@ -29,7 +29,7 @@ describe("Test the ping path", () => {
   //   });
   // });
 
-  describe("Test the test dynamodb route", () => {
+  describe("Test the test dynamo route", () => {
     test("It should response with status 200", async () => {
       const response = await request.get("/dynamo");
       expect(response.statusCode).toBe(200);
@@ -48,24 +48,24 @@ describe("Test the ping path", () => {
     });
   });
 
-  describe("Test the test dynamomulti route", () => {
+  describe("Test the test tasks GET route", () => {
     test("It should response with status 200", async () => {
-      const response = await request.get("/dynamomulti");
+      const response = await request.get("/tasks");
       expect(response.statusCode).toBe(200);
     });
     test("It should respond with an array of tasks", async () => {
-      const response = await request.get("/dynamomulti");
+      const response = await request.get("/tasks");
       const taskData = await JSON.parse(response.text);
       expect(taskData.Items).toBeInstanceOf(Array);
     });
     test("It should respond with user email", async () => {
-      const response = await request.get("/dynamomulti");
+      const response = await request.get("/tasks");
       const taskData = await JSON.parse(response.text);
       expect(typeof taskData.Items[0].email).toBe("string");
     });
   });
 
-  describe("Test the test addtask route", () => {
+  describe("Test the test tasks POST route", () => {
     const randomID = UUID();
     const task = {
       email: "devon@taskr.online",
@@ -84,7 +84,7 @@ describe("Test the ping path", () => {
     };
     test("Create a new task and return status code 200", async done => {
       try {
-        const addTask = await request.post("/addtask").send(task);
+        const addTask = await request.post("/tasks").send(task);
         const response = await JSON.parse(addTask.text);
         const status = await JSON.parse(addTask.status);
         expect(status).toBe(200);
@@ -96,7 +96,7 @@ describe("Test the ping path", () => {
     });
     test("Create a new task and returns the task when completed", async done => {
       try {
-        const addTask = await request.post("/addtask").send(task);
+        const addTask = await request.post("/tasks").send(task);
         const response = await JSON.parse(addTask.text);
         const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
           task
@@ -110,7 +110,7 @@ describe("Test the ping path", () => {
     });
   });
 
-  describe("Test the deletetask route", () => {
+  describe("Test the tasks DELETE route", () => {
     let addTask;
     const randomID = UUID();
     const task = {
@@ -129,7 +129,7 @@ describe("Test the ping path", () => {
       title: "delete this task pls"
     };
     beforeAll(async done => {
-      addTask = await request.post("/addtask").send(task);
+      addTask = await request.post("/tasks").send(task);
       const response = await JSON.parse(addTask.text);
       const cloneTask = (({ email, taskID, ...others }) => ({ ...others }))(
         task
@@ -142,9 +142,7 @@ describe("Test the ping path", () => {
       try {
         const { email, taskID } = task;
         const data = { email, taskID };
-        const deleteTaskCall = await request
-          .delete("/deletetask")
-          .send({ ...data });
+        const deleteTaskCall = await request.delete("/tasks").send({ ...data });
         expect(deleteTaskCall.status).toBe(204);
         done();
       } catch (err) {
@@ -154,7 +152,7 @@ describe("Test the ping path", () => {
     });
   });
 
-  describe("Test the test updatetask route", () => {
+  describe("Test the test tasks UPDATE route", () => {
     test("It should response update the task", async done => {
       const randomNumberString = String(Math.floor(Math.random() * 1000));
       const randomPriority = Math.floor(Math.random() * 5);
@@ -167,7 +165,7 @@ describe("Test the ping path", () => {
         priority: randomPriority,
         progress: randomProgress
       };
-      const response = await request.put("/updatetask").send(task);
+      const response = await request.put("/tasks").send(task);
       const responseParse = JSON.parse(response.text);
       expect(response.statusCode).toBe(200);
       expect(responseParse.Attributes.task.title).toEqual(task.title);

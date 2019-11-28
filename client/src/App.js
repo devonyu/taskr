@@ -1,19 +1,38 @@
 // @flow
 
-import './App.css';
-import React, { useState } from 'react';
-import Homepage from './components/Homepage';
-import Navbar from './components/Navbar';
-import TaskContainer from './components/TaskContainer';
+import React, { useState, Suspense, lazy } from 'react';
+// import { useUser } from './context/user-context';
+
+import FullPageSpinner from './components/FullPageSpinner';
+
+const loadAuthenticatedApp = () => import('./authenticated-app');
+const AuthenticatedApp = lazy(loadAuthenticatedApp);
+const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'));
 
 function App() {
-  const [view, setView] = useState('home');
+  const [user, setUser] = useState(null);
+  // const user = useUser();
+  // const user = false;
+  console.log(user);
+  const authUser = userID => {
+    setUser(userID);
+  };
 
+  React.useEffect(() => {
+    loadAuthenticatedApp();
+  }, []);
   return (
-    <div className="App">
-      <Navbar setView={setView} />
-      {view === 'home' ? <Homepage /> : <TaskContainer />}
-    </div>
+    <Suspense fallback={<FullPageSpinner />}>
+      {user !== null ? (
+        <AuthenticatedApp
+          experimental={user === 'LS'}
+          setUser={authUser}
+          user={user}
+        />
+      ) : (
+        <UnauthenticatedApp setUser={authUser} />
+      )}
+    </Suspense>
   );
 }
 

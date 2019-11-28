@@ -2,14 +2,11 @@
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
-import Switch from '@material-ui/core/Switch';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,24 +30,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Navbar(inputProps) {
+const Navbar = inputProps => {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(false);
+  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  if (auth === true) {
-    inputProps.setView('tasks');
-  } else {
-    inputProps.setView('home');
-  }
-
-  function handleChange(event) {
-    setAuth(event.target.checked);
-  }
 
   function handleLogout() {
     setAuth(false);
     setAnchorEl(null);
+    inputProps.setUser(null);
   }
 
   function handleMenu(event) {
@@ -73,18 +62,6 @@ export default function Navbar(inputProps) {
           >
             <MenuIcon />
           </IconButton>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  aria-label="LoginSwitch"
-                  checked={auth}
-                  onChange={handleChange}
-                />
-              }
-              label={auth ? 'Logout' : 'Login'}
-            />
-          </FormGroup>
           <Typography className={classes.title} variant="h6">
             TaskR
           </Typography>
@@ -123,4 +100,6 @@ export default function Navbar(inputProps) {
       </AppBar>
     </div>
   );
-}
+};
+
+export default Navbar;

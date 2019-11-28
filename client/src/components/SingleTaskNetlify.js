@@ -1,11 +1,9 @@
 // @flow
 
-import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
 import { SendSharp, Star, StarBorder } from '@material-ui/icons';
-import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -27,7 +25,7 @@ import {
 } from '../utils/commonTools';
 import { priorityOptions, progressOptions, tagOptions } from '../data';
 import TaskEditor from './TaskEditor';
-import { singleTaskInitialState } from '../utils/storeData';
+import { deleteTask, saveTask, updateTask } from '../utils/netlifyapi';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SingleTask = inputProps => {
+function SingleTaskNetlify(inputProps) {
   const classes = useStyles();
   const [values, setValues] = useState(inputProps.taskData);
 
@@ -103,6 +101,7 @@ const SingleTask = inputProps => {
   const handleDateChange = (date: string) => (selectedDate: string) => {
     const dateUnix = moment(selectedDate).unix() * 1000;
     const dateUnixKey = `${date}Unix`;
+    console.log(dateUnix, dateUnixKey);
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
 
@@ -112,64 +111,44 @@ const SingleTask = inputProps => {
       taskCopy = addID(taskCopy);
     }
     if (!task.email || task.email === '') {
-      taskCopy.email = 'devon@taskr.online';
+      taskCopy.email = 'LS';
     }
     taskCopy.tags = convertTagsArray(task.tags);
+    // change moment date object to number
+    taskCopy.startDate = moment(task.startDate).unix() * 1000;
+    taskCopy.targetDate = moment(task.targetDate).unix() * 1000;
     return taskCopy;
   };
 
   const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
+    console.log(data);
     if (inputProps.newTask) {
       console.log('adding new task!');
-      axios.post('/tasks', data).then(
-        res => {
-          console.log(res.data);
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      console.log(data);
+      saveTask(data);
+      setTimeout(() => {
+        inputProps.updateState(data, 'create');
+      }, 500); // let it wait  before loading
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      axios.put('/tasks', data).then(
-        () => {
-          console.log('updating task');
-          setTimeout(() => {
-            inputProps.loadTasks();
-          }, 1000); // let it wait before loading
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      updateTask(data);
+      setTimeout(() => {
+        inputProps.updateState(data, 'update');
+      }, 500); // let it wait  before loading
     }
-  };
-
-  const handleClearTask = () => {
-    const { email, taskID } = inputProps.taskData;
-    setValues({ ...singleTaskInitialState, email, taskID });
   };
 
   const handleDeleteTask = () => {
     const { email, taskID } = inputProps.taskData;
     console.log(`Deleting ${email}, ${taskID}!`);
-    const data = { email, taskID };
-    axios.delete('/tasks', { data }).then(
-      res => {
-        console.log(`deleted ${res.data}`);
-        setTimeout(() => {
-          inputProps.loadTasks();
-        }, 1000); // let it wait before loading
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    deleteTask(taskID).then(res => {
+      console.log(res);
+      setTimeout(() => {
+        inputProps.updateState(inputProps.taskData, 'delete');
+      }, 1000); // let it wait  before loading
+    });
   };
 
   const handleTag = tag => {
@@ -210,8 +189,6 @@ const SingleTask = inputProps => {
                 <SendSharp className={classes.iconSmall} />
               </Button>
             </Tooltip>
-            {/* eslint-disable-next-line max-len */}
-            {/* TODO: Create a chevron dropdown to combine both for clear/delete */}
             <Tooltip title="Delete Task">
               <IconButton
                 aria-label="delete"
@@ -219,15 +196,6 @@ const SingleTask = inputProps => {
                 color="secondary"
               >
                 <DeleteIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Clear Task">
-              <IconButton
-                aria-label="clear"
-                onClick={handleClearTask}
-                color="default"
-              >
-                <ClearIcon fontSize="small" />
               </IconButton>
             </Tooltip>
           </Toolbar>
@@ -337,6 +305,6 @@ const SingleTask = inputProps => {
       </Paper>
     </MuiPickersUtilsProvider>
   );
-};
+}
 
-export default SingleTask;
+export default SingleTaskNetlify;

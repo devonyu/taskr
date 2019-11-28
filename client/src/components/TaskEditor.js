@@ -8,7 +8,7 @@ type InputPropsFlow = {
   inputContent: string,
 };
 
-function TaskEditor(inputProps: InputPropsFlow) {
+const TaskEditor = (inputProps: InputPropsFlow) => {
   const [editorContent, setContent] = useState(inputProps.inputContent);
 
   useEffect(() => {
@@ -48,5 +48,5 @@ function TaskEditor(inputProps: InputPropsFlow) {
       />
     </>
   );
-}
+};
 export default TaskEditor;
