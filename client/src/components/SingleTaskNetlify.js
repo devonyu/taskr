@@ -101,6 +101,7 @@ function SingleTaskNetlify(inputProps) {
   const handleDateChange = (date: string) => (selectedDate: string) => {
     const dateUnix = moment(selectedDate).unix() * 1000;
     const dateUnixKey = `${date}Unix`;
+    console.log(dateUnix, dateUnixKey);
     setValues({ ...values, [date]: selectedDate, [dateUnixKey]: dateUnix });
   };
 
@@ -113,29 +114,29 @@ function SingleTaskNetlify(inputProps) {
       taskCopy.email = 'LS';
     }
     taskCopy.tags = convertTagsArray(task.tags);
+    // change moment date object to number
+    taskCopy.startDate = moment(task.startDate).unix() * 1000;
+    taskCopy.targetDate = moment(task.targetDate).unix() * 1000;
     return taskCopy;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     console.log('submitted..');
     const data = sanitizeValues(values);
+    console.log(data);
     if (inputProps.newTask) {
       console.log('adding new task!');
       console.log(data);
-      await saveTask(data).then(res => {
-        console.log(res);
-        setTimeout(() => {
-          inputProps.updateState(data, 'create');
-        }, 500); // let it wait  before loading
-      });
+      saveTask(data);
+      setTimeout(() => {
+        inputProps.updateState(data, 'create');
+      }, 500); // let it wait  before loading
     } else if (!data.newTask) {
       console.log('update exisiting task');
-      await updateTask(data).then(res => {
-        console.log(res);
-        setTimeout(() => {
-          inputProps.updateState(data, 'update');
-        }, 500); // let it wait  before loading
-      });
+      updateTask(data);
+      setTimeout(() => {
+        inputProps.updateState(data, 'update');
+      }, 500); // let it wait  before loading
     }
   };
 

@@ -37,30 +37,67 @@ export const getUserTasks = async email => {
   return result;
 };
 
-export const saveTask = async task => {
+// export const saveTask = async task => {
+//   const { taskID } = task;
+//   let finished = false;
+//   try {
+//     finished = await localforage
+//       .setItem(taskID, task)
+//       .then(async () => {
+//         const savedTask = await localforage.getItem(taskID);
+//         return savedTask;
+//       })
+//       .catch(error => {
+//         console.log(error);
+//         return null;
+//       });
+//   } catch (error) {
+//     console.log(error);
+//     return null;
+//   }
+//   return finished;
+// };
+
+export const saveTask = task => {
   const { taskID } = task;
-  await localforage
-    .setItem(taskID, task)
-    .then(async () => {
-      const savedTask = await localforage.getItem(taskID);
-      return savedTask;
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  localforage.setItem(taskID, task);
+  const savedTask = localforage.getItem(taskID);
+  if (savedTask !== null) {
+    return savedTask;
+  }
+  return null;
 };
+
+// export const updateTask = async task => {
+//   const { taskID } = task;
+//   await localforage
+//     .getItem(taskID)
+//     .then(async () => {
+//       const updatedItem = await localforage.setItem(taskID, task);
+//       return updatedItem;
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };
 
 export const updateTask = async task => {
   const { taskID } = task;
-  await localforage
-    .getItem(taskID)
-    .then(async () => {
-      const updatedItem = await localforage.setItem(taskID, task);
-      return updatedItem;
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  localforage.setItem(taskID, task);
+  const updatedTask = localforage.getItem(taskID);
+  if (updatedTask !== null) {
+    return updatedTask;
+  }
+  return null;
+  // await localforage
+  //   .getItem(taskID)
+  //   .then(async () => {
+  //     const updatedItem = await localforage.setItem(taskID, task);
+  //     return updatedItem;
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
 };
 
 export const deleteTask = async taskID => {

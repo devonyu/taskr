@@ -3,17 +3,6 @@
   box-sizing: border-box;
 }
 
-/* Fix for overscrolling top and bottom */
-html {
-  overflow: hidden;
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  overflow: auto;
-}
-
 blockquote,
 body,
 button,
