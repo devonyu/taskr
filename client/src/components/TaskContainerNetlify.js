@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { getUserTasks } from '../utils/netlifyapi';
 import TaskList from './TaskList';
-import SingleTask from './SingleTask';
+import SingleTaskNetlify from './SingleTaskNetlify';
 import FullPageSpinner from './FullPageSpinner';
 import { taskContainerInitialState } from '../utils/storeData';
 
@@ -24,7 +24,7 @@ export default function TaskContainerNetlify() {
   const [state, setState] = useState(taskContainerInitialState);
 
   const loadTasks = async () => {
-    const tasks = await getUserTasks('devon@taskr.online');
+    const tasks = await getUserTasks('LS');
     return tasks;
   };
 
@@ -78,7 +78,7 @@ export default function TaskContainerNetlify() {
             />
           </Grid>
           <Grid item xs={6}>
-            <SingleTask
+            <SingleTaskNetlify
               taskData={
                 state.selectedTask !== undefined && state.selectedTask !== 9999
                   ? state.data[state.selectedTask]

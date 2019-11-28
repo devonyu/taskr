@@ -41,8 +41,9 @@ export const saveTask = async task => {
   const { taskID } = task;
   await localforage
     .setItem(taskID, task)
-    .then(() => {
-      return localforage.getItem(taskID);
+    .then(async () => {
+      const savedTask = await localforage.getItem(taskID);
+      return savedTask;
     })
     .catch(error => {
       console.log(error);
@@ -53,8 +54,9 @@ export const updateTask = async task => {
   const { taskID } = task;
   await localforage
     .getItem(taskID)
-    .then(() => {
-      return localforage.setItem(taskID, task);
+    .then(async () => {
+      const updatedItem = await localforage.setItem(taskID, task);
+      return updatedItem;
     })
     .catch(error => {
       console.log(error);
@@ -64,8 +66,14 @@ export const updateTask = async task => {
 export const deleteTask = async taskID => {
   await localforage
     .removeItem(taskID)
-    .then(() => {
-      return localforage.getItem(taskID);
+    .then(async () => {
+      const deletedItem = await localforage.getItem(taskID);
+      if (deletedItem === null) {
+        console.log('deleted!');
+      } else {
+        console.log('Error deleting!');
+      }
+      return deletedItem;
     })
     .catch(error => {
       console.log(error);
