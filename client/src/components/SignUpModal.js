@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     top: 10,
     width: '100%',
+    '&:hover': {
+      color: 'black',
+    },
   },
   signupButton: {
     backgroundColor: '#3ddb93',
@@ -50,6 +53,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 30,
     top: 10,
     width: '100%',
+    '&:hover': {
+      color: 'black',
+    },
   },
   textField: {
     margin: 8,

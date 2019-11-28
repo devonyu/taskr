@@ -1,6 +1,5 @@
 // @flow
 
-import './App.css';
 import React, { useState, Suspense, lazy } from 'react';
 import { useUser } from './context/user-context';
 
