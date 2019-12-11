@@ -6,11 +6,12 @@ const AWS = require("aws-sdk");
 const UUID = require("uuid/v4");
 const bodyParser = require("body-parser");
 const { GraphQLServer } = require("graphql-yoga");
-const resolvers = require("./resolvers");
+const resolvers = require("./graphql/resolvers");
+const typeDefs = require("./graphql/typeDefs");
 
 // GraphQL Layer
 const server = new GraphQLServer({
-  typeDefs: "schema.graphql",
+  typeDefs,
   resolvers,
   context: req => req
 });
