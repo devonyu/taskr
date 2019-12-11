@@ -5,6 +5,25 @@ const path = require("path");
 const AWS = require("aws-sdk");
 const UUID = require("uuid/v4");
 const bodyParser = require("body-parser");
+const { GraphQLServer } = require("graphql-yoga");
+const resolvers = require("./resolvers");
+
+// GraphQL Layer
+const server = new GraphQLServer({
+  typeDefs: "schema.graphql",
+  resolvers,
+  context: req => req
+});
+const options = {
+  port: process.env.PORT || 5500,
+  endpoint: "/graphql",
+  subscriptions: "/subscriptions",
+  playground: "/playground"
+};
+
+server.start(options, ({ port }) =>
+  console.log(`Graphql Server is running on port ${port}`)
+);
 
 //? IMPORT ROUTES
 // const usersRouter = require("./routers/users");

@@ -33,6 +33,7 @@
   "dependencies": {
     "aws-sdk": "^2.554.0",
     "axios": "^0.19.0",
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.19",
     "chai": "^4.2.0",
     "connect-redis": "^3.4.1",
@@ -42,6 +43,9 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "graphql": "^14.5.8",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "morgan": "^1.9.1",
     "node-pre-gyp": "0.12.0",
@@ -78,5 +82,8 @@
     "jshint": "^2.10.2",
     "regenerator-runtime": "^0.13.2",
     "supertest": "^4.0.2"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,graphql"
   }
 }
