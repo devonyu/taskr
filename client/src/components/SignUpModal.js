@@ -1,5 +1,5 @@
 // @flow
-
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
@@ -68,11 +68,32 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
     password: '',
     passwordValidation: '',
     showPassword: false,
+    loading: false,
+    error: null,
   });
 
-  const handleSubmit = () => {
-    // Validate email and passwords, Send user signup information
-    // Confirm if signup sucsessfull
+  const handleSubmit = async event => {
+    const { email, password } = values;
+    event.preventDefault();
+    setValues({ ...values, loading: true });
+    try {
+      const { data } = await axios.post('/users/signup', { email, password });
+      if (data.errors) {
+        setValues({ ...values, error: data.errors });
+        setValues({ ...values, loading: false });
+      } else {
+        setValues({ ...values, error: null });
+        setValues({ ...values, loading: false });
+        const { token } = await data;
+        console.log(token);
+        localStorage.setItem('token', token);
+        // localStorage.setItem('token', token);
+        // props.history.push(routes.HOME);
+      }
+    } catch (e) {
+      setValues({ ...values, error: e });
+      setValues({ ...values, loading: false });
+    }
   };
 
   const handleChange = name => (event: SyntheticInputEvent<EventTarget>) => {
@@ -168,7 +189,7 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
             size="medium"
             variant="contained"
           >
-            Sign up
+            {values.loading ? 'Verifying...' : 'Sign up'}
           </Button>
           <Divider />
           <Button
@@ -179,6 +200,7 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
           >
             Already have an account? Login
           </Button>
+          {values.error ? values.error : null}
         </Container>
       </Modal>
     </div>

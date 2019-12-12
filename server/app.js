@@ -27,7 +27,7 @@ server.start(options, ({ port }) =>
 );
 
 //? IMPORT ROUTES
-// const usersRouter = require("./routers/users");
+const usersRouter = require("./routers/users");
 const tasksRouter = require("./routers/tasks");
 const testsRouter = require("./routers/tests");
 
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //* ROUTES
-// app.use(usersRouter); // /users
+app.use(usersRouter); // /users
 app.use(tasksRouter); // /tasks
 app.use(testsRouter); // /tests
 
