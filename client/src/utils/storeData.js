@@ -28,8 +28,9 @@ export const taskContainerInitialState = {
         <p>
           {rowData &&
             rowData.progress !== undefined &&
-            progressOptions.find(option => option.value === rowData.progress)
-              .label}
+            progressOptions.find(
+              option => option.value === Number(rowData.progress),
+            ).label}
         </p>
       ),
     },
@@ -41,8 +42,9 @@ export const taskContainerInitialState = {
         <p>
           {rowData &&
             rowData.priority !== undefined &&
-            priorityOptions.find(option => option.value === rowData.priority)
-              .label}
+            priorityOptions.find(
+              option => option.value === Number(rowData.priority),
+            ).label}
         </p>
       ),
     },

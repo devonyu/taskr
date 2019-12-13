@@ -1,5 +1,6 @@
 // @flow
 
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
@@ -67,11 +68,31 @@ const LoginModal = (InputProps: InputPropsFlow) => {
     email: '',
     password: '',
     showPassword: false,
+    loading: false,
+    error: null,
   });
 
-  const handleSubmit = () => {
-    // Validate email and password as proper inputs
-    // Authenticate user info to proceed to dashboard
+  const handleSubmit = async event => {
+    const { email, password } = values;
+    event.preventDefault();
+    setValues({ ...values, loading: true });
+    try {
+      const { data } = await axios.post('/users/login', { email, password });
+      if (data.error) {
+        setValues({ ...values, error: data.error, loading: false });
+      } else {
+        setValues({ ...values, error: null, loading: false });
+        const { token } = await data;
+        console.log(token);
+        localStorage.setItem('token', token);
+        console.log('LOGGED IN!');
+        // props.history.push(routes.HOME);
+      }
+    } catch (e) {
+      console.log(e.message);
+      setValues({ ...values, error: e.message });
+      setValues({ ...values, loading: false });
+    }
   };
 
   const handleChange = name => (event: SyntheticInputEvent<EventTarget>) => {
@@ -133,6 +154,7 @@ const LoginModal = (InputProps: InputPropsFlow) => {
               ),
             }}
           />
+          {values.error ? <p style={{ color: 'red' }}>{values.error}</p> : null}
           <Button
             // TODO Create validation functions to confirm
             className={classes.loginButton}
@@ -140,7 +162,7 @@ const LoginModal = (InputProps: InputPropsFlow) => {
             size="medium"
             variant="contained"
           >
-            Login
+            {values.loading ? 'Verifying...' : 'Log in'}
           </Button>
           <Divider />
           <Button
