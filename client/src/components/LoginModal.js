@@ -82,16 +82,15 @@ const LoginModal = (InputProps: InputPropsFlow) => {
         setValues({ ...values, error: data.error, loading: false });
       } else {
         setValues({ ...values, error: null, loading: false });
-        const { token } = await data;
-        console.log(token);
+        const { token, name, userID } = await data;
+        console.log(token, userID, name);
         localStorage.setItem('token', token);
         console.log('LOGGED IN!');
         // props.history.push(routes.HOME);
       }
     } catch (e) {
       console.log(e.message);
-      setValues({ ...values, error: e.message });
-      setValues({ ...values, loading: false });
+      setValues({ ...values, error: e.message, loading: false });
     }
   };
 

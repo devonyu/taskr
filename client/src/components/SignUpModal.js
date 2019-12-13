@@ -65,6 +65,7 @@ const useStyles = makeStyles(theme => ({
 const SignUpModal = (InputProps: InputPropsFlow) => {
   const [values, setValues] = React.useState({
     email: '',
+    name: '',
     password: '',
     passwordValidation: '',
     showPassword: false,
@@ -73,26 +74,26 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
   });
 
   const handleSubmit = async event => {
-    const { email, password } = values;
+    const { email, password, name } = values;
     event.preventDefault();
     setValues({ ...values, loading: true });
     try {
-      const { data } = await axios.post('/users/signup', { email, password });
-      if (data.errors) {
-        setValues({ ...values, error: data.errors });
-        setValues({ ...values, loading: false });
+      const { data } = await axios.post('/users/signup', {
+        email,
+        password,
+        name,
+      });
+      if (data.error) {
+        setValues({ ...values, error: data.error, loading: false });
       } else {
-        setValues({ ...values, error: null });
-        setValues({ ...values, loading: false });
-        const { token } = await data;
-        console.log(token);
+        setValues({ ...values, error: null, loading: false });
+        const { token, userID } = await data;
+        console.log(token, userID, email, name);
         localStorage.setItem('token', token);
-        // localStorage.setItem('token', token);
         // props.history.push(routes.HOME);
       }
     } catch (e) {
-      setValues({ ...values, error: e });
-      setValues({ ...values, loading: false });
+      setValues({ ...values, error: e, loading: false });
     }
   };
 
@@ -141,6 +142,20 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
           />
           <TextField
             className={classes.textField}
+            error={values.name.length < 2}
+            fullWidth
+            helperText={
+              values.name.length < 2
+                ? 'Name must be longer than 2 characters'
+                : null
+            }
+            id="Name"
+            label="Name"
+            onChange={handleChange('name')}
+            placeholder="Name..."
+          />
+          <TextField
+            className={classes.textField}
             error={values.password.length < 7}
             fullWidth
             helperText={values.password.length < 6 ? 'Length >= 7' : null}
@@ -178,11 +193,12 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
             placeholder="Password..."
             type={values.showPassword ? 'text' : 'password'}
           />
+          {values.error ? <p style={{ color: 'red' }}>{values.error}</p> : null}
           <Button
             // TODO Create validation functions to confirm
             className={classes.signupButton}
             disabled={
-              values.password.length < 7 &&
+              values.password.length < 7 ||
               values.password !== values.passwordValidation
             }
             onClick={handleSubmit}
