@@ -128,7 +128,7 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
           </Typography>
           <TextField
             className={classes.textField}
-            error={values.email.length < 6}
+            error={!values.email.length === 0 && values.email.length < 6}
             fullWidth
             helperText={
               values.email.length < 6
@@ -142,7 +142,7 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
           />
           <TextField
             className={classes.textField}
-            error={values.name.length < 2}
+            error={!values.name.length === 0 && values.name.length < 2}
             fullWidth
             helperText={
               values.name.length < 2
@@ -156,7 +156,7 @@ const SignUpModal = (InputProps: InputPropsFlow) => {
           />
           <TextField
             className={classes.textField}
-            error={values.password.length < 7}
+            error={!values.password.length === 0 && values.password.length < 7}
             fullWidth
             helperText={values.password.length < 6 ? 'Length >= 7' : null}
             id="Password"
